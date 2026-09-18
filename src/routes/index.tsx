@@ -1,0 +1,289 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { Check, Copy, Link2, Plus, Share2, Upload, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "../components/ui/button";
+import { Progress, Shell } from "../components/shell";
+import { FileKindIcon, fileKindLabel } from "../components/file-icon";
+import { TextAnimate } from "../components/text-animate";
+import { buildManifest, formatBytes, newTransferId, sendFiles } from "../lib/transfer";
+import illustrationAsset from "../assets/transfer-illustration.png.asset.json";
+
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "dropoff.lol – file sharing!" },
+      { name: "description", content: "Send files peer to peer, right from your browser. No permanent uploads and no account required." },
+      { property: "og:title", content: "dropoff.lol – file sharing!" },
+      { property: "og:description", content: "Send files peer to peer, right from your browser." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Index,
+});
+
+type Phase = "idle" | "preparing" | "waiting" | "transferring" | "complete" | "error";
+
+function Index() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const peerRef = useRef<{ destroy: () => void } | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
+  const [phase, setPhase] = useState<Phase>("idle");
+  const [link, setLink] = useState("");
+  const [sent, setSent] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [message, setMessage] = useState("");
+  const [copied, setCopied] = useState(false);
+
+
+  useEffect(() => () => peerRef.current?.destroy(), []);
+
+  function reset() {
+    peerRef.current?.destroy();
+    peerRef.current = null;
+    setFiles([]);
+    setPhase("idle");
+    setLink("");
+    setSent(0);
+    setTotal(0);
+    setMessage("");
+    if (inputRef.current) inputRef.current.value = "";
+  }
+
+
+  function onFilesSelected(selected: FileList | null) {
+    if (!selected || selected.length === 0) return;
+    const selectedFiles = Array.from(selected);
+    setFiles((prev) => [...prev, ...selectedFiles]);
+  }
+
+  function openFilePicker() {
+    if (!inputRef.current) return;
+    inputRef.current.value = "";
+    inputRef.current.click();
+  }
+
+  function removeFile(index: number) {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  async function startTransfer() {
+    if (files.length === 0) return;
+    setPhase("preparing");
+    setMessage("Creating a secure browser connection…");
+    try {
+      const { default: Peer } = await import("peerjs");
+      const id = newTransferId();
+      const peer = new Peer(id);
+      peerRef.current = peer;
+
+      peer.on("open", () => {
+        setLink(`${window.location.origin}/d/${id}`);
+        setPhase("waiting");
+        setMessage("Waiting for the recipient to open your link…");
+      });
+
+      peer.on("error", (error) => {
+        setPhase("error");
+        setMessage(error.message || "The connection could not be set up.");
+      });
+
+      peer.on("connection", (conn) => {
+        const sendManifest = async () => {
+          const manifest = await buildManifest(files);
+          conn.send({ kind: "manifest", files: manifest });
+        };
+
+        conn.on("open", async () => {
+          setMessage("Recipient connected. Waiting for them to accept…");
+          await sendManifest();
+        });
+
+        conn.on("data", async (data: unknown) => {
+          const control = data as { kind?: string; hash?: string };
+          if (control?.kind === "accept") {
+            setPhase("transferring");
+            setMessage("");
+            setSent(0);
+            setTotal(files.reduce((sum, f) => sum + f.size, 0));
+            await sendFiles(conn, files, (s) => setSent(s));
+            setPhase("complete");
+          }
+          if (control?.kind === "decline") {
+            setPhase("error");
+            setMessage("The recipient declined this transfer.");
+          }
+        });
+
+        conn.on("close", () => {
+          setPhase((current) => (current === "transferring" ? "error" : current));
+        });
+      });
+
+    } catch (error) {
+      setPhase("error");
+      setMessage(error instanceof Error ? error.message : "Something went wrong.");
+    }
+  }
+
+  async function copyLink() {
+    await navigator.clipboard.writeText(link);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
+  }
+
+  const totalSize = files.reduce((sum, f) => sum + f.size, 0);
+  const percent = total ? (sent / total) * 100 : 0;
+
+  return (
+    <Shell>
+      <section className="pt-[58px] sm:pt-16">
+        <TextAnimate
+          animation="blurIn"
+          as="h1"
+          className="max-w-[380px] font-serif text-[36px] font-normal leading-[1.08] tracking-normal sm:max-w-[390px] sm:text-[42px]"
+        >
+          Send files peer to peer, right from <span className="font-normal italic">your</span> browser
+        </TextAnimate>
+        <p className="mt-7 text-[15px] leading-6 text-muted-foreground">
+          Send files straight from your browser. Nothing is permanently uploaded, and no account is required.
+        </p>
+
+        <input
+          ref={inputRef}
+          type="file"
+          multiple
+          className="sr-only"
+          onChange={(event) => {
+            onFilesSelected(event.target.files);
+            event.target.value = "";
+          }}
+        />
+
+        {files.length === 0 ? (
+          <>
+            <Button type="button" className="mt-8 h-14 w-full text-base" onClick={openFilePicker}>
+              <Upload className="size-4" />
+              Choose a file to share
+            </Button>
+            <p className="mt-3 text-center text-xs text-muted-foreground">
+              Selecting a file constitutes agreement to <a href="/terms" className="underline underline-offset-2 hover:text-foreground">our terms</a>
+            </p>
+          </>
+        ) : (
+          <div className="mt-8 space-y-4">
+            <div className="space-y-2">
+              {files.map((file, index) => (
+                <div key={index} className="flex min-h-16 items-center gap-3 rounded-lg border border-border p-3">
+                  <FileKindIcon name={file.name} mime={file.type} />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-semibold">{file.name}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {fileKindLabel(file.name, file.type)} · {formatBytes(file.size)}
+                      {phase === "idle" ? " · ready to share" : ""}
+                    </p>
+
+                  </div>
+                  {phase === "idle" && (
+                    <Button variant="ghost" size="icon" className="size-9 rounded-full" aria-label="Remove file" onClick={() => removeFile(index)}>
+                      <X className="size-5" />
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {phase === "idle" && (
+              <>
+                <Button type="button" variant="outline" className="h-12 w-full text-sm" onClick={openFilePicker}>
+                  <Plus className="size-4" />
+                  Add more files
+                </Button>
+                <Button className="h-14 w-full text-base" onClick={startTransfer}>
+                  Start transfer{files.length > 1 ? ` (${files.length} files, ${formatBytes(totalSize)})` : ""}
+                </Button>
+
+              </>
+            )}
+
+            {(phase === "preparing" || phase === "waiting") && (
+              <div className="rounded-lg border border-border p-4">
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <Link2 className="size-4" /> Share this link
+                </div>
+                <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
+                {link && (
+                  <>
+                    <div className="mt-4 flex items-center gap-2 rounded-md border border-border px-3 py-2">
+                      <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
+                      <button onClick={copyLink} aria-label="Copy link" className="text-muted-foreground hover:text-foreground">
+                        {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                      </button>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <Button className="flex-1" onClick={copyLink}>
+                        {copied ? "Copied" : "Copy link"}
+                      </Button>
+                      {typeof navigator !== "undefined" && "share" in navigator && (
+                        <Button
+                          variant="outline"
+                          className="flex-1"
+                          onClick={() => navigator.share({ title: "dropoff.lol", url: link }).catch(() => { })}
+                        >
+                          <Share2 className="size-4" /> Share
+                        </Button>
+                      )}
+                    </div>
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      Keep this tab open. The link breaks if you close it.
+                    </p>
+
+                  </>
+                )}
+              </div>
+            )}
+
+            {phase === "transferring" && (
+              <div className="rounded-lg border border-border p-4">
+                <p className="text-sm font-medium">Transferring…</p>
+                <Progress value={percent} />
+                <p className="mt-3 text-xs text-muted-foreground">
+                  {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
+                </p>
+              </div>
+            )}
+
+            {phase === "complete" && (
+              <div className="rounded-lg border border-border p-4">
+                <p className="text-sm font-medium">Transfer complete</p>
+                <p className="mt-2 text-[13px] text-muted-foreground">
+                  {files.length === 1 ? "The file was delivered to the recipient." : `All ${files.length} files were delivered to the recipient.`}
+                </p>
+                <Button variant="outline" className="mt-4 w-full" onClick={reset}>
+                  Send another file
+                </Button>
+              </div>
+            )}
+
+            {phase === "error" && (
+              <div className="rounded-lg border border-border p-4">
+                <p className="text-sm font-medium">Transfer stopped</p>
+                <p className="mt-2 text-[13px] text-muted-foreground">{message || "The connection was lost."}</p>
+                <Button variant="outline" className="mt-4 w-full" onClick={reset}>
+                  Start over
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+
+        <img
+          src={illustrationAsset.url}
+          alt="Two people transferring files directly between their browsers"
+          className="mt-10 block h-auto w-full object-contain sm:mt-9"
+        />
+      </section>
+    </Shell>
+  );
+}
