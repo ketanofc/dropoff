@@ -11,9 +11,9 @@ import { formatBytes, toArrayBuffer, type Control, type FileMeta } from "../lib/
 export const Route = createFileRoute("/d/$id")({
   head: () => ({
     meta: [
-      { title: "Incoming file – dropoff.lol" },
+      { title: "incoming file – dropoff.lol" },
       { name: "description", content: "Receive a file sent directly from another browser with dropoff.lol." },
-      { property: "og:title", content: "Incoming file – dropoff.lol" },
+      { property: "og:title", content: "incoming file – dropoff.lol" },
       { property: "og:description", content: "Receive a file sent directly from another browser." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
