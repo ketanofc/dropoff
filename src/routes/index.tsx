@@ -194,7 +194,7 @@ function Index() {
                 onClick={openFilePicker}
               >
                 <Upload className="size-4" />
-                Choose a file to share
+                Select a file to share
               </Button>
               <p className="mt-3 text-center text-xs text-muted-foreground">
                 Selecting a file constitutes agreement to{" "}
