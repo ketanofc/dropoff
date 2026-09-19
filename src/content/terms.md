@@ -259,7 +259,3 @@ The current Privacy Policy should be published alongside these Terms on the offi
 This document is a general product Terms & Conditions and FAQ draft for Dropoff.lol. It is not a substitute for advice from a qualified lawyer. Before publishing it as the final legal terms for a real service, the operator should have it reviewed for the jurisdictions in which Dropoff.lol is offered, the actual business structure, data practices, payment model, copyright process, age requirements, liability rules, and technical architecture.
 
 The descriptions above should also be updated whenever Dropoff.lol's actual implementation changes. In particular, statements about peer-to-peer transfers, storage, logging, account requirements, file limits, security, and data collection should match the product's real behavior rather than assumptions about how the service works.
-
----
-
-**dropoff.lol – simple file sharing, made easy.**

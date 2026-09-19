@@ -1,4 +1,3 @@
-import { Menu } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +8,24 @@ import {
 
 const CONTACT_EMAIL = "admin.dropoff@gmail.com";
 
+function DoubleLineIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      aria-hidden="true"
+    >
+      <path d="M4 7h16" />
+      <path d="M4 17h16" />
+    </svg>
+  );
+}
+
 export function SiteMenu() {
   return (
     <DropdownMenu>
@@ -18,13 +35,10 @@ export function SiteMenu() {
           aria-label="Open menu"
           className="flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground"
         >
-          <Menu className="size-4" />
+          <DoubleLineIcon />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-44">
-        <DropdownMenuItem asChild>
-          <a href="/manifesto">Manifesto</a>
-        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <a href="/about">About us</a>
         </DropdownMenuItem>

@@ -45,33 +45,9 @@ html[data-theme-transition="active"]::view-transition-group(root) {
 }
 
 .terms-content {
-  color: var(--color-foreground);
-  font-family: "Special Elite", cursive;
+  color: var(--color-muted-foreground);
   font-size: 0.95rem;
-  line-height: 1.8;
-}
-
-.dark .terms-content,
-.dark .terms-content * {
-  color: #fff !important;
-}
-
-.dark .terms-content a {
-  color: #fff !important;
-  text-decoration-color: rgba(255, 255, 255, 0.75);
-}
-
-.dark .terms-content h1,
-.dark .terms-content h2,
-.dark .terms-content h3,
-.dark .terms-content p,
-.dark .terms-content li,
-.dark .terms-content blockquote,
-.dark .terms-content td,
-.dark .terms-content th,
-.dark .terms-content strong,
-.dark .terms-content em {
-  color: #fff !important;
+  line-height: 1.75;
 }
 
 .terms-content h1,
@@ -94,7 +70,6 @@ html[data-theme-transition="active"]::view-transition-group(root) {
 }
 
 .terms-content h3 {
-  font-family: "Special Elite", cursive;
   font-size: 1.05rem;
   letter-spacing: 0.01em;
 }
@@ -109,7 +84,7 @@ html[data-theme-transition="active"]::view-transition-group(root) {
 
 .terms-content strong {
   color: var(--color-foreground);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .terms-content a {
