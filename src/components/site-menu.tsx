@@ -1,3 +1,4 @@
+import { Heart, Mail, Users } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,25 +34,33 @@ export function SiteMenu() {
         <button
           type="button"
           aria-label="Open menu"
-          className="flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:text-foreground"
+          className="flex h-9 items-center gap-2 rounded-full border border-border bg-background px-3.5 text-sm font-medium text-foreground/80 transition-colors hover:border-foreground/30 hover:text-foreground"
         >
           <DoubleLineIcon />
+          <span className="hidden sm:inline">Menu</span>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-44">
-        <DropdownMenuItem asChild>
-          <a href="/about">About us</a>
+      <DropdownMenuContent
+        align="end"
+        className="min-w-[200px] rounded-2xl border bg-background p-1.5 shadow-2xl"
+      >
+        <DropdownMenuItem asChild className="rounded-lg">
+          <a href="/about" className="gap-2.5">
+            <Users className="size-4 text-muted-foreground" /> About us
+          </a>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <a href={`mailto:${CONTACT_EMAIL}`}>Contact us</a>
+        <DropdownMenuItem asChild className="rounded-lg">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="gap-2.5">
+            <Mail className="size-4 text-muted-foreground" /> Contact us
+          </a>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="my-1.5" />
         <DropdownMenuItem
           disabled
-          className="justify-center font-semibold text-primary"
+          className="gap-2 rounded-lg justify-center bg-foreground font-semibold text-background"
           aria-disabled="true"
         >
-          Donate
+          <Heart className="size-4" /> DONATE
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

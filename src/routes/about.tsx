@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Github } from "lucide-react";
 import { Shell } from "../components/shell";
 import { TextAnimate } from "../components/text-animate";
 
 const INSPIRATION_IMG = "https://i.ibb.co/ZQ8pQCX/inspiration-dropoff.png";
 const SOLUTION_IMG = "https://i.ibb.co/qMyT5c8B/img1.png";
+const SOURCE_URL = "https://github.com/ketanofc/dropoff";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -26,8 +28,39 @@ function About() {
         >
           About us
         </TextAnimate>
+
         <div className="mt-8 max-w-full text-[15px] leading-7 text-muted-foreground md:max-w-2xl lg:text-[16px]">
-          <h2 className="font-serif text-[26px] font-normal leading-[1.15] text-foreground sm:text-[28px]">
+          <p>
+            dropoff.lol is a small project with a simple goal: let anyone send a file to anyone else
+            without accounts, without uploads, and without the cloud standing in the middle. Every
+            transfer is a private, direct connection between two browsers, and when it is over,
+            nothing is left behind.
+          </p>
+          <p className="mt-5">
+            It is built with React, TypeScript, and TanStack Start on top of WebRTC, and it runs
+            entirely in your browser. We think file sharing should be as easy as pointing a friend
+            at a page and pressing send, so that is exactly what we built.
+          </p>
+
+          <div className="mt-8 rounded-xl border border-border p-5">
+            <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <Github className="size-4" /> Open source
+            </div>
+            <p className="mt-2 leading-7">
+              dropoff.lol is released under the BSD 3-Clause license. The full source code lives on
+              GitHub, so anyone can read exactly how a transfer works, or help make it better.
+            </p>
+            <a
+              href={SOURCE_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex h-10 items-center gap-2 rounded-lg border border-border px-4 text-sm font-medium transition-colors hover:bg-accent"
+            >
+              <Github className="size-4" /> View source on GitHub
+            </a>
+          </div>
+
+          <h2 className="mt-10 font-serif text-[26px] font-normal leading-[1.15] text-foreground sm:text-[28px]">
             There had to be another way
           </h2>
           <p className="mt-3">
@@ -46,6 +79,7 @@ function About() {
             loading="lazy"
             className="my-8 w-full max-w-[560px] rounded-lg"
           />
+
           <h2 className="font-serif text-[26px] font-normal leading-[1.15] text-foreground sm:text-[28px]">
             Building a solution
           </h2>
@@ -64,6 +98,7 @@ function About() {
             loading="lazy"
             className="my-8 w-full max-w-[560px] rounded-lg"
           />
+
           <p className="mt-5">
             We are just getting started, and there is more to come. If you have feedback, a feature
             idea, or just want to say hello, email us at{" "}
@@ -76,6 +111,7 @@ function About() {
             .
           </p>
         </div>
+
         <a href="/" className="mt-8 inline-block text-sm font-medium underline underline-offset-4">
           Back to dropoff.lol
         </a>
