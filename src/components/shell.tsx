@@ -7,9 +7,13 @@ export function Shell({ children }: { children: ReactNode }) {
   return (
     <main className={dark ? "dark" : ""}>
       <div className="min-h-screen bg-background text-foreground transition-colors">
-        <div className="mx-auto w-full max-w-[430px] px-5 pb-16 pt-7 sm:px-6 sm:pt-8">
+        <div className="mx-auto w-full max-w-[430px] px-5 pb-16 pt-7 sm:px-6 sm:pt-8 md:max-w-4xl lg:max-w-6xl lg:px-10 lg:pb-20 lg:pt-10">
           <header className="flex items-center justify-between">
-            <a href="/" className="font-serif text-[22px] font-normal tracking-normal" aria-label="dropoff.lol home">
+            <a
+              href="/"
+              className="font-serif text-[22px] font-normal tracking-normal"
+              aria-label="dropoff.lol home"
+            >
               dropoff<span className="text-muted-foreground">.lol</span>
             </a>
             <AnimatedThemeToggler
