@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sniglet:wght@400&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -130,6 +130,7 @@ html[data-theme-transition="active"]::view-transition-group(root) {
 @theme inline {
   --font-sans: "Google Sans", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sniglet: "Sniglet", "Google Sans", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

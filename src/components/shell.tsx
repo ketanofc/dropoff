@@ -9,11 +9,10 @@ export function Shell({ children }: { children: ReactNode }) {
           <header className="flex items-center justify-between">
             <a
               href="/"
-              className="font-sans text-[19px] tracking-normal"
+              className="font-sniglet text-[19px] font-normal tracking-normal"
               aria-label="dropoff.lol home"
             >
-              <span className="font-bold">dropoff</span>
-              <span className="font-normal text-neutral-400">.lol</span>
+              dropoff
             </a>
             <SiteMenu />
           </header>
