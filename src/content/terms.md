@@ -2,7 +2,7 @@
 
 ## Terms & Conditions
 
-Welcome to **Dropoff.lol**. These Terms & Conditions explain the rules for using the Dropoff.lol website and its file-sharing services. By accessing or using Dropoff.lol, you agree to these terms. If you do not agree with any part of these terms, please do not use the service.
+Welcome to **dropoff.lol**. These Terms & Conditions explain the rules for using the Dropoff.lol website and its file-sharing services. By accessing or using Dropoff.lol, you agree to these terms. If you do not agree with any part of these terms, please do not use the service.
 
 ### 1. About Dropoff.lol
 
