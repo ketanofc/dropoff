@@ -19,7 +19,7 @@ function DoubleLineIcon() {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="size-5"
+      className="size-6"
       aria-hidden="true"
     >
       <path d="M4 7h16" />
@@ -33,7 +33,7 @@ export function SiteMenu() {
     <>
       <Menubar className="border-0 bg-transparent p-0 shadow-none">
         <MenubarMenu>
-          <MenubarTrigger className="flex size-9 select-none items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground">
+          <MenubarTrigger className="flex size-11 select-none items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground">
             <DoubleLineIcon />
             <span className="sr-only">Open menu</span>
           </MenubarTrigger>
@@ -42,16 +42,16 @@ export function SiteMenu() {
               align="end"
               alignOffset={0}
               sideOffset={10}
-              className="w-48 rounded-2xl p-1.5"
+              className="w-56 rounded-2xl p-1.5"
             >
-              <MenubarItem asChild className="gap-2.5 rounded-lg">
+              <MenubarItem asChild className="gap-3 rounded-lg py-2.5 text-[15px]">
                 <a href="/about">
-                  <Users className="size-4 text-muted-foreground" /> About us
+                  <Users className="size-[18px] text-muted-foreground" /> About us
                 </a>
               </MenubarItem>
-              <MenubarItem asChild className="gap-2.5 rounded-lg">
+              <MenubarItem asChild className="gap-3 rounded-lg py-2.5 text-[15px]">
                 <a href={`mailto:${CONTACT_EMAIL}`}>
-                  <Mail className="size-4 text-muted-foreground" /> Contact us
+                  <Mail className="size-[18px] text-muted-foreground" /> Contact us
                 </a>
               </MenubarItem>
             </MenubarContent>
