@@ -243,7 +243,7 @@ function Receive() {
             {files.map((file, index) => (
               <div
                 key={index}
-                className={`rounded-xl bg-secondary p-3 ${files.length === 1 ? "md:col-span-full" : ""}`}
+                className={`min-w-0 overflow-hidden rounded-xl bg-secondary p-3 ${files.length === 1 ? "md:col-span-full" : ""}`}
               >
                 <div className="flex min-h-16 items-center gap-3">
                   {file.preview ? (
@@ -274,26 +274,6 @@ function Receive() {
                     </a>
                   )}
                 </div>
-
-                {file.preview && (
-                  <img
-                    src={file.preview}
-                    alt={`Preview of ${file.name}`}
-                    className="mt-3 h-28 w-full rounded-md object-cover sm:h-32"
-                  />
-                )}
-
-                {!file.preview && file.previewText && (
-                  <pre className="mt-3 max-h-40 overflow-hidden whitespace-pre-wrap break-words rounded-md bg-background p-3 text-[11px] leading-4 text-muted-foreground">
-                    {file.previewText}
-                  </pre>
-                )}
-
-                {!file.preview && !file.previewText && phase === "offer" && (
-                  <p className="mt-3 text-xs text-muted-foreground">
-                    No preview available for this file type.
-                  </p>
-                )}
               </div>
             ))}
           </div>
