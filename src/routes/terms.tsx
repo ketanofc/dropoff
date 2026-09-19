@@ -3,14 +3,36 @@ import { marked } from "marked";
 import { Shell } from "../components/shell";
 import { TextAnimate } from "../components/text-animate";
 import termsMarkdown from "../content/terms.md?raw";
+import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
 const termsHtml = marked.parse(termsMarkdown);
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms – dropoff.lol" },
-      { name: "description", content: "Terms for using dropoff.lol." },
+      { title: "Terms of Service – dropoff.lol" },
+      {
+        name: "description",
+        content: "Terms of Service for using dropoff.lol's peer-to-peer file sharing service.",
+      },
+      { property: "og:title", content: "Terms of Service – dropoff.lol" },
+      { property: "og:description", content: "Terms of Service for using dropoff.lol." },
+      { property: "og:type", content: "website" },
+      ogUrl("/terms"),
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [canonical("/terms")],
+    scripts: [
+      jsonLd({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/terms#terms`,
+        url: `${SITE_URL}/terms`,
+        name: "Terms of Service – dropoff.lol",
+        description: "Terms of Service for using dropoff.lol's peer-to-peer file sharing service.",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        inLanguage: "en",
+      }),
     ],
   }),
   component: Terms,

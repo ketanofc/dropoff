@@ -7,21 +7,40 @@ import { Progress, Shell } from "../components/shell";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
 import { TextAnimate } from "../components/text-animate";
 import { buildManifest, formatBytes, newTransferId, sendFiles } from "../lib/transfer";
+import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 import illustrationAsset from "../assets/transfer-illustration.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "dropoff.lol – file sharing!" },
+      { title: "dropoff.lol – private, browser-to-browser file sharing" },
       {
         name: "description",
         content:
           "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
       },
-      { property: "og:title", content: "dropoff.lol – file sharing!" },
+      { property: "og:title", content: "dropoff.lol – private, browser-to-browser file sharing" },
       { property: "og:description", content: "Send files peer to peer, right from your browser." },
       { property: "og:type", content: "website" },
+      ogUrl("/"),
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [canonical("/")],
+    scripts: [
+      jsonLd({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": `${SITE_URL}/#application`,
+        name: "dropoff.lol",
+        url: `${SITE_URL}/`,
+        applicationCategory: "UtilitiesApplication",
+        operatingSystem: "Browser",
+        browserRequirements: "Requires JavaScript and WebRTC.",
+        description:
+          "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+      }),
     ],
   }),
   component: Index,

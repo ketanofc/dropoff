@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Github } from "lucide-react";
 import { Shell } from "../components/shell";
 import { TextAnimate } from "../components/text-animate";
+import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
 const INSPIRATION_IMG = "https://i.ibb.co/ZQ8pQCX/inspiration-dropoff.png";
 const SOLUTION_IMG = "https://i.ibb.co/qMyT5c8B/img1.png";
@@ -11,7 +12,36 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About us – dropoff.lol" },
-      { name: "description", content: "Why dropoff.lol exists and how it started." },
+      {
+        name: "description",
+        content:
+          "Why dropoff.lol exists, how it started, and the problem it solves — private browser-to-browser file sharing.",
+      },
+      { property: "og:title", content: "About us – dropoff.lol" },
+      { property: "og:description", content: "Why dropoff.lol exists and how it started." },
+      { property: "og:type", content: "website" },
+      ogUrl("/about"),
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [canonical("/about")],
+    scripts: [
+      jsonLd({
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "@id": `${SITE_URL}/about#about`,
+        url: `${SITE_URL}/about`,
+        name: "About us – dropoff.lol",
+        description: "Why dropoff.lol exists, how it started, and the problem it solves.",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        mainEntity: {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          name: "dropoff.lol",
+          url: `${SITE_URL}/`,
+          email: "admin.dropoff@gmail.com",
+          sameAs: [SOURCE_URL],
+        },
+      }),
     ],
   }),
   component: About,

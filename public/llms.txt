@@ -1,0 +1,23 @@
+# dropoff.lol
+
+> Private, browser-to-browser (peer-to-peer) file sharing. No accounts, no registration, and no permanent uploads — files stream directly from one device to another over WebRTC using a one-time `dropoff.lol/receive/<id>` link.
+
+## dropoff.lol
+
+- [Home](https://dropoff.lol/): Pick files, generate a `dropoff.lol/receive/<id>` link, and anyone can download them straight from your browser.
+- [About us](https://dropoff.lol/about): Why dropoff.lol exists and how it started.
+- [Terms](https://dropoff.lol/terms): Terms of service for using dropoff.lol.
+
+## Features
+
+- Peer-to-peer transfers: files stream directly between browsers via WebRTC.
+- No accounts, no registration, no sign-in.
+- No permanent cloud uploads and no server-side file storage.
+- Share links use the format `https://dropoff.lol/receive/<id>`.
+- Practical file size limits: about 1–2 GB on desktop Chrome, ~1 GB on Firefox, and a few hundred MB on iPhone/iOS Safari; nothing is stored on servers.
+- Works fully client-side from any modern browser, desktop or mobile.
+
+## Contact
+
+- Email: admin.dropoff@gmail.com
+- Open source: https://github.com/ketanofc/dropoff

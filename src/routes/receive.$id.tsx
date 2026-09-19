@@ -6,22 +6,31 @@ import { Progress, Shell } from "../components/shell";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
 import { TextAnimate } from "../components/text-animate";
 import { formatBytes, toArrayBuffer, type Control, type FileMeta } from "../lib/transfer";
+import { SITE_URL } from "../lib/seo";
 
 export const Route = createFileRoute("/receive/$id")({
-  head: () => ({
-    meta: [
-      { title: "incoming file – dropoff.lol" },
-      {
-        name: "description",
-        content: "Receive a file sent directly from another browser with dropoff.lol.",
-      },
-      { property: "og:title", content: "incoming file – dropoff.lol" },
-      { property: "og:description", content: "Receive a file sent directly from another browser." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  head: (ctx) => {
+    const url = `${SITE_URL}/receive/${ctx.params.id}`;
+    return {
+      meta: [
+        { title: "incoming file – dropoff.lol" },
+        {
+          name: "description",
+          content: "Receive a file sent directly from another browser with dropoff.lol.",
+        },
+        { name: "robots", content: "noindex, nofollow" },
+        { property: "og:title", content: "incoming file – dropoff.lol" },
+        {
+          property: "og:description",
+          content: "Receive a file sent directly from another browser.",
+        },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [{ rel: "canonical", href: url }],
+    };
+  },
   component: Receive,
 });
 

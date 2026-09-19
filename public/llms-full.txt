@@ -1,0 +1,41 @@
+# dropoff.lol
+
+> Private, browser-to-browser (peer-to-peer) file sharing. No accounts, no registration, and no permanent uploads — files stream directly from one device to another over WebRTC using a one-time `dropoff.lol/receive/<id>` link.
+
+Full details about the service, how it works, and its limits.
+
+## Overview
+
+dropoff.lol is a free, browser-based file sharing service. A sender picks files on their device, and the site generates a one-time `dropoff.lol/receive/<id>` link. Anyone who opens that link downloads the files directly from the sender's browser — the transfer happens peer to peer and never touches a dropoff.lol server.
+
+It is built on WebRTC and is a progressive web-style single-page application. It requires a modern browser on desktop or mobile and works on Windows, macOS, Linux, iOS, and Android.
+
+## Why it exists
+
+Most file sharing services upload your files to a cloud server first. That means files sit on someone else's infrastructure, may be scanned or retained, and can be tied to accounts. dropoff.lol takes a different approach: nothing is uploaded and nothing is stored, because the transferring browsers ARE the servers. Shared files go from one device directly to another.
+
+## How it works
+
+1. A sender opens https://dropoff.lol and picks one or more files.
+2. The site connects the sender to a signaling server to bootstrap a peer-to-peer WebRTC connection and generates a link formatted `dropoff.lol/receive/<id>`.
+3. The sender shares that link with the receiver any way they like.
+4. The receiver opens the link, and the file(s) stream directly from the sender's browser to the receiver's browser.
+5. Once the transfer completes, the link is no longer needed; nothing was uploaded or stored by dropoff.lol.
+
+## Limits and requirements
+
+- File size is constrained by the browser, not by dropoff.lol (there is no upload, so there is no server cap). Practical limits are roughly 1–2 GB on desktop Chrome, about 1 GB on Firefox, and a few hundred MB on iPhone/iOS Safari.
+- The sender's tab must stay open for the duration of the transfer because the sender's browser is the source of the files.
+- Both sides need an internet connection; the transfer is end-to-end between the browsers.
+- There are no accounts, no file retention, and no cloud storage.
+
+## Pages
+
+- [Home](https://dropoff.lol/): the sender interface for picking files and generating a share link.
+- [About us](https://dropoff.lol/about): the story behind dropoff.lol and the problem it solves.
+- [Terms](https://dropoff.lol/terms): the terms of service governing use of the service.
+
+## Contact
+
+- Email: admin.dropoff@gmail.com
+- Open source repository: https://github.com/ketanofc/dropoff

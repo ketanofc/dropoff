@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { canonical, SITE_NAME, SITE_TAGLINE, SITE_URL, jsonLd, websiteSchema } from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -77,12 +78,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "dropoff.lol – file sharing!" },
-      { name: "description", content: "Private browser-to-browser file sharing." },
-      { name: "author", content: "dropoff.lol" },
+      { title: "dropoff.lol – private, browser-to-browser file sharing" },
+      { name: "description", content: SITE_TAGLINE },
+      { name: "author", content: SITE_NAME },
+      { name: "robots", content: "index, follow" },
+      { name: "theme-color", content: "#ffffff" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:locale", content: "en_US" },
+      { property: "og:url", content: `${SITE_URL}/` },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -90,6 +95,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "canonical", href: `${SITE_URL}/` },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -97,6 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap",
       },
     ],
+    scripts: [jsonLd(websiteSchema)],
   }),
   shellComponent: RootShell,
   component: RootComponent,
