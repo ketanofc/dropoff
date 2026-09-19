@@ -64,7 +64,7 @@ function Index() {
 
   useEffect(() => {
     if (phase === "waiting" && link) {
-      shareCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      shareCardRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }, [phase, link]);
 
@@ -271,7 +271,7 @@ function Index() {
                     <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
                     {link && (
                       <>
-                        <div className="mt-4 flex min-w-0 items-start gap-4">
+                        <div className="mt-4 flex min-w-0 flex-col items-center gap-4 sm:flex-row sm:items-center">
                           <div className="shrink-0 max-w-full rounded-lg bg-white p-2">
                             <QRCodeSVG
                               value={link}
@@ -281,7 +281,7 @@ function Index() {
                               bgColor="#ffffff"
                             />
                           </div>
-                          <div className="min-w-0 flex-1">
+                          <div className="min-w-0 w-full flex-1">
                             <div className="flex min-w-0 items-center gap-2 rounded-md border border-border px-3 py-2">
                               <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
                               <button
