@@ -1,11 +1,13 @@
 import { Heart, Mail, Users } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarSeparator,
+  MenubarTrigger,
+} from "./ui/menubar";
 
 const CONTACT_EMAIL = "admin.dropoff@gmail.com";
 
@@ -29,40 +31,42 @@ function DoubleLineIcon() {
 
 export function SiteMenu() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          aria-label="Open menu"
-          className="flex h-9 items-center gap-2 rounded-full border border-border bg-background px-3.5 text-sm font-medium text-foreground/80 transition-colors hover:border-foreground/30 hover:text-foreground"
-        >
-          <DoubleLineIcon />
-          <span className="hidden sm:inline">Menu</span>
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="min-w-[200px] rounded-2xl border bg-background p-1.5 shadow-2xl"
-      >
-        <DropdownMenuItem asChild className="rounded-lg">
-          <a href="/about" className="gap-2.5">
-            <Users className="size-4 text-muted-foreground" /> About us
-          </a>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild className="rounded-lg">
-          <a href={`mailto:${CONTACT_EMAIL}`} className="gap-2.5">
-            <Mail className="size-4 text-muted-foreground" /> Contact us
-          </a>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator className="my-1.5" />
-        <DropdownMenuItem
-          disabled
-          className="gap-2 rounded-lg justify-center bg-foreground font-semibold text-background"
-          aria-disabled="true"
-        >
-          <Heart className="size-4" /> DONATE
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <Menubar className="border-0 bg-transparent p-0 shadow-none">
+        <MenubarMenu>
+          <MenubarTrigger className="flex size-9 select-none items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground">
+            <DoubleLineIcon />
+            <span className="sr-only">Open menu</span>
+          </MenubarTrigger>
+          <MenubarPortal>
+            <MenubarContent
+              align="end"
+              alignOffset={0}
+              sideOffset={10}
+              className="w-48 rounded-2xl p-1.5"
+            >
+              <MenubarItem asChild className="gap-2.5 rounded-lg">
+                <a href="/about">
+                  <Users className="size-4 text-muted-foreground" /> About us
+                </a>
+              </MenubarItem>
+              <MenubarItem asChild className="gap-2.5 rounded-lg">
+                <a href={`mailto:${CONTACT_EMAIL}`}>
+                  <Mail className="size-4 text-muted-foreground" /> Contact us
+                </a>
+              </MenubarItem>
+              <MenubarSeparator className="my-1.5" />
+              <MenubarItem
+                disabled
+                className="justify-center gap-2 rounded-lg bg-foreground font-semibold text-background"
+                aria-disabled="true"
+              >
+                <Heart className="size-4" /> DONATE
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarPortal>
+        </MenubarMenu>
+      </Menubar>
+    </>
   );
 }
