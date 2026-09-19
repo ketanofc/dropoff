@@ -144,163 +144,161 @@ function Receive() {
   return (
     <Shell>
       <section className="pt-[88px] sm:pt-24 lg:pt-32">
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-x-16">
-          <div className="mx-auto min-w-0 max-w-[440px] lg:mx-0">
-            <TextAnimate
-              animation="blurIn"
-              as="h1"
-              className="mx-auto max-w-[380px] text-center font-serif text-[38px] font-normal leading-[1.06] tracking-normal sm:max-w-[400px] sm:text-[46px] lg:mx-0 lg:max-w-none lg:text-left lg:text-[56px] lg:leading-[1.03]"
-            >
-              {phase === "done" ? (
-                multiple ? (
-                  "Your files are ready"
-                ) : (
-                  "Your file is ready"
-                )
-              ) : multiple ? (
-                <>
-                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span>{" "}
-                  files from their browser
-                </>
+        <div className="mx-auto w-full max-w-[720px]">
+          <p className="eyebrow text-center">[02] Incoming transfer</p>
+          <TextAnimate
+            animation="blurIn"
+            as="h1"
+            className="mx-auto mt-5 max-w-[640px] text-balance text-center font-serif text-[38px] font-normal leading-[1.06] tracking-normal sm:text-[46px] sm:leading-[1.04] lg:text-[56px] lg:leading-[1.03]"
+          >
+            {phase === "done" ? (
+              multiple ? (
+                "Your files are ready"
               ) : (
-                <>
-                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span>{" "}
-                  a file from their browser
-                </>
-              )}
-            </TextAnimate>
-
-            {(phase === "connecting" || phase === "error") && (
-              <p className="mt-7 text-center text-[15px] leading-6 text-muted-foreground lg:text-left">
-                {message}
-              </p>
-            )}
-
-            {phase === "offer" && (
+                "Your file is ready"
+              )
+            ) : multiple ? (
               <>
-                <p className="mt-7 text-center text-[15px] leading-6 text-muted-foreground lg:text-left lg:text-[17px] lg:leading-7">
-                  {multiple
-                    ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
-                    : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
-                </p>
-                <div className="mt-4 flex flex-col gap-2 sm:mt-5 sm:flex-row">
-                  <Button
-                    className="h-14 flex-1 text-base"
-                    onClick={() => {
-                      connRef.current?.send({ kind: "accept" });
-                      setPhase("receiving");
-                    }}
-                  >
-                    Accept & download
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="h-14 flex-1 text-base"
-                    onClick={() => {
-                      connRef.current?.send({ kind: "decline" });
-                      setPhase("error");
-                      setMessage("You declined this transfer.");
-                    }}
-                  >
-                    Decline
-                  </Button>
-                </div>
+                Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span>{" "}
+                files from their browser
+              </>
+            ) : (
+              <>
+                Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span> a
+                file from their browser
               </>
             )}
+          </TextAnimate>
 
-            {phase === "receiving" && (
-              <div className="mt-7 rounded-lg border border-border p-4 sm:mt-8">
-                <p className="text-sm font-medium">Receiving…</p>
-                <Progress value={percent} />
-                <p className="mt-3 text-xs text-muted-foreground">
-                  {percent.toFixed(0)}% · {formatBytes(received)} /{" "}
-                  {formatBytes(total || totalSize)}
-                </p>
-              </div>
-            )}
+          {(phase === "connecting" || phase === "error") && (
+            <p className="mx-auto mt-7 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground">
+              {message}
+            </p>
+          )}
 
-            {phase === "done" && (
-              <Button
-                variant="outline"
-                className="mt-7 w-full sm:mt-8"
-                onClick={() => window.location.assign("/")}
-              >
-                Send a file instead
-              </Button>
-            )}
-
-            {phase === "error" && (
-              <Button
-                variant="outline"
-                className="mt-7 w-full sm:mt-8"
-                onClick={() => window.location.assign("/")}
-              >
-                Send a file instead
-              </Button>
-            )}
-          </div>
-
-          {files.length > 0 && (
-            <div className="mt-8 grid min-w-0 gap-3 md:grid-cols-2 lg:mt-0">
-              {files.map((file, index) => (
-                <div
-                  key={index}
-                  className={`rounded-lg border border-border p-3 ${files.length === 1 ? "md:col-span-full" : ""}`}
+          {phase === "offer" && (
+            <>
+              <p className="mx-auto mt-7 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground">
+                {multiple
+                  ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
+                  : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
+              </p>
+              <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+                <Button
+                  className="h-14 flex-1 rounded-full text-base"
+                  onClick={() => {
+                    connRef.current?.send({ kind: "accept" });
+                    setPhase("receiving");
+                  }}
                 >
-                  <div className="flex min-h-16 items-center gap-3">
-                    {file.preview ? (
-                      <img
-                        src={file.preview}
-                        alt={`Preview of ${file.name}`}
-                        className="size-12 shrink-0 rounded-md object-cover md:size-14"
-                      />
-                    ) : (
-                      <FileKindIcon name={file.name} mime={file.mime} className="md:size-14" />
-                    )}
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold">{file.name}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        {fileKindLabel(file.name, file.mime)} · {formatBytes(file.size)}
-                        {phase === "done" && urls[index] ? " · ready to save" : ""}
-                      </p>
-                    </div>
+                  Accept & download
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-14 flex-1 rounded-full text-base"
+                  onClick={() => {
+                    connRef.current?.send({ kind: "decline" });
+                    setPhase("error");
+                    setMessage("You declined this transfer.");
+                  }}
+                >
+                  Decline
+                </Button>
+              </div>
+            </>
+          )}
 
-                    {phase === "done" && urls[index] && (
-                      <a
-                        href={urls[index]}
-                        download={file.name}
-                        className="flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:text-foreground"
-                        aria-label={`Save ${file.name}`}
-                      >
-                        <Download className="size-5" />
-                      </a>
-                    )}
-                  </div>
-
-                  {file.preview && (
-                    <img
-                      src={file.preview}
-                      alt={`Larger preview of ${file.name}`}
-                      className="mt-3 max-h-56 w-full rounded-md object-contain md:max-h-72"
-                    />
-                  )}
-
-                  {!file.preview && file.previewText && (
-                    <pre className="mt-3 max-h-40 overflow-hidden whitespace-pre-wrap break-words rounded-md bg-muted p-3 text-[11px] leading-4 text-muted-foreground">
-                      {file.previewText}
-                    </pre>
-                  )}
-
-                  {!file.preview && !file.previewText && phase === "offer" && (
-                    <p className="mt-3 text-xs text-muted-foreground">
-                      No preview available for this file type.
-                    </p>
-                  )}
-                </div>
-              ))}
+          {phase === "receiving" && (
+            <div className="mt-7 rounded-xl border border-border p-5 sm:p-6">
+              <p className="text-sm font-medium">Receiving…</p>
+              <Progress value={percent} />
+              <p className="mt-3 text-xs text-muted-foreground">
+                {percent.toFixed(0)}% · {formatBytes(received)} / {formatBytes(total || totalSize)}
+              </p>
             </div>
           )}
+
+          {phase === "done" && (
+            <Button
+              variant="outline"
+              className="mt-7 w-full rounded-full sm:mt-8"
+              onClick={() => window.location.assign("/")}
+            >
+              Send a file instead
+            </Button>
+          )}
+
+          {phase === "error" && (
+            <Button
+              variant="outline"
+              className="mt-7 w-full rounded-full sm:mt-8"
+              onClick={() => window.location.assign("/")}
+            >
+              Send a file instead
+            </Button>
+          )}
         </div>
+
+        {files.length > 0 && (
+          <div className="mx-auto mt-10 grid w-full max-w-[720px] min-w-0 gap-3 md:grid-cols-2">
+            {files.map((file, index) => (
+              <div
+                key={index}
+                className={`rounded-xl bg-secondary p-3 ${files.length === 1 ? "md:col-span-full" : ""}`}
+              >
+                <div className="flex min-h-16 items-center gap-3">
+                  {file.preview ? (
+                    <img
+                      src={file.preview}
+                      alt={`Preview of ${file.name}`}
+                      className="size-12 shrink-0 rounded-md object-cover md:size-14"
+                    />
+                  ) : (
+                    <FileKindIcon name={file.name} mime={file.mime} className="md:size-14" />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-semibold">{file.name}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {fileKindLabel(file.name, file.mime)} · {formatBytes(file.size)}
+                      {phase === "done" && urls[index] ? " · ready to save" : ""}
+                    </p>
+                  </div>
+
+                  {phase === "done" && urls[index] && (
+                    <a
+                      href={urls[index]}
+                      download={file.name}
+                      className="flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:text-foreground"
+                      aria-label={`Save ${file.name}`}
+                    >
+                      <Download className="size-5" />
+                    </a>
+                  )}
+                </div>
+
+                {file.preview && (
+                  <img
+                    src={file.preview}
+                    alt={`Larger preview of ${file.name}`}
+                    className="mt-3 max-h-56 w-full rounded-md object-contain md:max-h-72"
+                  />
+                )}
+
+                {!file.preview && file.previewText && (
+                  <pre className="mt-3 max-h-40 overflow-hidden whitespace-pre-wrap break-words rounded-md bg-background p-3 text-[11px] leading-4 text-muted-foreground">
+                    {file.previewText}
+                  </pre>
+                )}
+
+                {!file.preview && !file.previewText && phase === "offer" && (
+                  <p className="mt-3 text-xs text-muted-foreground">
+                    No preview available for this file type.
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </Shell>
   );
