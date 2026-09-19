@@ -159,12 +159,12 @@ function Receive() {
                 )
               ) : multiple ? (
                 <>
-                  Someone is sending <span className="font-normal italic">you</span> files from
+                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span> files from
                   their browser
                 </>
               ) : (
                 <>
-                  Someone is sending <span className="font-normal italic">you</span> a file from
+                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span> a file from
                   their browser
                 </>
               )}
@@ -178,7 +178,7 @@ function Receive() {
 
             {phase === "offer" && (
               <>
-                <p className="mt-7 text-center text-[15px] leading-6 text-muted-foreground lg:text-left">
+                <p className="mt-7 text-center text-[17px] leading-7 text-muted-foreground sm:text-[19px] lg:text-left lg:text-[21px] lg:leading-8">
                   {multiple
                     ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
                     : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
