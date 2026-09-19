@@ -270,7 +270,7 @@ function Index() {
                   {link && (
                     <>
                       <div className="mt-4 flex min-w-0 items-start gap-4">
-                        <div className="shrink-0 max-w-full rounded-lg bg-white p-2 shadow-sm">
+                        <div className="shrink-0 max-w-full rounded-lg bg-white p-2">
                           <QRCodeSVG
                             value={link}
                             size={120}
@@ -280,7 +280,7 @@ function Index() {
                           />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="flex min-w-0 items-center gap-2 rounded-full border border-input bg-background px-4 py-2.5">
+                          <div className="flex min-w-0 items-center gap-2 rounded-xl border border-input bg-background px-4 py-2.5">
                             <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
                             <button
                               onClick={copyLink}
@@ -291,13 +291,13 @@ function Index() {
                             </button>
                           </div>
                           <div className="mt-3 flex gap-2">
-                            <Button className="min-w-0 flex-1 rounded-full" onClick={copyLink}>
-                              {copied ? "Copied" : "Copy link"}
+                            <Button className="min-w-0 flex-1 rounded-xl" onClick={copyLink}>
+                              {copied ? "Copied" : "Copy"}
                             </Button>
                             {typeof navigator !== "undefined" && "share" in navigator && (
                               <Button
                                 variant="outline"
-                                className="min-w-0 flex-1 rounded-full"
+                                className="min-w-0 flex-1 rounded-xl"
                                 onClick={() =>
                                   navigator
                                     .share({ title: "dropoff.lol", url: link })
