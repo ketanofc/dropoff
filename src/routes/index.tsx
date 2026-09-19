@@ -50,7 +50,6 @@ type Phase = "idle" | "preparing" | "waiting" | "transferring" | "complete" | "e
 
 function Index() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const shareCardRef = useRef<HTMLDivElement>(null);
   const peerRef = useRef<{ destroy: () => void } | null>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [phase, setPhase] = useState<Phase>("idle");
@@ -61,12 +60,6 @@ function Index() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => () => peerRef.current?.destroy(), []);
-
-  useEffect(() => {
-    if (phase === "waiting" && link) {
-      shareCardRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-  }, [phase, link]);
 
   function reset() {
     peerRef.current?.destroy();
@@ -167,7 +160,7 @@ function Index() {
     <Shell>
       <section className="pt-[88px] sm:pt-24 lg:pt-32">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
-          <div className="mx-auto min-w-0 max-w-[440px] lg:mx-0">
+          <div className="min-w-0 max-w-[440px]">
             <TextAnimate
               animation="blurIn"
               as="h1"
@@ -261,17 +254,14 @@ function Index() {
                 )}
 
                 {(phase === "preparing" || phase === "waiting") && (
-                  <div
-                    ref={shareCardRef}
-                    className="min-w-0 scroll-mt-6 rounded-lg border border-border p-4"
-                  >
+                  <div className="rounded-lg border border-border p-4">
                     <div className="flex items-center gap-2 text-sm font-medium">
-                      <Link2 className="size-4 shrink-0" /> Share this link
+                      <Link2 className="size-4" /> Share this link
                     </div>
                     <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
                     {link && (
                       <>
-                        <div className="mt-4 flex min-w-0 flex-col items-center gap-4 sm:flex-row sm:items-center">
+                        <div className="mt-4 flex min-w-0 items-start gap-4">
                           <div className="shrink-0 max-w-full rounded-lg bg-white p-2">
                             <QRCodeSVG
                               value={link}
@@ -281,7 +271,7 @@ function Index() {
                               bgColor="#ffffff"
                             />
                           </div>
-                          <div className="min-w-0 w-full flex-1">
+                          <div className="min-w-0 flex-1">
                             <div className="flex min-w-0 items-center gap-2 rounded-md border border-border px-3 py-2">
                               <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
                               <button
@@ -296,7 +286,7 @@ function Index() {
                                 )}
                               </button>
                             </div>
-                            <div className="mt-3 flex flex-wrap gap-2">
+                            <div className="mt-3 flex gap-2">
                               <Button className="min-w-0 flex-1" onClick={copyLink}>
                                 {copied ? "Copied" : "Copy link"}
                               </Button>
