@@ -13,7 +13,7 @@ export function Shell({ children }: { children: ReactNode }) {
               aria-label="dropoff.lol home"
             >
               <span className="font-bold">dropoff</span>
-              <span className="font-normal text-muted-foreground">.lol</span>
+              <span className="font-normal text-neutral-400">.lol</span>
             </a>
             <SiteMenu />
           </header>
