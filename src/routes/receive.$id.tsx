@@ -159,13 +159,13 @@ function Receive() {
                 )
               ) : multiple ? (
                 <>
-                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span> files from
-                  their browser
+                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span>{" "}
+                  files from their browser
                 </>
               ) : (
                 <>
-                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span> a file from
-                  their browser
+                  Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span>{" "}
+                  a file from their browser
                 </>
               )}
             </TextAnimate>
@@ -178,10 +178,10 @@ function Receive() {
 
             {phase === "offer" && (
               <>
-                <p className="mt-7 text-center text-[17px] leading-7 text-muted-foreground sm:text-[19px] lg:text-left lg:text-[21px] lg:leading-8">
+                <p className="mt-7 text-center text-[19px] leading-8 text-muted-foreground sm:text-[22px] lg:text-left lg:text-[24px] lg:leading-9">
                   {multiple
-                    ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
-                    : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
+                    ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser — no uploads, no servers, and nothing is stored anywhere.`
+                    : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser — no uploads, no servers, and nothing is stored anywhere.`}
                 </p>
                 <div className="mt-4 flex flex-col gap-2 sm:mt-5 sm:flex-row">
                   <Button
