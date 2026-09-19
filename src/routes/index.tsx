@@ -167,16 +167,16 @@ function Index() {
     <Shell>
       <section className="pt-[88px] sm:pt-24 lg:pt-32">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
-          <div className="mx-auto min-w-0 max-w-[440px] text-center lg:mx-0 lg:text-left">
+          <div className="mx-auto min-w-0 max-w-[440px] lg:mx-0">
             <TextAnimate
               animation="blurIn"
               as="h1"
-              className="mx-auto max-w-[380px] font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:max-w-[420px] sm:text-[48px] lg:mx-0 lg:max-w-none lg:text-[60px] lg:leading-[1.03]"
+              className="mx-auto max-w-[380px] text-center font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:max-w-[420px] sm:text-[48px] lg:mx-0 lg:max-w-none lg:text-left lg:text-[60px] lg:leading-[1.03]"
             >
               Send files peer to peer, right from <span className="font-normal italic">your</span>{" "}
               browser
             </TextAnimate>
-            <p className="mt-7 text-[15px] leading-6 text-muted-foreground lg:mt-8 lg:text-left lg:text-[17px] lg:leading-7">
+            <p className="mt-7 text-center text-[15px] leading-6 text-muted-foreground lg:mt-8 lg:text-left lg:text-[17px] lg:leading-7">
               Send files straight from your browser. Nothing is permanently uploaded, and no account
               is required.
             </p>
