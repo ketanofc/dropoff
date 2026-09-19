@@ -162,7 +162,6 @@ function Index() {
       <IntroOverlay />
       <section className="pt-[88px] sm:pt-24 lg:pt-32">
         <div className="mx-auto w-full max-w-[720px]">
-          <p className="eyebrow text-center">[01] Direct browser-to-browser transfer</p>
           <TextAnimate
             animation="blurIn"
             as="h1"
@@ -175,12 +174,6 @@ function Index() {
             Send files straight from your browser. Nothing is permanently uploaded, and no account
             is required.
           </p>
-
-          <img
-            src={illustrationAsset.url}
-            alt="Two people transferring files directly between their browsers"
-            className="mx-auto mt-10 block h-auto w-full max-w-[380px] object-contain sm:max-w-[420px]"
-          />
 
           <input
             ref={inputRef}
@@ -209,6 +202,11 @@ function Index() {
                   our terms
                 </a>
               </p>
+              <img
+                src={illustrationAsset.url}
+                alt="Two people transferring files directly between their browsers"
+                className="mx-auto mt-10 block h-auto w-full max-w-[380px] object-contain sm:max-w-[420px]"
+              />
             </div>
           ) : (
             <div className="mt-10 min-w-0 space-y-5">

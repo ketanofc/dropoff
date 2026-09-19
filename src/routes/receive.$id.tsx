@@ -145,7 +145,6 @@ function Receive() {
     <Shell>
       <section className="pt-[88px] sm:pt-24 lg:pt-32">
         <div className="mx-auto w-full max-w-[720px]">
-          <p className="eyebrow text-center">[02] Incoming transfer</p>
           <TextAnimate
             animation="blurIn"
             as="h1"
