@@ -31,7 +31,7 @@ export const websiteSchema = {
     email: CONTACT_EMAIL,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/favicon.svg`,
+      url: `${SITE_URL}/android-chrome-512x512.png`,
     },
     sameAs: [SOURCE_URL],
   },
