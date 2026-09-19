@@ -140,7 +140,7 @@ function Receive() {
             <TextAnimate
               animation="blurIn"
               as="h1"
-              className="max-w-[380px] font-serif text-[36px] font-normal leading-[1.08] tracking-normal sm:max-w-[390px] sm:text-[42px] lg:max-w-none lg:text-[50px] lg:leading-[1.05]"
+              className="max-w-[380px] font-serif text-[38px] font-normal leading-[1.06] tracking-normal sm:max-w-[400px] sm:text-[46px] lg:max-w-none lg:text-[56px] lg:leading-[1.03]"
             >
               {phase === "done" ? (
                 multiple ? (

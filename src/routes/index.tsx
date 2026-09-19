@@ -144,7 +144,7 @@ function Index() {
             <TextAnimate
               animation="blurIn"
               as="h1"
-              className="max-w-[380px] font-serif text-[36px] font-normal leading-[1.08] tracking-normal sm:max-w-[390px] sm:text-[42px] lg:max-w-none lg:text-[54px] lg:leading-[1.05]"
+              className="max-w-[380px] font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:max-w-[420px] sm:text-[48px] lg:max-w-none lg:text-[60px] lg:leading-[1.03]"
             >
               Send files peer to peer, right from <span className="font-normal italic">your</span>{" "}
               browser
@@ -260,7 +260,7 @@ function Index() {
                               variant="outline"
                               className="flex-1"
                               onClick={() =>
-                                navigator.share({ title: "dropoff.lol", url: link }).catch(() => { })
+                                navigator.share({ title: "dropoff.lol", url: link }).catch(() => {})
                               }
                             >
                               <Share2 className="size-4" /> Share
@@ -314,11 +314,11 @@ function Index() {
             )}
           </div>
 
-          <div className="mt-10 sm:mt-9 lg:mt-0">
+          <div>
             <img
               src={illustrationAsset.url}
               alt="Two people transferring files directly between their browsers"
-              className="block h-auto w-full object-contain lg:mx-auto lg:max-w-[540px]"
+              className="block h-auto w-full object-contain lg:mx-auto lg:max-w-[560px]"
             />
           </div>
         </div>
