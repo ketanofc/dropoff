@@ -50,7 +50,7 @@ Try it at **[dropofflol.vercel.app](https://dropofflol.vercel.app)**.
 1. **Pick your files.** The sender selects one or more files — nothing leaves
    the browser yet.
 2. **Share the generated link.** The app spins up a temporary session and hands
-   you a `dropoff.lol/d/<id>` link.
+   you a `dropoff.lol/receive/<id>` link.
 3. **The receiver opens the link.** They see a preview of the files and choose
    **Accept & download** or **Decline**.
 4. **The files stream directly.** WebRTC moves the data straight from the
@@ -123,7 +123,7 @@ src/
 ├── hooks/              # Shared React hooks
 ├── lib/                # Transfer logic, utilities, error handling
 └── routes/             # TanStack Router file routes
-    ├── d.$id.tsx       # Receive page (/d/:id)
+    ├── receive.$id.tsx # Receive page (/receive/:id)
     ├── index.tsx       # Send page (/)
     └── terms.tsx       # Terms of use
 ```
@@ -154,9 +154,21 @@ sign-up flow.
 recipient, and keep your tab open until the transfer completes. The link is only
 valid while the sender's session is active.
 
-**How large can my files be?** Files are streamed in small chunks with flow
-control, so the practical limit is your browser's memory and network rather than
-an app-level cap.
+**How large can my files be?** There is no app-level size limit — files stream
+directly between browsers in 64&nbsp;KB chunks with flow control, so memory stays
+low even for large files. The practical ceiling is set by the browser, device,
+and network rather than the app:
+
+| Browser / device        | Reliable transfer size |
+| ----------------------- | ---------------------- |
+| Chrome (desktop)        | ~1–2&nbsp;GB           |
+| Firefox                 | ~1&nbsp;GB             |
+| iPhone / Safari (mobile)| a few hundred MB       |
+
+> Multi-gigabyte transfers are theoretically possible but less reliable, and
+> total time scales with upload bandwidth (1&nbsp;GB ≈ several minutes on a
+> typical home connection). Keep the sender's tab open and in the foreground for
+> the whole transfer.
 
 **Are my transfers encrypted?** Yes. All WebRTC communications are encrypted in
 transit with DTLS. Note that peer signaling metadata travels through PeerJS's
