@@ -135,7 +135,7 @@ function Receive() {
   return (
     <Shell>
       <section className="pt-[58px] sm:pt-16 lg:pt-24">
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-x-16 lg:gap-y-12">
+        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-x-16">
           <div className="max-w-[440px]">
             <TextAnimate
               animation="blurIn"
@@ -161,6 +161,69 @@ function Receive() {
 
             {(phase === "connecting" || phase === "error") && (
               <p className="mt-7 text-[15px] leading-6 text-muted-foreground">{message}</p>
+            )}
+
+            {phase === "offer" && (
+              <>
+                <p className="mt-7 text-[15px] leading-6 text-muted-foreground">
+                  {multiple
+                    ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
+                    : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
+                </p>
+                <div className="mt-4 flex flex-col gap-2 sm:mt-5 sm:flex-row">
+                  <Button
+                    className="h-14 flex-1 text-base"
+                    onClick={() => {
+                      connRef.current?.send({ kind: "accept" });
+                      setPhase("receiving");
+                    }}
+                  >
+                    Accept & download
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="h-14 flex-1 text-base"
+                    onClick={() => {
+                      connRef.current?.send({ kind: "decline" });
+                      setPhase("error");
+                      setMessage("You declined this transfer.");
+                    }}
+                  >
+                    Decline
+                  </Button>
+                </div>
+              </>
+            )}
+
+            {phase === "receiving" && (
+              <div className="mt-7 rounded-lg border border-border p-4 sm:mt-8">
+                <p className="text-sm font-medium">Receiving…</p>
+                <Progress value={percent} />
+                <p className="mt-3 text-xs text-muted-foreground">
+                  {percent.toFixed(0)}% · {formatBytes(received)} /{" "}
+                  {formatBytes(total || totalSize)}
+                </p>
+              </div>
+            )}
+
+            {phase === "done" && (
+              <Button
+                variant="outline"
+                className="mt-7 w-full sm:mt-8"
+                onClick={() => window.location.assign("/")}
+              >
+                Send a file instead
+              </Button>
+            )}
+
+            {phase === "error" && (
+              <Button
+                variant="outline"
+                className="mt-7 w-full sm:mt-8"
+                onClick={() => window.location.assign("/")}
+              >
+                Send a file instead
+              </Button>
             )}
           </div>
 
@@ -224,64 +287,6 @@ function Receive() {
               ))}
             </div>
           )}
-
-          <div className="max-w-[440px] lg:col-start-1">
-            {phase === "offer" && (
-              <div className="mt-4 flex gap-2 lg:mt-0">
-                <Button
-                  className="h-14 flex-1 text-base"
-                  onClick={() => {
-                    connRef.current?.send({ kind: "accept" });
-                    setPhase("receiving");
-                  }}
-                >
-                  Accept & download
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-14 flex-1 text-base"
-                  onClick={() => {
-                    connRef.current?.send({ kind: "decline" });
-                    setPhase("error");
-                    setMessage("You declined this transfer.");
-                  }}
-                >
-                  Decline
-                </Button>
-              </div>
-            )}
-
-            {phase === "receiving" && (
-              <div className="mt-4 rounded-lg border border-border p-4 lg:mt-0">
-                <p className="text-sm font-medium">Receiving…</p>
-                <Progress value={percent} />
-                <p className="mt-3 text-xs text-muted-foreground">
-                  {percent.toFixed(0)}% · {formatBytes(received)} /{" "}
-                  {formatBytes(total || totalSize)}
-                </p>
-              </div>
-            )}
-
-            {phase === "done" && (
-              <Button
-                variant="outline"
-                className="mt-6 w-full lg:mt-0"
-                onClick={() => window.location.assign("/")}
-              >
-                Send a file instead
-              </Button>
-            )}
-
-            {phase === "error" && (
-              <Button
-                variant="outline"
-                className="mt-6 w-full lg:mt-0"
-                onClick={() => window.location.assign("/")}
-              >
-                Send a file instead
-              </Button>
-            )}
-          </div>
         </div>
       </section>
     </Shell>
