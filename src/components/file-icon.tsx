@@ -24,7 +24,15 @@ export function fileKindLabel(name: string, mime?: string) {
 }
 
 /** Square tile showing an icon that matches the kind of file. */
-export function FileKindIcon({ name, mime, className = "" }: { name: string; mime?: string; className?: string }) {
+export function FileKindIcon({
+  name,
+  mime,
+  className = "",
+}: {
+  name: string;
+  mime?: string;
+  className?: string;
+}) {
   const kind = fileKind(name, mime);
   const Icon = ICONS[kind];
   return (

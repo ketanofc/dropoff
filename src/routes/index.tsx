@@ -139,7 +139,7 @@ function Index() {
 
   return (
     <Shell>
-      <section className="pt-[58px] sm:pt-16 lg:pt-24">
+      <section className="pt-[70px] sm:pt-20 lg:pt-28">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
           <div className="min-w-0 max-w-[440px]">
             <TextAnimate

@@ -19,7 +19,7 @@ function DoubleLineIcon() {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="size-6"
+      className="size-7"
       aria-hidden="true"
     >
       <path d="M6.5 8h11" />
@@ -33,7 +33,7 @@ export function SiteMenu() {
     <>
       <Menubar className="border-0 bg-transparent p-0 shadow-none">
         <MenubarMenu>
-          <MenubarTrigger className="flex size-11 select-none items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground">
+          <MenubarTrigger className="flex size-12 select-none items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground">
             <DoubleLineIcon />
             <span className="sr-only">Open menu</span>
           </MenubarTrigger>

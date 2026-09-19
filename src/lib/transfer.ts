@@ -18,7 +18,10 @@ const TEXT_PREVIEW_BYTES = 2048;
 
 function isTextLike(file: File) {
   if (file.type.startsWith("text/")) return true;
-  return /^(application\/(json|xml|javascript|x-yaml)|text\/)/.test(file.type) || /\.(txt|md|csv|json|log|ya?ml|xml|ts|tsx|js|jsx|css|html)$/i.test(file.name);
+  return (
+    /^(application\/(json|xml|javascript|x-yaml)|text\/)/.test(file.type) ||
+    /\.(txt|md|csv|json|log|ya?ml|xml|ts|tsx|js|jsx|css|html)$/i.test(file.name)
+  );
 }
 
 async function imageThumbnail(file: File): Promise<string | undefined> {
@@ -66,13 +69,7 @@ export type FileDone = { kind: "file-done"; index: number };
 export type Accept = { kind: "accept" };
 export type Decline = { kind: "decline" };
 export type AllDone = { kind: "done" };
-export type Control =
-  | Manifest
-  | FileStart
-  | FileDone
-  | Accept
-  | Decline
-  | AllDone;
+export type Control = Manifest | FileStart | FileDone | Accept | Decline | AllDone;
 
 export type FileKind = "image" | "video" | "audio" | "document" | "archive" | "file";
 
@@ -80,7 +77,10 @@ const EXT_KINDS: Array<[RegExp, FileKind]> = [
   [/\.(jpe?g|png|gif|webp|avif|bmp|svg|heic|heif|tiff?|ico)$/i, "image"],
   [/\.(mp4|mov|m4v|webm|avi|mkv|flv|wmv|mpe?g|3gp)$/i, "video"],
   [/\.(mp3|wav|ogg|oga|m4a|aac|flac|wma|opus|aiff?)$/i, "audio"],
-  [/\.(pdf|docx?|xlsx?|pptx?|odt|ods|odp|rtf|txt|md|csv|json|xml|ya?ml|log|html?|css|js|jsx|ts|tsx|epub)$/i, "document"],
+  [
+    /\.(pdf|docx?|xlsx?|pptx?|odt|ods|odp|rtf|txt|md|csv|json|xml|ya?ml|log|html?|css|js|jsx|ts|tsx|epub)$/i,
+    "document",
+  ],
   [/\.(zip|rar|7z|tar|gz|tgz|bz2|xz|iso|dmg)$/i, "archive"],
 ];
 
@@ -89,7 +89,8 @@ export function fileKind(name: string, mime = ""): FileKind {
   if (mime.startsWith("image/")) return "image";
   if (mime.startsWith("video/")) return "video";
   if (mime.startsWith("audio/")) return "audio";
-  if (/^(application\/(zip|x-7z|x-rar|x-tar|gzip|x-bzip)|application\/x-compressed)/.test(mime)) return "archive";
+  if (/^(application\/(zip|x-7z|x-rar|x-tar|gzip|x-bzip)|application\/x-compressed)/.test(mime))
+    return "archive";
   if (
     mime.startsWith("text/") ||
     /^application\/(pdf|json|xml|rtf|msword|vnd\.(ms-|openxmlformats))/.test(mime)
@@ -100,7 +101,6 @@ export function fileKind(name: string, mime = ""): FileKind {
   }
   return "file";
 }
-
 
 export function formatBytes(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
