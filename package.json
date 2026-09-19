@@ -56,6 +56,7 @@
     "lucide-react": "^0.575.0",
     "marked": "^18.0.13",
     "peerjs": "^1.5.5",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
     "react-day-picker": "^9.14.0",
     "react-dom": "^19.2.0",

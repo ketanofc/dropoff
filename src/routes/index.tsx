@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Copy, Link2, Plus, Share2, Upload, X } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
 import { Progress, Shell } from "../components/shell";
@@ -140,7 +141,7 @@ function Index() {
     <Shell>
       <section className="pt-[58px] sm:pt-16 lg:pt-24">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
-          <div className="max-w-[440px]">
+          <div className="min-w-0 max-w-[440px]">
             <TextAnimate
               animation="blurIn"
               as="h1"
@@ -188,7 +189,7 @@ function Index() {
                   {files.map((file, index) => (
                     <div
                       key={index}
-                      className="flex min-h-16 items-center gap-3 rounded-lg border border-border p-3"
+                      className="flex min-h-16 min-w-0 items-center gap-3 rounded-lg border border-border p-3"
                     >
                       <FileKindIcon name={file.name} mime={file.type} />
                       <div className="min-w-0 flex-1">
@@ -241,35 +242,54 @@ function Index() {
                     <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
                     {link && (
                       <>
-                        <div className="mt-4 flex items-center gap-2 rounded-md border border-border px-3 py-2">
-                          <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
-                          <button
-                            onClick={copyLink}
-                            aria-label="Copy link"
-                            className="text-muted-foreground hover:text-foreground"
-                          >
-                            {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-                          </button>
+                        <div className="mt-4 flex items-start gap-4">
+                          <div className="shrink-0 rounded-lg bg-white p-2">
+                            <QRCodeSVG
+                              value={link}
+                              size={120}
+                              level="Q"
+                              fgColor="#000000"
+                              bgColor="#ffffff"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex min-w-0 items-center gap-2 rounded-md border border-border px-3 py-2">
+                              <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
+                              <button
+                                onClick={copyLink}
+                                aria-label="Copy link"
+                                className="text-muted-foreground hover:text-foreground"
+                              >
+                                {copied ? (
+                                  <Check className="size-4" />
+                                ) : (
+                                  <Copy className="size-4" />
+                                )}
+                              </button>
+                            </div>
+                            <div className="mt-3 flex gap-2">
+                              <Button className="flex-1" onClick={copyLink}>
+                                {copied ? "Copied" : "Copy link"}
+                              </Button>
+                              {typeof navigator !== "undefined" && "share" in navigator && (
+                                <Button
+                                  variant="outline"
+                                  className="flex-1"
+                                  onClick={() =>
+                                    navigator
+                                      .share({ title: "dropoff.lol", url: link })
+                                      .catch(() => {})
+                                  }
+                                >
+                                  <Share2 className="size-4" /> Share
+                                </Button>
+                              )}
+                            </div>
+                            <p className="mt-3 text-xs text-muted-foreground">
+                              Keep this tab open. The link breaks if you close it.
+                            </p>
+                          </div>
                         </div>
-                        <div className="mt-3 flex gap-2">
-                          <Button className="flex-1" onClick={copyLink}>
-                            {copied ? "Copied" : "Copy link"}
-                          </Button>
-                          {typeof navigator !== "undefined" && "share" in navigator && (
-                            <Button
-                              variant="outline"
-                              className="flex-1"
-                              onClick={() =>
-                                navigator.share({ title: "dropoff.lol", url: link }).catch(() => {})
-                              }
-                            >
-                              <Share2 className="size-4" /> Share
-                            </Button>
-                          )}
-                        </div>
-                        <p className="mt-3 text-xs text-muted-foreground">
-                          Keep this tab open. The link breaks if you close it.
-                        </p>
                       </>
                     )}
                   </div>
@@ -314,7 +334,7 @@ function Index() {
             )}
           </div>
 
-          <div>
+          <div className="min-w-0">
             <img
               src={illustrationAsset.url}
               alt="Two people transferring files directly between their browsers"

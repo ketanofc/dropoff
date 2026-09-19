@@ -136,7 +136,7 @@ function Receive() {
     <Shell>
       <section className="pt-[58px] sm:pt-16 lg:pt-24">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-x-16">
-          <div className="max-w-[440px]">
+          <div className="min-w-0 max-w-[440px]">
             <TextAnimate
               animation="blurIn"
               as="h1"
@@ -228,7 +228,7 @@ function Receive() {
           </div>
 
           {files.length > 0 && (
-            <div className="mt-8 grid gap-3 md:grid-cols-2 lg:mt-0">
+            <div className="mt-8 grid min-w-0 gap-3 md:grid-cols-2 lg:mt-0">
               {files.map((file, index) => (
                 <div
                   key={index}
