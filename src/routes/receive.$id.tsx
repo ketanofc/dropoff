@@ -278,8 +278,8 @@ function Receive() {
                 {file.preview && (
                   <img
                     src={file.preview}
-                    alt={`Larger preview of ${file.name}`}
-                    className="mt-3 max-h-56 w-full rounded-md object-contain md:max-h-72"
+                    alt={`Preview of ${file.name}`}
+                    className="mt-3 h-28 w-full rounded-md object-cover sm:h-32"
                   />
                 )}
 
