@@ -143,7 +143,7 @@ function Receive() {
 
   return (
     <Shell>
-      <section className="pt-[70px] sm:pt-20 lg:pt-28">
+      <section className="pt-[88px] sm:pt-24 lg:pt-32">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-x-16">
           <div className="min-w-0 max-w-[440px]">
             <TextAnimate

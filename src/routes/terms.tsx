@@ -41,7 +41,7 @@ export const Route = createFileRoute("/terms")({
 function Terms() {
   return (
     <Shell>
-      <section className="pt-[70px] sm:pt-20 lg:pt-28">
+      <section className="pt-[88px] sm:pt-24 lg:pt-32">
         <TextAnimate
           animation="blurIn"
           as="h1"

@@ -50,6 +50,7 @@ type Phase = "idle" | "preparing" | "waiting" | "transferring" | "complete" | "e
 
 function Index() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const shareCardRef = useRef<HTMLDivElement>(null);
   const peerRef = useRef<{ destroy: () => void } | null>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [phase, setPhase] = useState<Phase>("idle");
@@ -60,6 +61,12 @@ function Index() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => () => peerRef.current?.destroy(), []);
+
+  useEffect(() => {
+    if (phase === "waiting" && link) {
+      shareCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [phase, link]);
 
   function reset() {
     peerRef.current?.destroy();
@@ -158,7 +165,7 @@ function Index() {
 
   return (
     <Shell>
-      <section className="pt-[70px] sm:pt-20 lg:pt-28">
+      <section className="pt-[88px] sm:pt-24 lg:pt-32">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
           <div className="mx-auto min-w-0 max-w-[440px] text-center lg:mx-0 lg:text-left">
             <TextAnimate
@@ -203,7 +210,7 @@ function Index() {
                 </p>
               </>
             ) : (
-              <div className="mt-8 space-y-4">
+              <div className="mt-8 min-w-0 space-y-4">
                 <div className="space-y-2">
                   {files.map((file, index) => (
                     <div
@@ -254,15 +261,18 @@ function Index() {
                 )}
 
                 {(phase === "preparing" || phase === "waiting") && (
-                  <div className="rounded-lg border border-border p-4">
+                  <div
+                    ref={shareCardRef}
+                    className="min-w-0 scroll-mt-6 rounded-lg border border-border p-4"
+                  >
                     <div className="flex items-center gap-2 text-sm font-medium">
-                      <Link2 className="size-4" /> Share this link
+                      <Link2 className="size-4 shrink-0" /> Share this link
                     </div>
                     <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
                     {link && (
                       <>
-                        <div className="mt-4 flex items-start gap-4">
-                          <div className="shrink-0 rounded-lg bg-white p-2">
+                        <div className="mt-4 flex min-w-0 items-start gap-4">
+                          <div className="shrink-0 max-w-full rounded-lg bg-white p-2">
                             <QRCodeSVG
                               value={link}
                               size={120}
@@ -277,7 +287,7 @@ function Index() {
                               <button
                                 onClick={copyLink}
                                 aria-label="Copy link"
-                                className="text-muted-foreground hover:text-foreground"
+                                className="shrink-0 text-muted-foreground hover:text-foreground"
                               >
                                 {copied ? (
                                   <Check className="size-4" />
@@ -286,14 +296,14 @@ function Index() {
                                 )}
                               </button>
                             </div>
-                            <div className="mt-3 flex gap-2">
-                              <Button className="flex-1" onClick={copyLink}>
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              <Button className="min-w-0 flex-1" onClick={copyLink}>
                                 {copied ? "Copied" : "Copy link"}
                               </Button>
                               {typeof navigator !== "undefined" && "share" in navigator && (
                                 <Button
                                   variant="outline"
-                                  className="flex-1"
+                                  className="min-w-0 flex-1"
                                   onClick={() =>
                                     navigator
                                       .share({ title: "dropoff.lol", url: link })
