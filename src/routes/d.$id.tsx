@@ -126,7 +126,6 @@ function Receive() {
       clearTimeout(slow);
       peerRef.current?.destroy();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const percent = total ? (received / total) * 100 : 0;
