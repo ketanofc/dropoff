@@ -80,7 +80,7 @@ function Index() {
       peerRef.current = peer;
 
       peer.on("open", () => {
-        setLink(`${window.location.origin}/d/${id}`);
+        setLink(`${window.location.origin}/receive/${id}`);
         setPhase("waiting");
         setMessage("Waiting for the recipient to open your link…");
       });

@@ -7,7 +7,7 @@ import { FileKindIcon, fileKindLabel } from "../components/file-icon";
 import { TextAnimate } from "../components/text-animate";
 import { formatBytes, toArrayBuffer, type Control, type FileMeta } from "../lib/transfer";
 
-export const Route = createFileRoute("/d/$id")({
+export const Route = createFileRoute("/receive/$id")({
   head: () => ({
     meta: [
       { title: "incoming file – dropoff.lol" },
