@@ -42,7 +42,7 @@ export function SiteMenu() {
               align="end"
               alignOffset={0}
               sideOffset={18}
-              className="mt-1.5 w-56 rounded-2xl border-border shadow-lg shadow-black/5 p-1.5"
+              className="mt-1.5 w-48 rounded-2xl border-border shadow-lg shadow-black/5 p-1.5"
             >
               <MenubarItem asChild className="gap-3 rounded-lg py-2.5 text-[15px]">
                 <a href="/about">
