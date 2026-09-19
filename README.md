@@ -62,18 +62,30 @@ Try it at **[dropofflol.vercel.app](https://dropofflol.vercel.app)**.
 All features rely on WebRTC data channels, which are supported in every
 evergreen browser.
 
-| Browser  | Desktop | Mobile |
-| -------- | :-----: | :----: |
-| Chrome   | ✅      | ✅     |
-| Firefox  | ✅      | ✅     |
-| Edge     | ✅      | ✅     |
-| Safari   | ✅\*    | ✅\*   |
-| Opera    | ✅      | ✅     |
-| Brave    | ✅      | ✅     |
+|                     | <img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/chrome/chrome_48x48.png" width="32" alt="Chrome" /><br />Chrome | <img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/firefox/firefox_48x48.png" width="32" alt="Firefox" /><br />Firefox | <img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/edge/edge_48x48.png" width="32" alt="Edge" /><br />Edge | <img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/safari/safari_48x48.png" width="32" alt="Safari" /><br />Safari | <img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/opera/opera_48x48.png" width="32" alt="Opera" /><br />Opera | <img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/vivaldi/vivaldi_48x48.png" width="32" alt="Vivaldi" /><br />Vivaldi | <img src="https://raw.githubusercontent.com/alrra/browser-logos/main/src/brave/brave_48x48.png" width="32" alt="Brave" /><br />Brave |
+| ------------------- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Desktop**         |       |       |       |       |       |       |       |
+| File transfer (WebRTC)           | ✅ | ✅ | ✅ | \* | ✅ | ✅ | ✅ |
+| OPFS storage (large files)       | ✅ | ✅ | ✅ | \* | ✅ | ✅ | ⚠️ limited |
+| Resumable downloads              | ✅ | ✅ | ✅ | \* | ✅ | ✅ | ⚠️ limited |
+| SHA-256 integrity check          | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Password protection              | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Multi-file zip download          | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Mobile**           |       |       |       |       |       |       |       |
+| File transfer (WebRTC)           | ✅ | ✅ | ✅ | \* | ✅ | ✅ | ✅ |
+| OPFS storage (large files)       | ✅ | ⚠️ limited | ✅ | \* | ✅ | ✅ | ⚠️ limited |
+| Resumable downloads              | ✅ | ⚠️ IDB fallback | ✅ | \* | ✅ | ✅ | ⚠️ limited |
+| SHA-256 integrity check          | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Streaming save (no memory cap)   | ✅ | ⚠️ partial | ✅ | \* | ✅ | ✅ | ✅ |
+| Password protection              | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Auto-reconnect on network switch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-> \* Safari works for basic transfers; reachability between two peers depends on
-> network conditions, firewalls, and NAT behavior, which WebRTC tries to
-> traverse automatically.
+> ⚠️ = supported with limitations. OPFS write access varies by browser version
+> and storage quota policies.
+>
+> \* = Not yet tested. Safari works for basic transfers; reachability between
+> two peers depends on network conditions, firewalls, and NAT behavior, which
+> WebRTC tries to traverse automatically.
 
 ## Tech stack
 
