@@ -262,4 +262,4 @@ The descriptions above should also be updated whenever Dropoff.lol's actual impl
 
 ---
 
-**Dropoff.lol — Simple file sharing, made easy.**
+**dropoff.lol – simple file sharing, made easy.**

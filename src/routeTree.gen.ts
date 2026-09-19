@@ -10,12 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ManifestoRouteImport } from './routes/manifesto'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ReceiveIdRouteImport } from './routes/receive.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManifestoRoute = ManifestoRouteImport.update({
+  id: '/manifesto',
+  path: '/manifesto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -31,30 +43,38 @@ const ReceiveIdRoute = ReceiveIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/manifesto': typeof ManifestoRoute
   '/terms': typeof TermsRoute
   '/receive/$id': typeof ReceiveIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/manifesto': typeof ManifestoRoute
   '/terms': typeof TermsRoute
   '/receive/$id': typeof ReceiveIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/manifesto': typeof ManifestoRoute
   '/terms': typeof TermsRoute
   '/receive/$id': typeof ReceiveIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/terms' | '/receive/$id'
+  fullPaths: '/' | '/about' | '/manifesto' | '/terms' | '/receive/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/terms' | '/receive/$id'
-  id: '__root__' | '/' | '/terms' | '/receive/$id'
+  to: '/' | '/about' | '/manifesto' | '/terms' | '/receive/$id'
+  id: '__root__' | '/' | '/about' | '/manifesto' | '/terms' | '/receive/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ManifestoRoute: typeof ManifestoRoute
   TermsRoute: typeof TermsRoute
   ReceiveIdRoute: typeof ReceiveIdRoute
 }
@@ -66,6 +86,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manifesto': {
+      id: '/manifesto'
+      path: '/manifesto'
+      fullPath: '/manifesto'
+      preLoaderRoute: typeof ManifestoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -87,6 +121,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ManifestoRoute: ManifestoRoute,
   TermsRoute: TermsRoute,
   ReceiveIdRoute: ReceiveIdRoute,
 }

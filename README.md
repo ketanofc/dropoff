@@ -18,7 +18,7 @@
 
 **dropoff.lol** is a browser-based, peer-to-peer file sharing service. Built on
 [WebRTC](https://www.webrtc.org/), it sends files **directly between two
-browsers** — there is no upload step, no intermediary storage, and nothing is
+browsers** – there is no upload step, no intermediary storage, and nothing is
 ever permanently uploaded to a server. Because the data moves straight from one
 device to the other, transfers stay fast, private, and cheap to run.
 
@@ -27,7 +27,7 @@ Try it at **[dropofflol.vercel.app](https://dropofflol.vercel.app)**.
 ## Features
 
 - **Direct peer-to-peer transfers.** Files stream over an encrypted WebRTC data
-  channel between the sender and receiver — your file never touches an
+  channel between the sender and receiver – your file never touches an
   application server.
 - **No account, no install, no sign-up.** Open the page, pick a file, share a link.
 - **Multi-file transfers.** Send several files at once; the receiver gets them
@@ -47,7 +47,7 @@ Try it at **[dropofflol.vercel.app](https://dropofflol.vercel.app)**.
 
 ## How it works
 
-1. **Pick your files.** The sender selects one or more files — nothing leaves
+1. **Pick your files.** The sender selects one or more files – nothing leaves
    the browser yet.
 2. **Share the generated link.** The app spins up a temporary session and hands
    you a `dropoff.lol/receive/<id>` link.
@@ -77,12 +77,12 @@ evergreen browser.
 
 ## Tech stack
 
-- [TanStack Start](https://tanstack.com/start/latest) + [TanStack Router](https://tanstack.com/router/latest) — SSR-first React framework
+- [TanStack Start](https://tanstack.com/start/latest) + [TanStack Router](https://tanstack.com/router/latest) – SSR-first React framework
 - [React](https://react.dev/) 19
 - [TypeScript](https://www.typescriptlang.org/), Vite, and [Nitro](https://nitro.unjs.io/)
 - [Tailwind CSS](https://tailwindcss.com/) 4, shadcn/ui-style components, [Lucide](https://lucide.dev/) icons
-- [PeerJS](https://peerjs.com/) — WebRTC peer connections and data channels
-- [TanStack Query](https://tanstack.com/query/latest) — server-state for routing/shell
+- [PeerJS](https://peerjs.com/) – WebRTC peer connections and data channels
+- [TanStack Query](https://tanstack.com/query/latest) – server-state for routing/shell
 
 ## Getting started
 
@@ -154,7 +154,7 @@ sign-up flow.
 recipient, and keep your tab open until the transfer completes. The link is only
 valid while the sender's session is active.
 
-**How large can my files be?** There is no app-level size limit — files stream
+**How large can my files be?** There is no app-level size limit – files stream
 directly between browsers in 64&nbsp;KB chunks with flow control, so memory stays
 low even for large files. The practical ceiling is set by the browser, device,
 and network rather than the app:
@@ -175,7 +175,7 @@ transit with DTLS. Note that peer signaling metadata travels through PeerJS's
 public servers to help two browsers find each other.
 
 **Do I need to keep a tab open?** The sender must keep their tab open until the
-transfer finishes, otherwise the link breaks — that's the trade-off for no
+transfer finishes, otherwise the link breaks – that's the trade-off for no
 server-side storage.
 
 ## License

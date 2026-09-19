@@ -1,12 +1,10 @@
-import { useState, type ReactNode } from "react";
-import { AnimatedThemeToggler } from "./animated-theme-toggler";
+import type { ReactNode } from "react";
+import { SiteMenu } from "./site-menu";
 
 export function Shell({ children }: { children: ReactNode }) {
-  const [dark, setDark] = useState(false);
-
   return (
-    <main className={dark ? "dark" : ""}>
-      <div className="min-h-screen bg-background text-foreground transition-colors">
+    <main>
+      <div className="min-h-screen bg-background text-foreground">
         <div className="mx-auto w-full max-w-[430px] overflow-x-hidden px-5 pb-16 pt-7 sm:px-6 sm:pt-8 md:max-w-4xl lg:max-w-6xl lg:px-10 lg:pb-20 lg:pt-10">
           <header className="flex items-center justify-between">
             <a
@@ -16,11 +14,7 @@ export function Shell({ children }: { children: ReactNode }) {
             >
               dropoff<span className="text-muted-foreground">.lol</span>
             </a>
-            <AnimatedThemeToggler
-              className="size-9 rounded-full"
-              theme={dark ? "dark" : "light"}
-              onThemeChange={(theme) => setDark(theme === "dark")}
-            />
+            <SiteMenu />
           </header>
           {children}
         </div>
