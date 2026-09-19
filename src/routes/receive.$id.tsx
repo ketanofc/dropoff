@@ -178,10 +178,10 @@ function Receive() {
 
             {phase === "offer" && (
               <>
-                <p className="mt-7 text-center text-[19px] leading-8 text-muted-foreground sm:text-[22px] lg:text-left lg:text-[24px] lg:leading-9">
+                <p className="mt-7 text-center text-[15px] leading-6 text-muted-foreground lg:text-left lg:text-[17px] lg:leading-7">
                   {multiple
-                    ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser — no uploads, no servers, and nothing is stored anywhere.`
-                    : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser — no uploads, no servers, and nothing is stored anywhere.`}
+                    ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
+                    : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
                 </p>
                 <div className="mt-4 flex flex-col gap-2 sm:mt-5 sm:flex-row">
                   <Button
