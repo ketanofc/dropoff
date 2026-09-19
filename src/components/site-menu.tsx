@@ -1,11 +1,10 @@
-import { Heart, Mail, Users } from "lucide-react";
+import { Mail, Users } from "lucide-react";
 import {
   Menubar,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
   MenubarPortal,
-  MenubarSeparator,
   MenubarTrigger,
 } from "./ui/menubar";
 
@@ -20,7 +19,7 @@ function DoubleLineIcon() {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="size-4"
+      className="size-5"
       aria-hidden="true"
     >
       <path d="M4 7h16" />
@@ -54,14 +53,6 @@ export function SiteMenu() {
                 <a href={`mailto:${CONTACT_EMAIL}`}>
                   <Mail className="size-4 text-muted-foreground" /> Contact us
                 </a>
-              </MenubarItem>
-              <MenubarSeparator className="my-1.5" />
-              <MenubarItem
-                disabled
-                className="justify-center gap-2 rounded-lg bg-foreground font-semibold text-background"
-                aria-disabled="true"
-              >
-                <Heart className="size-4" /> DONATE
               </MenubarItem>
             </MenubarContent>
           </MenubarPortal>
