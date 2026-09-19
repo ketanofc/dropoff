@@ -198,7 +198,7 @@
 
 .intro-bar {
   height: 1px;
-  width: 120px;
+  width: min(420px, 82vw);
   overflow: hidden;
   background: rgb(255 255 255 / 0.25);
 }
