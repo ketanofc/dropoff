@@ -13,13 +13,13 @@ export const Route = createFileRoute("/receive/$id")({
     const url = `${SITE_URL}/receive/${ctx.params.id}`;
     return {
       meta: [
-        { title: "incoming file – dropoff.lol" },
+        { title: "Someone is sending you a file – dropoff.lol" },
         {
           name: "description",
           content: "Receive a file sent directly from another browser with dropoff.lol.",
         },
         { name: "robots", content: "noindex, nofollow" },
-        { property: "og:title", content: "incoming file – dropoff.lol" },
+        { property: "og:title", content: "Someone is sending you a file – dropoff.lol" },
         {
           property: "og:description",
           content: "Receive a file sent directly from another browser.",
@@ -159,11 +159,13 @@ function Receive() {
                 )
               ) : multiple ? (
                 <>
-                  Someone is sending <span className="font-normal italic">you</span> files
+                  Someone is sending <span className="font-normal italic">you</span> files from
+                  their browser
                 </>
               ) : (
                 <>
-                  Someone is sending <span className="font-normal italic">you</span> a file
+                  Someone is sending <span className="font-normal italic">you</span> a file from
+                  their browser
                 </>
               )}
             </TextAnimate>

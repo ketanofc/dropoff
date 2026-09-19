@@ -13,13 +13,13 @@ import illustrationAsset from "../assets/transfer-illustration.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "dropoff.lol – private, browser-to-browser file sharing" },
+      { title: "dropoff.lol – file sharing!" },
       {
         name: "description",
         content:
           "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
       },
-      { property: "og:title", content: "dropoff.lol – private, browser-to-browser file sharing" },
+      { property: "og:title", content: "dropoff.lol – file sharing!" },
       { property: "og:description", content: "Send files peer to peer, right from your browser." },
       { property: "og:type", content: "website" },
       ogUrl("/"),
@@ -160,16 +160,16 @@ function Index() {
     <Shell>
       <section className="pt-[70px] sm:pt-20 lg:pt-28">
         <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
-          <div className="min-w-0 max-w-[440px]">
+          <div className="mx-auto min-w-0 max-w-[440px] text-center lg:mx-0 lg:text-left">
             <TextAnimate
               animation="blurIn"
               as="h1"
-              className="max-w-[380px] font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:max-w-[420px] sm:text-[48px] lg:max-w-none lg:text-[60px] lg:leading-[1.03]"
+              className="mx-auto max-w-[380px] font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:max-w-[420px] sm:text-[48px] lg:mx-0 lg:max-w-none lg:text-[60px] lg:leading-[1.03]"
             >
               Send files peer to peer, right from <span className="font-normal italic">your</span>{" "}
               browser
             </TextAnimate>
-            <p className="mt-7 text-[15px] leading-6 text-muted-foreground lg:mt-8 lg:text-[17px] lg:leading-7">
+            <p className="mt-7 text-[15px] leading-6 text-muted-foreground lg:mt-8 lg:text-left lg:text-[17px] lg:leading-7">
               Send files straight from your browser. Nothing is permanently uploaded, and no account
               is required.
             </p>
