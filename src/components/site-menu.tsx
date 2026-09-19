@@ -22,8 +22,8 @@ function DoubleLineIcon() {
       className="size-6"
       aria-hidden="true"
     >
-      <path d="M4 7h16" />
-      <path d="M4 17h16" />
+      <path d="M6.5 8h11" />
+      <path d="M6.5 16h11" />
     </svg>
   );
 }
