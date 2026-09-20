@@ -244,19 +244,25 @@ function Index() {
 
               {phase === "idle" && (
                 <>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="h-12 w-full rounded-full text-sm"
-                    onClick={openFilePicker}
-                  >
-                    <Plus className="size-4" />
-                    Add more files
-                  </Button>
-                  <Button className="h-14 w-full rounded-full text-base" onClick={startTransfer}>
-                    Start transfer
-                    {files.length > 1 ? ` (${files.length} files, ${formatBytes(totalSize)})` : ""}
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-12 flex-1 rounded-full text-sm"
+                      onClick={openFilePicker}
+                    >
+                      <Plus className="size-4" />
+                      Add more
+                    </Button>
+                    <Button className="h-14 flex-1 rounded-full text-base" onClick={startTransfer}>
+                      Start transfer
+                    </Button>
+                  </div>
+                  {files.length > 1 && (
+                    <p className="mt-2 text-center text-xs text-muted-foreground">
+                      {files.length} files · {formatBytes(totalSize)}
+                    </p>
+                  )}
                 </>
               )}
 
@@ -312,7 +318,7 @@ function Index() {
                             )}
                           </div>
                           <p className="mt-3 text-xs text-muted-foreground">
-                            Keep this tab open. The link breaks if you close it.
+                            Leave this tab open, dropoff.lol does not store files.
                           </p>
                         </div>
                       </div>
