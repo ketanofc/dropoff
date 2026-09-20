@@ -210,158 +210,158 @@ function Index() {
               />
             </div>
           ) : (
-            <div className="mt-10 min-w-0 space-y-5">
-              <div className="grid w-full min-w-0 gap-3 md:grid-cols-2">
-                {files.map((file, index) => (
-                  <div
-                    key={index}
-                    className={`flex min-h-16 min-w-0 items-center gap-3 rounded-xl bg-secondary p-3 ${
-                      files.length === 1 ? "md:col-span-full" : ""
-                    }`}
-                  >
-                    <FileKindIcon name={file.name} mime={file.type} />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold">{file.name}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        {fileKindLabel(file.name, file.type)} · {formatBytes(file.size)}
-                        {phase === "idle" ? " · ready to share" : ""}
-                      </p>
+            <div className="mt-10 min-w-0 space-y-5 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-14 lg:items-start">
+              <div className="space-y-5">
+                {phase === "idle" && (
+                  <>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-12 w-full rounded-full text-sm lg:w-auto"
+                      onClick={openFilePicker}
+                    >
+                      <Plus className="size-4" />
+                      Add more files
+                    </Button>
+                    <Button className="h-14 w-full rounded-full text-base lg:w-auto" onClick={startTransfer}>
+                      Start transfer
+                      {files.length > 1 ? ` (${files.length} files, ${formatBytes(totalSize)})` : ""}
+                    </Button>
+                  </>
+                )}
+                {(phase === "preparing" || phase === "waiting") && (
+                  <div className="rounded-xl border border-border p-5 sm:p-6">
+                    <div className="flex items-center gap-2.5 text-sm font-medium">
+                      <span aria-hidden="true" className="relative flex size-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+                      </span>
+                      Share this link
                     </div>
-                    {phase === "idle" && (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-9 rounded-full"
-                        aria-label="Remove file"
-                        onClick={() => removeFile(index)}
-                      >
-                        <X className="size-5" />
-                      </Button>
+                    <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
+                    {link && (
+                      <>
+                        <div className="mt-4 flex min-w-0 items-start gap-4">
+                          <div className="shrink-0 max-w-full rounded-lg bg-white p-2">
+                            <QRCodeSVG
+                              value={link}
+                              size={120}
+                              level="Q"
+                              fgColor="#000000"
+                              bgColor="#ffffff"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex min-w-0 items-center gap-2 rounded-xl border border-input bg-background px-4 py-2.5">
+                              <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
+                              <button
+                                onClick={copyLink}
+                                aria-label="Copy link"
+                                className="shrink-0 rounded-full p-1 text-muted-foreground hover:text-foreground"
+                              >
+                                {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                              </button>
+                            </div>
+                            <div className="mt-3 flex gap-2">
+                              <Button className="min-w-0 flex-1 rounded-xl" onClick={copyLink}>
+                                {copied ? "Copied" : "Copy"}
+                              </Button>
+                              {typeof navigator !== "undefined" && "share" in navigator && (
+                                <Button
+                                  variant="outline"
+                                  className="min-w-0 flex-1 rounded-xl"
+                                  onClick={() =>
+                                    navigator
+                                      .share({ title: "dropoff.lol", url: link })
+                                      .catch(() => {})
+                                  }
+                                >
+                                  <Share2 className="size-4" /> Share
+                                </Button>
+                              )}
+                            </div>
+                            <p className="mt-3 text-xs text-muted-foreground">
+                              Keep this tab open. The link breaks if you close it.
+                            </p>
+                          </div>
+                        </div>
+                      </>
                     )}
                   </div>
-                ))}
+                )}
+                {phase === "transferring" && (
+                  <div className="rounded-xl border border-border p-5 sm:p-6">
+                    <p className="text-sm font-medium">Transferring…</p>
+                    <Progress value={percent} />
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
+                    </p>
+                  </div>
+                )}
+                {phase === "complete" && (
+                  <div className="rounded-xl border border-border p-5 sm:p-6">
+                    <p className="text-sm font-medium">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />{" "}
+                      Transfer complete
+                    </p>
+                    <p className="mt-2 text-[13px] text-muted-foreground">
+                      {files.length === 1
+                        ? "The file was delivered to the recipient."
+                        : `All ${files.length} files were delivered to the recipient.`}
+                    </p>
+                    <Button variant="outline" className="mt-4 w-full rounded-full lg:w-auto" onClick={reset}>
+                      Send another file
+                    </Button>
+                  </div>
+                )}
+                {phase === "error" && (
+                  <div className="rounded-xl border border-border p-5 sm:p-6">
+                    <p className="text-sm font-medium">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500" /> Transfer
+                      stopped
+                    </p>
+                    <p className="mt-2 text-[13px] text-muted-foreground">
+                      {message || "The connection was lost."}
+                    </p>
+                    <Button variant="outline" className="mt-4 w-full rounded-full lg:w-auto" onClick={reset}>
+                      Start over
+                    </Button>
+                  </div>
+                )}
               </div>
 
-              {phase === "idle" && (
-                <>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="h-12 w-full rounded-full text-sm"
-                    onClick={openFilePicker}
-                  >
-                    <Plus className="size-4" />
-                    Add more files
-                  </Button>
-                  <Button className="h-14 w-full rounded-full text-base" onClick={startTransfer}>
-                    Start transfer
-                    {files.length > 1 ? ` (${files.length} files, ${formatBytes(totalSize)})` : ""}
-                  </Button>
-                </>
-              )}
-
-              {(phase === "preparing" || phase === "waiting") && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <div className="flex items-center gap-2.5 text-sm font-medium">
-                    <span aria-hidden="true" className="relative flex size-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-                    </span>
-                    Share this link
-                  </div>
-                  <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
-                  {link && (
-                    <>
-                      <div className="mt-4 flex min-w-0 items-start gap-4">
-                        <div className="shrink-0 max-w-full rounded-lg bg-white p-2">
-                          <QRCodeSVG
-                            value={link}
-                            size={120}
-                            level="Q"
-                            fgColor="#000000"
-                            bgColor="#ffffff"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex min-w-0 items-center gap-2 rounded-xl border border-input bg-background px-4 py-2.5">
-                            <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
-                            <button
-                              onClick={copyLink}
-                              aria-label="Copy link"
-                              className="shrink-0 rounded-full p-1 text-muted-foreground hover:text-foreground"
-                            >
-                              {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-                            </button>
-                          </div>
-                          <div className="mt-3 flex gap-2">
-                            <Button className="min-w-0 flex-1 rounded-xl" onClick={copyLink}>
-                              {copied ? "Copied" : "Copy"}
-                            </Button>
-                            {typeof navigator !== "undefined" && "share" in navigator && (
-                              <Button
-                                variant="outline"
-                                className="min-w-0 flex-1 rounded-xl"
-                                onClick={() =>
-                                  navigator
-                                    .share({ title: "dropoff.lol", url: link })
-                                    .catch(() => {})
-                                }
-                              >
-                                <Share2 className="size-4" /> Share
-                              </Button>
-                            )}
-                          </div>
-                          <p className="mt-3 text-xs text-muted-foreground">
-                            Keep this tab open. The link breaks if you close it.
-                          </p>
-                        </div>
+              <div className="hidden lg:block">
+                <div className="grid w-full min-w-0 gap-3 md:grid-cols-2">
+                  {files.map((file, index) => (
+                    <div
+                      key={index}
+                      className={`flex min-h-16 min-w-0 items-center gap-3 rounded-xl bg-secondary p-3 ${
+                        files.length === 1 ? "md:col-span-full" : ""
+                      }`}
+                    >
+                      <FileKindIcon name={file.name} mime={file.type} />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold">{file.name}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {fileKindLabel(file.name, file.type)} · {formatBytes(file.size)}
+                          {phase === "idle" ? " · ready to share" : ""}
+                        </p>
                       </div>
-                    </>
-                  )}
+                      {phase === "idle" && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="size-9 rounded-full"
+                          aria-label="Remove file"
+                          onClick={() => removeFile(index)}
+                        >
+                          <X className="size-5" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              )}
-
-              {phase === "transferring" && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <p className="text-sm font-medium">Transferring…</p>
-                  <Progress value={percent} />
-                  <p className="mt-3 text-xs text-muted-foreground">
-                    {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
-                  </p>
-                </div>
-              )}
-
-              {phase === "complete" && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <p className="text-sm font-medium">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />{" "}
-                    Transfer complete
-                  </p>
-                  <p className="mt-2 text-[13px] text-muted-foreground">
-                    {files.length === 1
-                      ? "The file was delivered to the recipient."
-                      : `All ${files.length} files were delivered to the recipient.`}
-                  </p>
-                  <Button variant="outline" className="mt-4 w-full rounded-full" onClick={reset}>
-                    Send another file
-                  </Button>
-                </div>
-              )}
-
-              {phase === "error" && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <p className="text-sm font-medium">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500" /> Transfer
-                    stopped
-                  </p>
-                  <p className="mt-2 text-[13px] text-muted-foreground">
-                    {message || "The connection was lost."}
-                  </p>
-                  <Button variant="outline" className="mt-4 w-full rounded-full" onClick={reset}>
-                    Start over
-                  </Button>
-                </div>
-              )}
+              </div>
             </div>
           )}
         </div>
