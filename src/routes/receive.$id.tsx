@@ -65,7 +65,17 @@ function Receive() {
     (async () => {
       try {
         const { default: Peer } = await import("peerjs");
-        const peer = new Peer();
+        const peer = new Peer({
+          config: {
+            iceServers: [
+              { urls: "stun:stun.l.google.com:19302" },
+              { urls: "stun:stun1.l.google.com:19302" },
+              { urls: "stun:stun2.l.google.com:19302" },
+              { urls: "stun:stun3.l.google.com:19302" },
+              { urls: "stun:stun4.l.google.com:19302" },
+            ],
+          },
+        });
         peerRef.current = peer;
 
         peer.on("error", (error) => {
