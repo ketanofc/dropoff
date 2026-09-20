@@ -143,7 +143,7 @@ function Receive() {
 
   return (
     <Shell>
-      <section className="pt-[88px] sm:pt-24 lg:pt-32">
+      <section className="pt-16 sm:pt-20 lg:pt-24">
         <div className="mx-auto w-full max-w-[720px]">
           <TextAnimate
             animation="blurIn"
