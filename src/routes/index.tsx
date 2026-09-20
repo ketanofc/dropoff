@@ -191,7 +191,7 @@ function Index() {
             <div className="mt-10 lg:mt-8">
               <Button
                 type="button"
-                className="mx-auto h-14 w-full max-w-[420px] rounded-full text-base lg:w-auto lg:max-w-none lg:mx-0"
+                className="mx-auto h-14 w-full max-w-[420px] rounded-full text-base lg:mx-auto"
                 onClick={openFilePicker}
               >
                 <Upload className="size-4" />
@@ -203,6 +203,11 @@ function Index() {
                   our terms
                 </a>
               </p>
+              <img
+                src={illustrationAsset.url}
+                alt="Two people transferring files directly between their browsers"
+                className="mx-auto mt-10 block h-auto w-full max-w-[380px] object-contain sm:max-w-[420px] lg:hidden"
+              />
             </div>
           ) : (
             <div className="mt-10 min-w-0 space-y-5">
