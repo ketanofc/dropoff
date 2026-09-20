@@ -193,7 +193,7 @@ function Receive() {
                   Accept & download
                 </Button>
                 <Button
-                  variant="outline"
+                  variant="destructive"
                   className="h-14 flex-1 rounded-full text-base"
                   onClick={() => {
                     connRef.current?.send({ kind: "decline" });
@@ -218,21 +218,13 @@ function Receive() {
           )}
 
           {phase === "done" && (
-            <Button
-              variant="outline"
-              className="mt-7 w-full rounded-full sm:mt-8"
-              onClick={() => window.location.assign("/")}
-            >
+            <Button className="mt-7 w-full rounded-full sm:mt-8" onClick={() => window.location.assign("/")}>
               Send a file instead
             </Button>
           )}
 
           {phase === "error" && (
-            <Button
-              variant="outline"
-              className="mt-7 w-full rounded-full sm:mt-8"
-              onClick={() => window.location.assign("/")}
-            >
+            <Button className="mt-7 w-full rounded-full sm:mt-8" onClick={() => window.location.assign("/")}>
               Send a file instead
             </Button>
           )}

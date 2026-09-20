@@ -244,20 +244,17 @@ function Index() {
 
               {phase === "idle" && (
                 <>
-                  <div className="flex gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="h-12 flex-1 rounded-full text-sm"
-                      onClick={openFilePicker}
-                    >
-                      <Plus className="size-4" />
-                      Add more
-                    </Button>
-                    <Button className="h-14 flex-1 rounded-full text-base" onClick={startTransfer}>
-                      Start transfer
-                    </Button>
-                  </div>
+                  <Button
+                    type="button"
+                    className="h-12 w-full rounded-full text-sm"
+                    onClick={openFilePicker}
+                  >
+                    <Plus className="size-4" />
+                    Add more files
+                  </Button>
+                  <Button className="h-14 w-full rounded-full text-base mt-2" onClick={startTransfer}>
+                    Start transfer
+                  </Button>
                   {files.length > 1 && (
                     <p className="mt-2 text-center text-xs text-muted-foreground">
                       {files.length} files · {formatBytes(totalSize)}
@@ -304,15 +301,11 @@ function Index() {
                               {copied ? "Copied" : "Copy"}
                             </Button>
                             {typeof navigator !== "undefined" && "share" in navigator && (
-                              <Button
-                                variant="outline"
-                                className="min-w-0 flex-1 rounded-xl"
-                                onClick={() =>
-                                  navigator
-                                    .share({ title: "dropoff.lol", url: link })
-                                    .catch(() => {})
-                                }
-                              >
+                              <Button className="min-w-0 flex-1 rounded-xl" onClick={() =>
+                                navigator
+                                  .share({ title: "dropoff.lol", url: link })
+                                  .catch(() => {})
+                              }>
                                 <Share2 className="size-4" /> Share
                               </Button>
                             )}
@@ -348,7 +341,7 @@ function Index() {
                       ? "The file was delivered to the recipient."
                       : `All ${files.length} files were delivered to the recipient.`}
                   </p>
-                  <Button variant="outline" className="mt-4 w-full rounded-full" onClick={reset}>
+                  <Button className="mt-4 w-full rounded-full" onClick={reset}>
                     Send another file
                   </Button>
                 </div>
@@ -363,7 +356,7 @@ function Index() {
                   <p className="mt-2 text-[13px] text-muted-foreground">
                     {message || "The connection was lost."}
                   </p>
-                  <Button variant="outline" className="mt-4 w-full rounded-full" onClick={reset}>
+                  <Button className="mt-4 w-full rounded-full" onClick={reset}>
                     Start over
                   </Button>
                 </div>
