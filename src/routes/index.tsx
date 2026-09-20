@@ -191,7 +191,7 @@ function Index() {
             <div className="mt-10 lg:mt-8 text-center">
               <Button
                 type="button"
-                className="h-14 w-auto max-w-[480px] rounded-full text-base inline-flex"
+                className="h-14 w-auto max-w-[800px] rounded-full text-base inline-flex"
                 onClick={openFilePicker}
               >
                 <Upload className="size-4" />
