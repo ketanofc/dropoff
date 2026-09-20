@@ -19,6 +19,8 @@ export const buttonVariants = cva(
         ghost:
           "bg-transparent text-slate-600 px-6 py-2 hover:bg-slate-100 hover:brightness-110 hover:-translate-y-[1px] active:bg-slate-200 active:brightness-90 active:translate-y-[2px]",
         link: "text-blue-500 underline-offset-4 hover:underline",
+        pink:
+          "bg-[#fd60a9] text-white px-6 py-2 border-b-[4px] border-[#e04d8f] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:brightness-90 active:translate-y-[2px] active:border-b-[2px]",
       },
       size: {
         default: "h-12 px-6 py-2 text-base",

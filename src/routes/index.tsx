@@ -191,7 +191,7 @@ function Index() {
             <div className="mt-10 lg:mt-8">
               <Button
                 type="button"
-                className="mx-auto h-14 w-full max-w-[420px] rounded-full text-base lg:mx-auto"
+                className="mx-auto h-14 w-full max-w-[360px] rounded-full text-base lg:mx-auto"
                 onClick={openFilePicker}
               >
                 <Upload className="size-4" />
@@ -246,20 +246,17 @@ function Index() {
                 <>
                   <Button
                     type="button"
+                    variant="pink"
                     className="h-12 w-full rounded-full text-sm"
                     onClick={openFilePicker}
                   >
                     <Plus className="size-4" />
                     Add more files
                   </Button>
-                  <Button className="h-14 w-full rounded-full text-base mt-2" onClick={startTransfer}>
+                  <Button className="h-14 w-full rounded-full text-base mt-1" onClick={startTransfer}>
                     Start transfer
+                    {files.length > 1 ? ` ({files.length} files, {formatBytes(totalSize)})` : ""}
                   </Button>
-                  {files.length > 1 && (
-                    <p className="mt-2 text-center text-xs text-muted-foreground">
-                      {files.length} files · {formatBytes(totalSize)}
-                    </p>
-                  )}
                 </>
               )}
 
@@ -297,7 +294,7 @@ function Index() {
                             </button>
                           </div>
                           <div className="mt-3 flex gap-2">
-                            <Button className="min-w-0 flex-1 rounded-xl" onClick={copyLink}>
+                            <Button variant="pink" className="min-w-0 flex-1 rounded-xl" onClick={copyLink}>
                               {copied ? "Copied" : "Copy"}
                             </Button>
                             {typeof navigator !== "undefined" && "share" in navigator && (
