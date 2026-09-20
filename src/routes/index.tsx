@@ -210,11 +210,13 @@ function Index() {
             </div>
           ) : (
             <div className="mt-10 min-w-0 space-y-5">
-              <div className="space-y-3">
+              <div className="grid w-full min-w-0 gap-3 md:grid-cols-2">
                 {files.map((file, index) => (
                   <div
                     key={index}
-                    className="flex min-h-16 min-w-0 items-center gap-3 rounded-xl bg-secondary p-3"
+                    className={`flex min-h-16 min-w-0 items-center gap-3 rounded-xl bg-secondary p-3 ${
+                      files.length === 1 ? "md:col-span-full" : ""
+                    }`}
                   >
                     <FileKindIcon name={file.name} mime={file.type} />
                     <div className="min-w-0 flex-1">
