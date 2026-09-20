@@ -188,10 +188,10 @@ function Index() {
           />
 
           {files.length === 0 ? (
-            <div className="mt-10 lg:mt-8 text-center">
+            <div className="mt-10 lg:mt-8 text-center lg:text-left">
               <Button
                 type="button"
-                className="h-14 w-auto max-w-[440px] rounded-full text-base inline-flex"
+                className="h-14 w-auto max-w-[440px] rounded-full text-base inline-flex lg:mx-0"
                 onClick={openFilePicker}
               >
                 <Upload className="size-4" />
