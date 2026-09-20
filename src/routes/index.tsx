@@ -175,12 +175,6 @@ function Index() {
               Send files straight from your browser. Nothing is permanently uploaded, and no account
               is required.
             </p>
-            <p className="mt-3 text-center text-xs text-muted-foreground lg:text-left">
-              Selecting a file constitutes agreement to{" "}
-              <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
-                our terms
-              </a>
-            </p>
 
           <input
             ref={inputRef}
@@ -208,6 +202,12 @@ function Index() {
                 alt="Two people transferring files directly between their browsers"
                 className="mx-auto mt-10 block h-auto w-full max-w-[380px] object-contain sm:max-w-[420px] lg:hidden"
               />
+              <p className="mt-3 text-center text-xs text-muted-foreground lg:text-left">
+                Selecting a file constitutes agreement to{" "}
+                <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
+                  our terms
+                </a>
+              </p>
             </div>
           ) : (
             <div className="mt-10 min-w-0 space-y-5">
