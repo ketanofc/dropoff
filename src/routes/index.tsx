@@ -161,7 +161,7 @@ function Index() {
     <Shell>
       <IntroOverlay />
       <section className="pt-16 sm:pt-20 lg:pt-24">
-        <div className="mx-auto w-full max-w-[720px]">
+        <div className="mx-auto w-full max-w-[720px] lg:max-w-4xl">
           <TextAnimate
             animation="blurIn"
             as="h1"

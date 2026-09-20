@@ -144,7 +144,7 @@ function Receive() {
   return (
     <Shell>
       <section className="pt-16 sm:pt-20 lg:pt-24">
-        <div className="mx-auto w-full max-w-[720px]">
+        <div className="mx-auto w-full max-w-[720px] lg:max-w-4xl">
           <TextAnimate
             animation="blurIn"
             as="h1"
@@ -239,7 +239,7 @@ function Receive() {
         </div>
 
         {files.length > 0 && (
-          <div className="mx-auto mt-10 grid w-full max-w-[720px] min-w-0 gap-3 md:grid-cols-2">
+          <div className="mx-auto mt-10 grid w-full max-w-[720px] min-w-0 gap-3 md:grid-cols-2 lg:max-w-4xl">
             {files.map((file, index) => (
               <div
                 key={index}
