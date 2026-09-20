@@ -161,19 +161,20 @@ function Index() {
     <Shell>
       <IntroOverlay />
       <section className="pt-16 sm:pt-20 lg:pt-24">
-        <div className="mx-auto w-full max-w-[720px] lg:max-w-4xl">
-          <TextAnimate
-            animation="blurIn"
-            as="h1"
-            className="mx-auto mt-5 max-w-[640px] text-balance text-center font-serif text-[38px] font-normal leading-[1.06] tracking-normal sm:text-[46px] sm:leading-[1.04] lg:text-[56px] lg:leading-[1.03]"
-          >
-            Send files peer to peer, right from{" "}
-            <span className="font-normal italic text-[#fd60a9]">your</span> browser
-          </TextAnimate>
-          <p className="mx-auto mt-6 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground lg:text-[17px] lg:leading-7">
-            Send files straight from your browser. Nothing is permanently uploaded, and no account
-            is required.
-          </p>
+        <div className="mx-auto w-full max-w-[720px] lg:grid lg:max-w-none lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-center lg:gap-14">
+          <div className="min-w-0">
+            <TextAnimate
+              animation="blurIn"
+              as="h1"
+              className="mx-auto mt-5 max-w-[640px] text-balance text-center font-serif text-[38px] font-normal leading-[1.06] tracking-normal sm:text-[46px] sm:leading-[1.04] lg:mx-0 lg:max-w-none lg:text-left lg:text-[56px] lg:leading-[1.03]"
+            >
+              Send files peer to peer, right from{" "}
+              <span className="font-normal italic text-[#fd60a9]">your</span> browser
+            </TextAnimate>
+            <p className="mx-auto mt-6 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground lg:mx-0 lg:max-w-none lg:text-left lg:text-[17px] lg:leading-7">
+              Send files straight from your browser. Nothing is permanently uploaded, and no account
+              is required.
+            </p>
 
           <input
             ref={inputRef}
@@ -187,26 +188,21 @@ function Index() {
           />
 
           {files.length === 0 ? (
-            <div className="mt-10">
+            <div className="mt-10 lg:mt-8">
               <Button
                 type="button"
-                className="mx-auto h-14 w-full max-w-[420px] rounded-full text-base lg:w-auto lg:max-w-none"
+                className="mx-auto h-14 w-full max-w-[420px] rounded-full text-base lg:w-auto lg:max-w-none lg:mx-0"
                 onClick={openFilePicker}
               >
                 <Upload className="size-4" />
                 Select a file to share
               </Button>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
+              <p className="mt-3 text-center text-xs text-muted-foreground lg:text-left">
                 Selecting a file constitutes agreement to{" "}
                 <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
                   our terms
                 </a>
               </p>
-              <img
-                src={illustrationAsset.url}
-                alt="Two people transferring files directly between their browsers"
-                className="mx-auto mt-10 block h-auto w-full max-w-[380px] object-contain sm:max-w-[420px]"
-              />
             </div>
           ) : (
             <div className="mt-10 min-w-0 space-y-5">
@@ -364,6 +360,16 @@ function Index() {
             </div>
           )}
         </div>
+        {files.length === 0 && (
+          <div className="hidden lg:block">
+            <img
+              src={illustrationAsset.url}
+              alt="Two people transferring files directly between their browsers"
+              className="mx-auto h-auto w-full max-w-[420px] object-contain"
+            />
+          </div>
+        )}
+      </div>
       </section>
     </Shell>
   );
