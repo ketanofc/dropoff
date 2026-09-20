@@ -175,6 +175,12 @@ function Index() {
               Send files straight from your browser. Nothing is permanently uploaded, and no account
               is required.
             </p>
+            <p className="mt-3 text-center text-xs text-muted-foreground lg:text-left">
+              Selecting a file constitutes agreement to{" "}
+              <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
+                our terms
+              </a>
+            </p>
 
           <input
             ref={inputRef}
@@ -197,12 +203,6 @@ function Index() {
                 <Upload className="size-4" />
                 Select a file to share
               </Button>
-              <p className="mt-3 text-center text-xs text-muted-foreground lg:text-left">
-                Selecting a file constitutes agreement to{" "}
-                <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
-                  our terms
-                </a>
-              </p>
               <img
                 src={illustrationAsset.url}
                 alt="Two people transferring files directly between their browsers"
@@ -255,7 +255,7 @@ function Index() {
                   </Button>
                   <Button className="h-14 w-full rounded-full text-base mt-1" onClick={startTransfer}>
                     Start transfer
-                    {files.length > 1 ? ` ({files.length} files, {formatBytes(totalSize)})` : ""}
+                    {files.length > 1 && ` (${files.length} files, ${formatBytes(totalSize)})`}
                   </Button>
                 </>
               )}
