@@ -50,12 +50,12 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <Shell>
-      <section className="pt-[88px] sm:pt-24 lg:pt-32">
+      <section className="pt-16 sm:pt-20 lg:pt-24">
         <div className="mx-auto w-full max-w-[720px]">
           <TextAnimate
             animation="blurIn"
             as="h1"
-            className="mx-auto mt-5 text-balance text-center font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:text-[48px] lg:text-[60px] lg:leading-[1.03]"
+            className="mx-auto mt-4 text-balance text-center font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:text-[48px] sm:leading-[1.05] lg:text-[60px] lg:leading-[1.04]"
           >
             About us
           </TextAnimate>

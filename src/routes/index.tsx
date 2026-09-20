@@ -160,17 +160,18 @@ function Index() {
   return (
     <Shell>
       <IntroOverlay />
-      <section className="pt-[88px] sm:pt-24 lg:pt-32">
+      <section className="pt-16 sm:pt-20 lg:pt-24">
         <div className="mx-auto w-full max-w-[720px]">
           <TextAnimate
             animation="blurIn"
             as="h1"
-            className="mx-auto mt-5 max-w-[680px] text-balance text-center font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:text-[48px] sm:leading-[1.04] lg:text-[60px] lg:leading-[1.03]"
+            className="mx-auto mt-5 max-w-[680px] text-balance text-center font-serif text-[38px] font-normal leading-[1.08] tracking-normal sm:text-[48px] sm:leading-[1.05] lg:text-[60px] lg:leading-[1.04]"
           >
-            Send files peer to peer, right from{" "}
-            <span className="font-normal italic text-[#fd60a9]">your</span> browser
+            Send files peer to peer,
+            <br /> right from <span className="font-normal italic text-[#fd60a9]">your</span>{" "}
+            browser
           </TextAnimate>
-          <p className="mx-auto mt-7 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground lg:text-[17px] lg:leading-7">
+          <p className="mx-auto mt-6 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground lg:text-[17px] lg:leading-7">
             Send files straight from your browser. Nothing is permanently uploaded, and no account
             is required.
           </p>
