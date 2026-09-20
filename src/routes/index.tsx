@@ -190,7 +190,7 @@ function Index() {
             <div className="mt-10">
               <Button
                 type="button"
-                className="mx-auto h-14 w-full max-w-[420px] rounded-full text-base"
+                className="mx-auto h-14 w-full max-w-[420px] rounded-full text-base lg:w-auto lg:max-w-none"
                 onClick={openFilePicker}
               >
                 <Upload className="size-4" />
