@@ -198,7 +198,7 @@ function Index() {
               <span className="font-normal italic text-[#fd60a9]">Your</span> Browser
             </TextAnimate>
             <p className="mx-auto mt-6 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground lg:mx-0 lg:max-w-none lg:text-left lg:text-[17px] lg:leading-7">
-  nothing is permanently uploaded, and no account is required.
+  peer to peer file sharing, no permanent uploads, and no account required.
 </p>
 
           <input
