@@ -194,12 +194,11 @@ function Index() {
               as="h1"
               className="mx-auto mt-5 max-w-[640px] text-balance text-center font-serif text-[38px] font-normal leading-[1.06] tracking-normal sm:text-[46px] sm:leading-[1.04] lg:mx-0 lg:max-w-none lg:text-left lg:text-[56px] lg:leading-[1.03]"
             >
-              Send files peer to peer, right from{" "}
-              <span className="font-normal italic text-[#fd60a9]">your</span> browser
+              Send Files Right From {" "}
+              <span className="font-normal italic text-[#fd60a9]">Your</span> Browser
             </TextAnimate>
             <p className="mx-auto mt-6 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground lg:mx-0 lg:max-w-none lg:text-left lg:text-[17px] lg:leading-7">
-              Send files straight from your browser. Nothing is permanently uploaded, and no account
-              is required.
+              nothing is permanently uploaded, and no account is required.
             </p>
 
           <input
