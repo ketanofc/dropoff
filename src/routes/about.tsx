@@ -124,7 +124,7 @@ function About() {
               In our opinion: file transfer as it should be.
             </p>
             <img
-              src={SOLUTION_IMG}
+              src= "https://i.ibb.co/SXsMxM5W/illustration.png"
               alt="Two people transferring a file directly between their browsers with dropoff.lol"
               loading="lazy"
               className="my-8 w-full max-w-[560px] rounded-lg"
