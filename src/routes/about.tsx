@@ -5,7 +5,7 @@ import { TextAnimate } from "../components/text-animate";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
 const INSPIRATION_IMG = "https://i.ibb.co/ZQ8pQCX/inspiration-dropoff.png";
-const SOLUTION_IMG = "https://i.ibb.co/qMyT5c8B/img1.png";
+const SOLUTION_IMG = "https://i.ibb.co/WvvdfYQn/illustration.png";
 const SOURCE_URL = "https://github.com/ketanofc/dropoff";
 
 export const Route = createFileRoute("/about")({
@@ -124,7 +124,7 @@ function About() {
               In our opinion: file transfer as it should be.
             </p>
             <img
-              src= "https://i.ibb.co/SXsMxM5W/illustration.png"
+              src= "https://i.ibb.co/WvvdfYQn/illustration.png"
               alt="Two people transferring a file directly between their browsers with dropoff.lol"
               loading="lazy"
               className="my-8 w-full max-w-[560px] rounded-lg"
