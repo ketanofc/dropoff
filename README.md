@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.ibb.co/qMyT5c8B/img1.png" alt="dropoff.lol – two people sharing a file directly between their browsers" width="55%" />
+  <img src="https://i.ibb.co/SXsMxM5W/illustration.png" alt="dropoff.lol – two people sharing a file directly between their browsers" width="55%" />
   <h1>dropoff.lol</h1>
   <h3>Send files peer to peer, right from your browser</h3>
   <p><em>Nothing is permanently uploaded. No account required. No sign-ups.</em></p>
