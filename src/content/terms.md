@@ -1,4 +1,4 @@
-﻿**Last Updated: September 18, 2026**
+﻿**Last Updated: September 2026**
 
 Welcome to **dropoff.lol**. These Terms explain the rules for using the dropoff.lol website and its file-sharing services. By accessing or using dropoff.lol, you agree to these terms. If you do not agree with any part of these terms, please do not use the service.
 
