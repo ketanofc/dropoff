@@ -22,7 +22,7 @@ browsers** – there is no upload step, no intermediary storage, and nothing is
 ever permanently uploaded to a server. Because the data moves straight from one
 device to the other, transfers stay fast, private, and cheap to run.
 
-Try it at **[dropofflol.vercel.app](https://dropofflol.vercel.app)**.
+Try it at **[dropoff.lol](https://dropoff.lol)**.
 
 ## Features
 
@@ -150,8 +150,8 @@ npm run build
 npx nitro deploy --prebuilt
 ```
 
-The live site is hosted on **Vercel** at
-[dropofflol.vercel.app](https://dropofflol.vercel.app).
+The live site is hosted on **Cloudflare** at
+[dropoff.lol](https://dropoff.lol).
 
 ## FAQ
 
