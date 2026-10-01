@@ -11,13 +11,13 @@ import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "dropoff.lol – peer to peer file sharing" },
+      { title: "dropoff – file sharing!" },
       {
         name: "description",
         content:
           "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
       },
-      { property: "og:title", content: "dropoff.lol – peer to peer file sharing" },
+      { property: "og:title", content: "dropoff – file sharing!" },
       {
         property: "og:description",
         content:
@@ -272,33 +272,34 @@ function Index() {
           <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">{message}</p>
 
           {link ? (
-            <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-3xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:gap-7">
-              <div className="flex w-full shrink-0 justify-center sm:w-auto">
+            <div className="mx-auto mt-8 w-full max-w-xl overflow-hidden rounded-3xl border border-border bg-card sm:max-w-2xl">
+              <div className="flex justify-center bg-muted px-5 py-8 sm:px-8 sm:py-10">
                 <QRCodeSVG
                   value={link}
-                  size={132}
+                  size={280}
                   level="Q"
                   fgColor="#000000"
                   bgColor="#ffffff"
-                  className="h-auto w-full max-w-[132px] rounded-2xl"
+                  className="h-auto w-full max-w-[190px] sm:max-w-[280px]"
                 />
               </div>
 
-              <div className="min-w-0 flex-1 text-center sm:text-left">
-                <p className="break-all font-mono text-xs leading-relaxed text-muted-foreground">
+              <div className="border-t border-border px-5 py-6 text-center sm:px-8 sm:py-7">
+                <p className="break-all font-mono text-xs leading-relaxed text-muted-foreground sm:text-sm">
                   {link}
                 </p>
 
-                <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-                  <Button onClick={copyLink}>
+                <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+                  <Button className="w-full sm:w-auto" onClick={copyLink}>
                     {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
                     {copied ? "Copied" : "Copy link"}
                   </Button>
                   {canShare && (
                     <Button
                       variant="outline"
+                      className="w-full sm:w-auto"
                       onClick={() =>
-                        navigator.share({ title: "dropoff.lol", url: link }).catch(() => {})
+                        navigator.share({ title: "dropoff", url: link }).catch(() => {})
                       }
                     >
                       <Share2 className="size-4" />
@@ -307,13 +308,13 @@ function Index() {
                   )}
                 </div>
 
-                <p className="mt-5 text-xs text-muted-foreground">
-                  Leave this tab open, dropoff.lol does not store files.
+                <p className="mt-6 text-xs text-muted-foreground">
+                  Leave this tab open, dropoff does not store files.
                 </p>
               </div>
             </div>
           ) : (
-            <div className="mx-auto mt-8 max-w-xl rounded-3xl border border-border bg-card px-6 py-14">
+            <div className="mx-auto mt-8 w-full max-w-xl rounded-3xl border border-border bg-card px-6 py-14 sm:max-w-2xl">
               <span className="relative mx-auto flex size-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground opacity-20" />
                 <span className="relative inline-flex size-2 rounded-full bg-foreground" />

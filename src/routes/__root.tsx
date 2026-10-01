@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "dropoff.lol – file sharing!" },
+      { title: "dropoff – file sharing!" },
       { name: "description", content: SITE_TAGLINE },
       { name: "author", content: SITE_NAME },
       { name: "robots", content: "index, follow" },

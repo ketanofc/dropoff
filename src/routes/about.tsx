@@ -97,7 +97,7 @@ function About() {
             src={INSPIRATION_IMG}
             alt="An emblem about skipping the middleman and sending files straight from device to device"
             loading="lazy"
-            className="my-8 w-full max-w-[560px] rounded-2xl"
+            className="my-8 w-full max-w-[560px]"
           />
 
           <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>Building a solution</h2>
