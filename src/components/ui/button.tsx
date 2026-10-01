@@ -4,29 +4,22 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
 export const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 text-sm font-medium cursor-pointer transition-all rounded-lg [&_svg]:pointer-events-none [&_svg]:shrink-0 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full text-base font-medium tracking-normal transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default:
-          "bg-blue-500 text-white px-6 py-2 border-b-[4px] border-blue-600 hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:brightness-90 active:translate-y-[2px] active:border-b-[2px]",
-        destructive:
-          "bg-red-500 text-white px-6 py-2 border-b-[4px] border-red-600 hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:brightness-90 active:translate-y-[2px] active:border-b-[2px]",
-        outline:
-          "bg-transparent text-blue-500 px-6 py-2 border-b-[4px] border-blue-600 hover:bg-blue-50 hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:bg-blue-100 active:brightness-90 active:translate-y-[2px] active:border-b-[2px]",
-        secondary:
-          "bg-slate-100 text-slate-900 px-6 py-2 border-b-[4px] border-slate-300 hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:brightness-90 active:translate-y-[2px] active:border-b-[2px]",
-        ghost:
-          "bg-transparent text-slate-600 px-6 py-2 hover:bg-slate-100 hover:brightness-110 hover:-translate-y-[1px] active:bg-slate-200 active:brightness-90 active:translate-y-[2px]",
-        link: "text-blue-500 underline-offset-4 hover:underline",
-        pink:
-          "bg-[#fd60a9] text-white px-6 py-2 border-b-[4px] border-[#e04d8f] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:brightness-90 active:translate-y-[2px] active:border-b-[2px]",
+        default: "bg-primary text-primary-foreground hover:bg-primary/85",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/85",
+        outline: "border border-border bg-transparent text-foreground hover:bg-accent",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/70",
+        ghost: "bg-transparent text-muted-foreground hover:bg-accent hover:text-foreground",
+        link: "h-auto rounded-none p-0 text-foreground underline underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-12 px-6 py-2 text-base",
-        sm: "h-10 px-4 text-sm",
-        lg: "h-14 px-8 text-lg",
-        icon: "size-12",
+        default: "h-12 px-7",
+        sm: "h-11 px-6 text-[15px]",
+        lg: "h-14 px-9 text-lg",
+        icon: "size-11 p-0",
       },
     },
     defaultVariants: { variant: "default", size: "default" },

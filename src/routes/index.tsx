@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Copy, Plus, Share2, Upload, X, ArrowRight } from "lucide-react";
+import { Check, Copy, Plus, Share2, Upload, X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
-import { Progress, Shell } from "../components/shell";
+import { HERO_HEADING, Progress, SECTION_HEADING, Shell } from "../components/shell";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
-import { TextAnimate } from "../components/text-animate";
 import { buildManifest, formatBytes, newTransferId, sendFiles } from "../lib/transfer";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
@@ -15,10 +14,15 @@ export const Route = createFileRoute("/")({
       { title: "dropoff.lol – peer to peer file sharing" },
       {
         name: "description",
-        content: "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
+        content:
+          "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
       },
       { property: "og:title", content: "dropoff.lol – peer to peer file sharing" },
-      { property: "og:description", content: "Send files peer to peer, right from your browser. No permanent uploads and no account required." },
+      {
+        property: "og:description",
+        content:
+          "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
+      },
       { property: "og:type", content: "website" },
       ogUrl("/"),
       { name: "twitter:card", content: "summary_large_image" },
@@ -34,7 +38,8 @@ export const Route = createFileRoute("/")({
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Browser",
         browserRequirements: "Requires JavaScript and WebRTC.",
-        description: "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
+        description:
+          "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         isPartOf: { "@id": `${SITE_URL}/#website` },
       }),
@@ -67,6 +72,7 @@ function Index() {
     setSent(0);
     setTotal(0);
     setMessage("");
+    setCopied(false);
     if (inputRef.current) inputRef.current.value = "";
   }
 
@@ -178,310 +184,190 @@ function Index() {
 
   const totalSize = files.reduce((sum, f) => sum + f.size, 0);
   const percent = total ? (sent / total) * 100 : 0;
+  const canShare = typeof navigator !== "undefined" && "share" in navigator;
 
   return (
     <Shell>
-      <main className="min-h-screen bg-background">
-        <header className="border-b border-border/50">
-          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div className="text-lg font-medium tracking-tight">dropoff.lol</div>
-            <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-              <a href="/terms" className="hover:text-foreground transition-colors">Terms</a>
-            </nav>
-          </div>
-        </header>
+      <input
+        ref={inputRef}
+        type="file"
+        multiple
+        className="sr-only"
+        onChange={(event) => {
+          onFilesSelected(event.target.files);
+          event.target.value = "";
+        }}
+      />
 
-        <section className="py-20 lg:py-32">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center lg:text-left max-w-3xl">
-              <span className="inline-block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">
-                01
-              </span>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight leading-[1.02] mb-6">
-                Send Files Right From Your Browser
-              </h1>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-10 max-w-xl">
-                Peer to peer file transfers, no limits, no permanent uploads, and no account required.
-              </p>
+      <section className="py-20 text-center lg:py-28">
+        <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
+          Send Files Right From Your Browser
+        </h1>
+        <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
+          Peer to peer file transfers, no limits, no permanent uploads, and no account required.
+        </p>
+        <div className="mt-10 flex justify-center">
+          <Button type="button" onClick={openFilePicker}>
+            <Upload className="size-4" />
+            Select a file to share
+          </Button>
+        </div>
+        <p className="mt-6 text-xs text-muted-foreground">
+          Selecting a file constitutes agreement to{" "}
+          <a href="/terms" className="underline underline-offset-4 hover:text-foreground">
+            our terms
+          </a>
+        </p>
+      </section>
 
-              <input
-                ref={inputRef}
-                type="file"
-                multiple
-                className="sr-only"
-                onChange={(event) => {
-                  onFilesSelected(event.target.files);
-                  event.target.value = "";
-                }}
-              />
+      {files.length > 0 && (
+        <section className="border-t border-border py-16 text-center lg:py-20">
+          <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>
+            Files Ready to Share
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {files.length === 1 ? "1 file" : `${files.length} files`} · {formatBytes(totalSize)}
+          </p>
 
-              {files.length === 0 ? (
-                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
-                  <Button
-                    type="button"
-                    className="h-12 w-full sm:w-auto rounded-lg text-base font-medium"
-                    onClick={openFilePicker}
-                  >
-                    <Upload className="size-4 mr-2" />
-                    Select a file to share
-                  </Button>
-                  <p className="text-center text-xs text-muted-foreground flex items-center justify-center">
-                    Selecting a file constitutes agreement to{" "}
-                    <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
-                      our terms
-                    </a>
+          <ul className="mx-auto mt-8 flex max-w-xl flex-col gap-3 text-left">
+            {files.map((file, index) => (
+              <li
+                key={index}
+                className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4"
+              >
+                <FileKindIcon name={file.name} mime={file.type} className="shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium">{file.name}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {fileKindLabel(file.name, file.type)} · {formatBytes(file.size)}
+                    {phase === "idle" && " · ready to share"}
                   </p>
                 </div>
-              ) : (
-                <div className="space-y-4">
-                  <div className="flex flex-wrap gap-4">
+                {phase === "idle" && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-9 shrink-0"
+                    aria-label={`Remove ${file.name}`}
+                    onClick={() => removeFile(index)}
+                  >
+                    <X className="size-4" />
+                  </Button>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          {phase === "idle" && (
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Button variant="outline" size="sm" onClick={openFilePicker}>
+                <Plus className="size-4" />
+                Add more files
+              </Button>
+              <Button onClick={startTransfer}>Start transfer</Button>
+            </div>
+          )}
+        </section>
+      )}
+
+      {(phase === "preparing" || phase === "waiting") && (
+        <section className="border-t border-border py-16 text-center lg:py-20">
+          <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>Share the Link</h2>
+          <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">{message}</p>
+
+          {link ? (
+            <div className="mx-auto mt-8 max-w-xl overflow-hidden rounded-3xl border border-border bg-card">
+              <div className="flex justify-center bg-muted px-6 py-10">
+                <QRCodeSVG
+                  value={link}
+                  size={260}
+                  level="Q"
+                  fgColor="#000000"
+                  bgColor="#ffffff"
+                  className="h-auto w-full max-w-[320px]"
+                />
+              </div>
+              <div className="border-t border-border px-6 py-7">
+                <p className="break-all text-sm text-muted-foreground">{link}</p>
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                  <Button onClick={copyLink}>
+                    {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                    {copied ? "Copied" : "Copy link"}
+                  </Button>
+                  {canShare && (
                     <Button
                       variant="outline"
-                      className="h-10 px-4 rounded-lg text-sm"
-                      onClick={openFilePicker}
+                      onClick={() =>
+                        navigator.share({ title: "dropoff.lol", url: link }).catch(() => {})
+                      }
                     >
-                      <Plus className="size-4 mr-2" />
-                      Add more files
+                      <Share2 className="size-4" />
+                      Share
                     </Button>
-                    <Button className="h-12 px-6 rounded-lg text-base" onClick={startTransfer}>
-                      Start transfer
-                      {files.length > 1 && ` (${files.length} files, ${formatBytes(totalSize)})`}
-                    </Button>
-                  </div>
-                  <p className="text-center text-xs text-muted-foreground">
-                    Selecting a file constitutes agreement to{" "}
-                    <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
-                      our terms
-                    </a>
-                  </p>
+                  )}
                 </div>
-              )}
+                <p className="mt-6 text-xs text-muted-foreground">
+                  Leave this tab open, dropoff.lol does not store files.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="mx-auto mt-8 max-w-xl rounded-3xl border border-border bg-card px-6 py-14">
+              <span className="relative mx-auto flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground opacity-20" />
+                <span className="relative inline-flex size-2 rounded-full bg-foreground" />
+              </span>
+              <p className="mt-4 text-sm text-muted-foreground">Preparing your link…</p>
+            </div>
+          )}
+        </section>
+      )}
+
+      {phase === "transferring" && (
+        <section className="border-t border-border py-16 text-center lg:py-20">
+          <div className="mx-auto max-w-xl rounded-3xl border border-border bg-card px-6 py-8">
+            <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>Transferring</h2>
+            <Progress value={percent} />
+            <p className="mt-4 text-xs text-muted-foreground">
+              {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
+            </p>
+          </div>
+        </section>
+      )}
+
+      {phase === "complete" && (
+        <section className="border-t border-border py-16 text-center lg:py-20">
+          <div className="mx-auto max-w-xl rounded-3xl border border-border bg-card px-6 py-10">
+            <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>
+              Transfer complete
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+              {files.length === 1
+                ? "The file was delivered to the recipient."
+                : `All ${files.length} files were delivered to the recipient.`}
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Button onClick={reset}>Send another file</Button>
             </div>
           </div>
         </section>
+      )}
 
-        {files.length > 0 && (
-          <section className="py-16 lg:py-24 border-t border-border/50">
-            <div className="max-w-4xl mx-auto px-6">
-              <div className="mb-8">
-                <span className="inline-block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  02
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-light tracking-tight">
-                  Files Ready to Share
-                </h2>
-              </div>
-
-              <div className="space-y-3">
-                {files.map((file, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-4 p-4 rounded-lg border border-border/50 bg-card hover:border-border/80 transition-colors"
-                  >
-                    <FileKindIcon name={file.name} mime={file.type} className="flex-shrink-0" />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate font-medium text-sm">{file.name}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        {fileKindLabel(file.name, file.type)} · {formatBytes(file.size)}
-                        {phase === "idle" && " · ready to share"}
-                      </p>
-                    </div>
-                    {phase === "idle" && (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-8 rounded-full"
-                        aria-label="Remove file"
-                        onClick={() => removeFile(index)}
-                      >
-                        <X className="size-4" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {phase === "idle" && (
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <Button
-                    variant="outline"
-                    className="h-10 px-4 rounded-lg text-sm"
-                    onClick={openFilePicker}
-                  >
-                    <Plus className="size-4 mr-2" />
-                    Add more files
-                  </Button>
-                  <Button className="h-12 px-6 rounded-lg text-base" onClick={startTransfer}>
-                    Start transfer
-                    {files.length > 1 && ` (${files.length} files, ${formatBytes(totalSize)})`}
-                  </Button>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {(phase === "preparing" || phase === "waiting") && link && (
-          <section className="py-16 lg:py-24 border-t border-border/50">
-            <div className="max-w-4xl mx-auto px-6">
-              <div className="mb-8">
-                <span className="inline-block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  03
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-light tracking-tight">
-                  Share the Link
-                </h2>
-              </div>
-
-              <div className="space-y-6">
-                <div className="rounded-lg border border-border/50 p-6">
-                  <div className="flex items-center gap-3 text-sm font-medium mb-4">
-                    <span className="relative flex size-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-                    </span>
-                    Share this link
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">{message}</p>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="shrink-0 max-w-full rounded-lg bg-muted p-3">
-                      <QRCodeSVG
-                        value={link}
-                        size={100}
-                        level="Q"
-                        fgColor="#000000"
-                        bgColor="#ffffff"
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0 space-y-4">
-                      <div className="flex items-center gap-2 rounded-lg border border-border bg-muted px-4 py-3">
-                        <span className="min-w-0 flex-1 truncate text-sm font-mono">{link}</span>
-                        <button
-                          onClick={copyLink}
-                          aria-label="Copy link"
-                          className="shrink-0 rounded-lg p-2 text-muted-foreground hover:text-foreground hover:bg-border/50 transition-colors"
-                        >
-                          {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-                        </button>
-                      </div>
-                      <div className="flex flex-wrap gap-3">
-                        <Button className="flex-1 min-w-[140px] rounded-lg" onClick={copyLink}>
-                          {copied ? "Copied" : "Copy"}
-                        </Button>
-                        {typeof navigator !== "undefined" && "share" in navigator && (
-                          <Button variant="outline" className="flex-1 min-w-[140px] rounded-lg" onClick={() =>
-                            navigator
-                              .share({ title: "dropoff.lol", url: link })
-                              .catch(() => {})
-                          }>
-                            <Share2 className="size-4 mr-2" />
-                            Share
-                          </Button>
-                        )}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Leave this tab open, dropoff.lol does not store files.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {(phase === "transferring" || phase === "complete" || phase === "error") && (
-          <section className="py-16 lg:py-24 border-t border-border/50">
-            <div className="max-w-4xl mx-auto px-6">
-              <div className="space-y-6">
-                {phase === "transferring" && (
-                  <div className="rounded-lg border border-border/50 p-6">
-                    <p className="text-sm font-medium mb-4">Transferring…</p>
-                    <Progress value={percent} className="h-2" />
-                    <p className="mt-3 text-xs text-muted-foreground">
-                      {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
-                    </p>
-                  </div>
-                )}
-
-                {phase === "complete" && (
-                  <div className="rounded-lg border border-border/50 p-6">
-                    <div className="flex items-center gap-2 text-sm font-medium mb-4">
-                      <span className="inline-block size-1.5 rounded-full bg-emerald-500" />
-                      Transfer complete
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-6">
-                      {files.length === 1
-                        ? "The file was delivered to the recipient."
-                        : `All ${files.length} files were delivered to the recipient.`}
-                    </p>
-                    <Button className="w-full sm:w-auto rounded-lg" onClick={reset}>
-                      Send another file
-                    </Button>
-                  </div>
-                )}
-
-                {phase === "error" && (
-                  <div className="rounded-lg border border-border/50 p-6">
-                    <div className="flex items-center gap-2 text-sm font-medium mb-4">
-                      <span className="inline-block size-1.5 rounded-full bg-red-500" />
-                      Transfer stopped
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-6">
-                      {message || "The connection was lost."}
-                    </p>
-                    <Button className="w-full sm:w-auto rounded-lg" onClick={reset}>
-                      Start over
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        <footer className="border-t border-border/50 py-16 lg:py-24">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-              <div>
-                <h4 className="text-sm font-medium tracking-tight mb-4">dropoff.lol</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Peer to peer file sharing. No permanent uploads, no account required.
-                </p>
-              </div>
-              <nav>
-                <h4 className="text-sm font-medium tracking-tight mb-4">Product</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li><a href="/terms" className="hover:text-foreground transition-colors">Terms</a></li>
-                </ul>
-              </nav>
-              <nav>
-                <h4 className="text-sm font-medium tracking-tight mb-4">Resources</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li><a href="/terms" className="hover:text-foreground transition-colors">Terms</a></li>
-                  <li><a href="/terms" className="hover:text-foreground transition-colors">Privacy</a></li>
-                  <li><a href="/terms" className="hover:text-foreground transition-colors">Security</a></li>
-                </ul>
-              </nav>
-              <nav>
-                <h4 className="text-sm font-medium tracking-tight mb-4">Connect</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li><a href="https://github.com/ketanofc/dropoff" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors flex items-center gap-2">
-                    GitHub
-                    <ArrowRight className="size-3" />
-                  </a></li>
-                </ul>
-              </nav>
-            </div>
-            <div className="pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <p className="text-xs text-muted-foreground">
-                © 2026 dropoff.lol. Peer to peer file sharing.
-              </p>
+      {phase === "error" && (
+        <section className="border-t border-border py-16 text-center lg:py-20">
+          <div className="mx-auto max-w-xl rounded-3xl border border-border bg-card px-6 py-10">
+            <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>
+              Transfer stopped
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+              {message || "The connection was lost."}
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Button onClick={reset}>Start over</Button>
             </div>
           </div>
-        </footer>
-      </main>
+        </section>
+      )}
     </Shell>
   );
 }

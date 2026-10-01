@@ -1,31 +1,75 @@
 import type { ReactNode } from "react";
-import { SiteMenu } from "./site-menu";
+
+export const HERO_HEADING =
+  "text-4xl font-light leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl";
+
+export const SECTION_HEADING = "text-3xl font-light leading-[1.1] tracking-tight sm:text-4xl";
 
 export function Shell({ children }: { children: ReactNode }) {
   return (
-    <main>
-      <div className="min-h-screen bg-background text-foreground">
-        <div className="mx-auto w-full max-w-[430px] overflow-x-hidden px-5 pb-16 pt-7 sm:px-6 sm:pt-8 md:max-w-4xl lg:max-w-6xl lg:px-10 lg:pb-20 lg:pt-10">
-          <header className="flex items-center justify-between border-b border-border pb-4">
-            <a
-              href="/"
-              className="font-logo text-[22px] font-normal leading-none tracking-normal"
-              aria-label="dropoff.lol home"
-            >
-              dropoff
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto flex min-h-screen w-full max-w-[430px] flex-col overflow-x-hidden px-5 pb-16 pt-7 sm:px-6 sm:pt-8 md:max-w-4xl lg:max-w-5xl lg:px-10 lg:pb-20 lg:pt-10">
+        <header className="flex items-center justify-between border-b border-border pb-5">
+          <a
+            href="/"
+            className="font-logo text-[22px] leading-none tracking-normal"
+            aria-label="dropoff.lol home"
+          >
+            dropoff
+          </a>
+          <nav className="flex items-center gap-6 text-[15px] text-muted-foreground">
+            <a href="/about" className="transition-colors hover:text-foreground">
+              About us
             </a>
-            <SiteMenu />
-          </header>
-          {children}
-        </div>
+            <a href="/terms" className="transition-colors hover:text-foreground">
+              Terms
+            </a>
+          </nav>
+        </header>
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
       </div>
-    </main>
+    </div>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="mt-24 border-t border-border pt-10 lg:mt-32">
+      <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">
+        <p className="max-w-xs text-sm text-muted-foreground">
+          dropoff.lol is peer to peer file sharing. Nothing is uploaded, nothing is stored.
+        </p>
+        <nav className="flex items-center gap-6 text-sm text-muted-foreground">
+          <a href="/about" className="transition-colors hover:text-foreground">
+            About us
+          </a>
+          <a href="/terms" className="transition-colors hover:text-foreground">
+            Terms
+          </a>
+          <a
+            href="mailto:admin.dropoff@gmail.com"
+            className="transition-colors hover:text-foreground"
+          >
+            Contact
+          </a>
+          <a
+            href="https://github.com/ketanofc/dropoff"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-foreground"
+          >
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </footer>
   );
 }
 
 export function Progress({ value }: { value: number }) {
   return (
-    <div className="mt-6 h-2 w-full overflow-hidden rounded-full bg-muted">
+    <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-muted">
       <div
         className="h-full rounded-full bg-primary transition-[width] duration-200"
         style={{ width: `${Math.min(100, Math.max(0, value))}%` }}

@@ -2,9 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
-import { Progress, Shell } from "../components/shell";
+import { HERO_HEADING, Progress, SECTION_HEADING, Shell } from "../components/shell";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
-import { TextAnimate } from "../components/text-animate";
 import { formatBytes, toArrayBuffer, type Control, type FileMeta } from "../lib/transfer";
 import { SITE_URL } from "../lib/seo";
 
@@ -65,33 +64,33 @@ function Receive() {
     (async () => {
       try {
         const { default: Peer } = await import("peerjs");
-const peer = new Peer({
-        config: {
-          iceServers: [
-            { urls: "stun:stun.l.google.com:19302" },
-            { urls: "stun:stun1.l.google.com:19302" },
-            { urls: "stun:stun2.l.google.com:19302" },
-            { urls: "stun:stun3.l.google.com:19302" },
-            { urls: "stun:stun4.l.google.com:19302" },
-            {
-              urls: "turn:openrelay.metered.ca:80",
-              username: "openrelayproject",
-              credential: "openrelayproject",
-            },
-            {
-              urls: "turn:openrelay.metered.ca:443",
-              username: "openrelayproject",
-              credential: "openrelayproject",
-            },
-            {
-              urls: "turn:openrelay.metered.ca:443?transport=tcp",
-              username: "openrelayproject",
-              credential: "openrelayproject",
-            },
-          ],
-          iceCandidatePoolSize: 10,
-        },
-      });
+        const peer = new Peer({
+          config: {
+            iceServers: [
+              { urls: "stun:stun.l.google.com:19302" },
+              { urls: "stun:stun1.l.google.com:19302" },
+              { urls: "stun:stun2.l.google.com:19302" },
+              { urls: "stun:stun3.l.google.com:19302" },
+              { urls: "stun:stun4.l.google.com:19302" },
+              {
+                urls: "turn:openrelay.metered.ca:80",
+                username: "openrelayproject",
+                credential: "openrelayproject",
+              },
+              {
+                urls: "turn:openrelay.metered.ca:443",
+                username: "openrelayproject",
+                credential: "openrelayproject",
+              },
+              {
+                urls: "turn:openrelay.metered.ca:443?transport=tcp",
+                username: "openrelayproject",
+                credential: "openrelayproject",
+              },
+            ],
+            iceCandidatePoolSize: 10,
+          },
+        });
         peerRef.current = peer;
 
         peer.on("error", (error) => {
@@ -169,113 +168,104 @@ const peer = new Peer({
 
   return (
     <Shell>
-      <section className="pt-16 sm:pt-20 lg:pt-24">
-        <div className="mx-auto w-full max-w-[720px] lg:max-w-4xl">
-          <TextAnimate
-            animation="blurIn"
-            as="h1"
-            className="mx-auto mt-5 max-w-[640px] text-balance text-center font-serif text-[38px] font-normal leading-[1.06] tracking-normal sm:text-[46px] sm:leading-[1.04] lg:text-[56px] lg:leading-[1.03]"
-          >
-            {phase === "done" ? (
-              multiple ? (
-                "Your files are ready"
-              ) : (
-                "Your file is ready"
-              )
-            ) : multiple ? (
-              <>
-                Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span>{" "}
-                files from their browser
-              </>
-            ) : (
-              <>
-                Someone is sending <span className="font-normal italic text-[#fd60a9]">you</span> a
-                file from their browser
-              </>
-            )}
-          </TextAnimate>
+      <section className="py-20 text-center lg:py-28">
+        <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
+          {phase === "done"
+            ? multiple
+              ? "Your files are ready"
+              : "Your file is ready"
+            : multiple
+              ? "Someone is sending you files"
+              : "Someone is sending you a file"}
+        </h1>
 
-          {(phase === "connecting" || phase === "error") && (
-            <p className="mx-auto mt-7 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground">
-              {message}
+        {(phase === "connecting" || phase === "error") && (
+          <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground">
+            {message}
+          </p>
+        )}
+
+        {phase === "offer" && (
+          <>
+            <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground">
+              {multiple
+                ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
+                : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
             </p>
-          )}
-
-          {phase === "offer" && (
-            <>
-              <p className="mx-auto mt-7 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground">
-                {multiple
-                  ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
-                  : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
-              </p>
-              <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-                <Button
-                  className="h-14 flex-1 rounded-full text-base"
-                  onClick={() => {
-                    connRef.current?.send({ kind: "accept" });
-                    setPhase("receiving");
-                  }}
-                >
-                  Accept & download
-                </Button>
-                <Button
-                  variant="destructive"
-                  className="h-14 flex-1 rounded-full text-base"
-                  onClick={() => {
-                    connRef.current?.send({ kind: "decline" });
-                    setPhase("error");
-                    setMessage("You declined this transfer.");
-                  }}
-                >
-                  Decline
-                </Button>
-              </div>
-            </>
-          )}
-
-          {phase === "receiving" && (
-            <div className="mt-7 rounded-xl border border-border p-5 sm:p-6">
-              <p className="text-sm font-medium">Receiving…</p>
-              <Progress value={percent} />
-              <p className="mt-3 text-xs text-muted-foreground">
-                {percent.toFixed(0)}% · {formatBytes(received)} / {formatBytes(total || totalSize)}
-              </p>
-            </div>
-          )}
-
-          {phase === "done" && (
-            <Button className="mt-7 w-full rounded-full sm:mt-8" onClick={() => window.location.assign("/")}>
-              Send a file instead
-            </Button>
-          )}
-
-          {phase === "error" && (
-            <Button className="mt-7 w-full rounded-full sm:mt-8" onClick={() => window.location.assign("/")}>
-              Send a file instead
-            </Button>
-          )}
-        </div>
-
-        {files.length > 0 && (
-          <div className="mx-auto mt-10 grid w-full max-w-[720px] min-w-0 gap-3 md:grid-cols-2 lg:max-w-4xl">
-            {files.map((file, index) => (
-              <div
-                key={index}
-                className={`min-w-0 overflow-hidden rounded-xl bg-secondary p-3 ${files.length === 1 ? "md:col-span-full" : ""}`}
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Button
+                onClick={() => {
+                  connRef.current?.send({ kind: "accept" });
+                  setPhase("receiving");
+                }}
               >
-                <div className="flex min-h-16 items-center gap-3">
+                Accept &amp; download
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  connRef.current?.send({ kind: "decline" });
+                  setPhase("error");
+                  setMessage("You declined this transfer.");
+                }}
+              >
+                Decline
+              </Button>
+            </div>
+          </>
+        )}
+
+        {phase === "receiving" && (
+          <div className="mx-auto mt-10 max-w-xl rounded-3xl border border-border bg-card px-6 py-8">
+            <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>Receiving</h2>
+            <Progress value={percent} />
+            <p className="mt-4 text-xs text-muted-foreground">
+              {percent.toFixed(0)}% · {formatBytes(received)} / {formatBytes(total || totalSize)}
+            </p>
+          </div>
+        )}
+
+        {phase === "done" && (
+          <div className="mt-10 flex justify-center">
+            <Button onClick={() => window.location.assign("/")}>Send a file instead</Button>
+          </div>
+        )}
+
+        {phase === "error" && (
+          <div className="mt-10 flex justify-center">
+            <Button onClick={() => window.location.assign("/")}>Send a file instead</Button>
+          </div>
+        )}
+      </section>
+
+      {files.length > 0 && (
+        <section className="border-t border-border py-16">
+          <h2 className={`mx-auto max-w-2xl text-balance text-center ${SECTION_HEADING}`}>
+            {phase === "done" ? "Ready to save" : "Incoming files"}
+          </h2>
+          <p className="mt-3 text-center text-sm text-muted-foreground">
+            {multiple ? `${files.length} files` : "1 file"} · {formatBytes(totalSize)}
+          </p>
+
+          <ul className="mx-auto mt-8 grid w-full max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
+            {files.map((file, index) => (
+              <li
+                key={index}
+                className={`min-w-0 rounded-2xl border border-border bg-card p-4 ${files.length === 1 ? "sm:col-span-full" : ""}`}
+              >
+                <div className="flex min-w-0 items-center gap-4 text-left">
                   {file.preview ? (
                     <img
                       src={file.preview}
                       alt={`Preview of ${file.name}`}
-                      className="size-12 shrink-0 rounded-md object-cover md:size-14"
+                      className="size-12 shrink-0 rounded-xl object-cover"
                     />
                   ) : (
-                    <FileKindIcon name={file.name} mime={file.mime} className="md:size-14" />
+                    <FileKindIcon name={file.name} mime={file.mime} className="shrink-0" />
                   )}
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold">{file.name}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">
+                    <p className="truncate text-sm font-medium">{file.name}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       {fileKindLabel(file.name, file.mime)} · {formatBytes(file.size)}
                       {phase === "done" && urls[index] ? " · ready to save" : ""}
                     </p>
@@ -285,18 +275,18 @@ const peer = new Peer({
                     <a
                       href={urls[index]}
                       download={file.name}
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:text-foreground"
+                      className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                       aria-label={`Save ${file.name}`}
                     >
-                      <Download className="size-5" />
+                      <Download className="size-4" />
                     </a>
                   )}
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
-        )}
-      </section>
+          </ul>
+        </section>
+      )}
     </Shell>
   );
 }

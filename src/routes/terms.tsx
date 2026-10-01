@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { marked } from "marked";
-import { Shell } from "../components/shell";
-import { TextAnimate } from "../components/text-animate";
+import { HERO_HEADING, Shell } from "../components/shell";
+import { Button } from "../components/ui/button";
 import termsMarkdown from "../content/terms.md?raw";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
@@ -41,19 +41,13 @@ export const Route = createFileRoute("/terms")({
 function Terms() {
   return (
     <Shell>
-      <section className="pt-[88px] sm:pt-24 lg:pt-32">
-        <TextAnimate
-          animation="blurIn"
-          as="h1"
-          className="max-w-[440px] font-serif text-[40px] font-normal leading-[1.06] tracking-normal sm:text-[48px] lg:text-[60px] lg:leading-[1.03]"
-        >
-          Terms of use
-        </TextAnimate>
+      <section className="py-20 lg:py-28">
+        <h1 className={`max-w-2xl text-balance ${HERO_HEADING}`}>Terms of use</h1>
         <div
-          className="terms-content mt-8 max-w-full text-[15px] leading-7 text-muted-foreground md:max-w-2xl lg:text-[16px]"
+          className="terms-content mt-10 max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[16px]"
           dangerouslySetInnerHTML={{ __html: termsHtml }}
         />
-        <p className="mt-8 max-w-full text-[15px] leading-7 text-muted-foreground md:max-w-2xl">
+        <p className="mt-8 max-w-2xl text-[15px] leading-7 text-muted-foreground">
           Looking to talk to a human? Our HQ inbox is{" "}
           <a
             href="mailto:admin.dropoff@gmail.com"
@@ -63,9 +57,13 @@ function Terms() {
           </a>
           .
         </p>
-        <a href="/" className="mt-8 inline-block text-sm font-medium underline underline-offset-4">
-          Back to dropoff.lol
-        </a>
+        <div className="mt-8">
+          <a href="/">
+            <Button variant="outline" size="sm">
+              Back to dropoff.lol
+            </Button>
+          </a>
+        </div>
       </section>
     </Shell>
   );
