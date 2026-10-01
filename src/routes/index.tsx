@@ -256,12 +256,18 @@ function Index() {
           </ul>
 
           {phase === "idle" && (
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Button variant="outline" onClick={openFilePicker}>
+            <div className="mt-8 flex items-center gap-3">
+              <Button
+                variant="outline"
+                onClick={openFilePicker}
+                className="min-w-0 flex-1 px-5 sm:flex-none sm:px-7"
+              >
                 <Plus className="size-4" />
-                Add more files
+                More files
               </Button>
-              <Button onClick={startTransfer}>Start transfer</Button>
+              <Button onClick={startTransfer} className="min-w-0 flex-1 px-5 sm:flex-none sm:px-7">
+                Start transfer
+              </Button>
             </div>
           )}
         </section>
