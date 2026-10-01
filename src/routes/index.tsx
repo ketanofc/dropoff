@@ -199,29 +199,25 @@ function Index() {
         }}
       />
 
-      <section className="py-20 text-center lg:py-28">
-        <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
-          Send Files Right From Your Browser
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
-          Peer to peer file transfers, no limits, no permanent uploads, and no account required.
-        </p>
-        <div className="mt-10 flex justify-center">
-          <Button type="button" onClick={openFilePicker}>
-            <Upload className="size-4" />
-            Select a file to share
-          </Button>
-        </div>
-        <p className="mt-6 text-xs text-muted-foreground">
-          Selecting a file constitutes agreement to{" "}
-          <a href="/terms" className="underline underline-offset-4 hover:text-foreground">
-            our terms
-          </a>
-        </p>
-      </section>
+      {files.length === 0 && (
+        <section className="py-20 text-center lg:py-28">
+          <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
+            Send Files Right From Your Browser
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
+            Peer to peer file transfers, no limits, no permanent uploads, and no account required.
+          </p>
+          <div className="mt-10 flex justify-center">
+            <Button type="button" onClick={openFilePicker}>
+              <Upload className="size-4" />
+              Select a file to share
+            </Button>
+          </div>
+        </section>
+      )}
 
       {files.length > 0 && (
-        <section className="border-t border-border py-16 text-center lg:py-20">
+        <section className="py-16 text-center lg:py-20">
           <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>
             Files Ready to Share
           </h2>
@@ -276,20 +272,13 @@ function Index() {
           <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">{message}</p>
 
           {link ? (
-            <div className="mx-auto mt-8 max-w-xl overflow-hidden rounded-3xl border border-border bg-card">
-              <div className="flex justify-center bg-muted px-6 py-10">
-                <QRCodeSVG
-                  value={link}
-                  size={260}
-                  level="Q"
-                  fgColor="#000000"
-                  bgColor="#ffffff"
-                  className="h-auto w-full max-w-[320px]"
-                />
+            <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-3xl border border-border bg-card p-6 text-center sm:flex-row sm:gap-8 sm:text-left">
+              <div className="shrink-0 rounded-2xl bg-muted p-3">
+                <QRCodeSVG value={link} size={120} level="Q" fgColor="#000000" bgColor="#ffffff" />
               </div>
-              <div className="border-t border-border px-6 py-7">
+              <div className="w-full min-w-0 flex-1">
                 <p className="break-all text-sm text-muted-foreground">{link}</p>
-                <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
                   <Button onClick={copyLink}>
                     {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
                     {copied ? "Copied" : "Copy link"}
@@ -306,7 +295,7 @@ function Index() {
                     </Button>
                   )}
                 </div>
-                <p className="mt-6 text-xs text-muted-foreground">
+                <p className="mt-5 text-xs text-muted-foreground">
                   Leave this tab open, dropoff.lol does not store files.
                 </p>
               </div>
