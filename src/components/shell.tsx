@@ -19,10 +19,10 @@ export function Shell({ children }: { children: ReactNode }) {
           </a>
           <nav className="flex items-center gap-6 text-[15px] text-muted-foreground">
             <a href="/about" className="transition-colors hover:text-foreground">
-              About us
+              about us
             </a>
             <a href="/terms" className="transition-colors hover:text-foreground">
-              Terms
+              terms
             </a>
           </nav>
         </header>
@@ -40,24 +40,24 @@ function SiteFooter() {
         <p className="max-w-xs text-sm text-muted-foreground">
           dropoff.lol is peer to peer file sharing. Nothing is uploaded, nothing is stored.
         </p>
-        <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground sm:justify-end">
+        <nav className="flex items-center gap-6 text-sm text-muted-foreground">
           <a href="/about" className="transition-colors hover:text-foreground">
-            About us
+            about us
           </a>
           <a href="/terms" className="transition-colors hover:text-foreground">
-            Terms
+            terms
           </a>
           <a
             href="mailto:admin.dropoff@gmail.com"
             className="transition-colors hover:text-foreground"
           >
-            Contact
+            contact
           </a>
           <a
             href="https://github.com/ketanofc/dropoff"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm transition-colors hover:text-foreground"
+            className="transition-colors hover:text-foreground"
           >
             GitHub
           </a>
