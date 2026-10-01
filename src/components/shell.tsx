@@ -38,7 +38,7 @@ function SiteFooter() {
     <footer className="mt-24 border-t border-border pt-10 lg:mt-32">
       <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">
         <p className="max-w-xs text-sm text-muted-foreground">
-          dropoff.lol is peer to peer file sharing, nothing is uploaded, nothing is stored.
+          dropoff is peer to peer file sharing, nothing is uploaded, nothing is stored.
         </p>
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px] text-muted-foreground sm:justify-end">
           <a
