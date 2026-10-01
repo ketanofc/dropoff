@@ -210,7 +210,7 @@ function Index() {
           <div className="mt-10 flex justify-center">
             <Button type="button" onClick={openFilePicker}>
               <Upload className="size-4" />
-              Select a file to share
+              SELECT FILE TO SHARE
             </Button>
           </div>
         </section>
