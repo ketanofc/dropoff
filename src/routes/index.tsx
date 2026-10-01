@@ -1,27 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Copy, Plus, Share2, Upload, X } from "lucide-react";
+import { Check, Copy, Plus, Share2, Upload, X, ArrowRight } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
 import { Progress, Shell } from "../components/shell";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
-import { IntroOverlay } from "../components/intro-overlay";
 import { TextAnimate } from "../components/text-animate";
 import { buildManifest, formatBytes, newTransferId, sendFiles } from "../lib/transfer";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
-import illustrationAsset from "../assets/transfer-illustration.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "dropoff.lol – file sharing!" },
+      { title: "dropoff.lol – peer to peer file sharing" },
       {
         name: "description",
-        content:
-          "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
+        content: "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
       },
-      { property: "og:title", content: "dropoff.lol – file sharing!" },
-      { property: "og:description", content: "Send files peer to peer, right from your browser." },
+      { property: "og:title", content: "dropoff.lol – peer to peer file sharing" },
+      { property: "og:description", content: "Send files peer to peer, right from your browser. No permanent uploads and no account required." },
       { property: "og:type", content: "website" },
       ogUrl("/"),
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,8 +34,7 @@ export const Route = createFileRoute("/")({
         applicationCategory: "UtilitiesApplication",
         operatingSystem: "Browser",
         browserRequirements: "Requires JavaScript and WebRTC.",
-        description:
-          "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
+        description: "Send files peer to peer, right from your browser. No permanent uploads and no account required.",
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         isPartOf: { "@id": `${SITE_URL}/#website` },
       }),
@@ -185,82 +181,120 @@ function Index() {
 
   return (
     <Shell>
-      <IntroOverlay />
-      <section className="pt-16 sm:pt-20 lg:pt-24">
-        <div className="mx-auto w-full max-w-[720px] lg:grid lg:max-w-none lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-center lg:gap-14">
-          <div className="min-w-0">
-            <TextAnimate
-              animation="blurIn"
-              as="h1"
-              className="mx-auto mt-5 max-w-[700px] text-balance text-center font-serif text-[46px] font-normal leading-[1.02] tracking-normal sm:text-[58px] sm:leading-[1.02] lg:mx-0 lg:max-w-none lg:text-left lg:text-[68px] lg:leading-[1.01]"
-            >
-              Send Files Right From{" "}
-              <span className="font-normal italic text-[#fd60a9]">Your</span> Browser
-            </TextAnimate>
-            <p className="mx-auto mt-6 max-w-[520px] text-balance text-center text-[15px] leading-6 text-muted-foreground lg:mx-0 lg:max-w-none lg:text-left lg:text-[17px] lg:leading-7">
-  peer to peer file transfers, no limits, no permanent uploads, and no account required.
-</p>
+      <main className="min-h-screen bg-background">
+        <header className="border-b border-border/50">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div className="text-lg font-medium tracking-tight">dropoff.lol</div>
+            <nav className="flex items-center gap-6 text-sm text-muted-foreground">
+              <a href="/terms" className="hover:text-foreground transition-colors">Terms</a>
+            </nav>
+          </div>
+        </header>
 
-          <input
-            ref={inputRef}
-            type="file"
-            multiple
-            className="sr-only"
-            onChange={(event) => {
-              onFilesSelected(event.target.files);
-              event.target.value = "";
-            }}
-          />
-
-          {files.length === 0 ? (
-            <div className="mt-10 lg:mt-8 text-center lg:text-left">
-              <Button
-                type="button"
-                className="h-14 w-auto max-w-[440px] rounded-full text-base inline-flex lg:mx-0"
-                onClick={openFilePicker}
-              >
-                <Upload className="size-4" />
-                Select a file to share
-              </Button>
-              <img
-                src={illustrationAsset.url}
-                alt="Two people transferring files directly between their browsers"
-                className="mx-auto mt-10 block h-auto w-full max-w-[380px] object-contain sm:max-w-[420px] lg:hidden"
-              />
-              <p className="mt-3 text-center text-xs text-muted-foreground lg:text-left">
-                Selecting a file constitutes agreement to{" "}
-                <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
-                  our terms
-                </a>
+        <section className="py-20 lg:py-32">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center lg:text-left max-w-3xl">
+              <span className="inline-block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-4">
+                01
+              </span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight leading-[1.02] mb-6">
+                Send Files Right From Your Browser
+              </h1>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-10 max-w-xl">
+                Peer to peer file transfers, no limits, no permanent uploads, and no account required.
               </p>
+
+              <input
+                ref={inputRef}
+                type="file"
+                multiple
+                className="sr-only"
+                onChange={(event) => {
+                  onFilesSelected(event.target.files);
+                  event.target.value = "";
+                }}
+              />
+
+              {files.length === 0 ? (
+                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+                  <Button
+                    type="button"
+                    className="h-12 w-full sm:w-auto rounded-lg text-base font-medium"
+                    onClick={openFilePicker}
+                  >
+                    <Upload className="size-4 mr-2" />
+                    Select a file to share
+                  </Button>
+                  <p className="text-center text-xs text-muted-foreground flex items-center justify-center">
+                    Selecting a file constitutes agreement to{" "}
+                    <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
+                      our terms
+                    </a>
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-4">
+                    <Button
+                      variant="outline"
+                      className="h-10 px-4 rounded-lg text-sm"
+                      onClick={openFilePicker}
+                    >
+                      <Plus className="size-4 mr-2" />
+                      Add more files
+                    </Button>
+                    <Button className="h-12 px-6 rounded-lg text-base" onClick={startTransfer}>
+                      Start transfer
+                      {files.length > 1 && ` (${files.length} files, ${formatBytes(totalSize)})`}
+                    </Button>
+                  </div>
+                  <p className="text-center text-xs text-muted-foreground">
+                    Selecting a file constitutes agreement to{" "}
+                    <a href="/terms" className="underline underline-offset-2 hover:text-foreground">
+                      our terms
+                    </a>
+                  </p>
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="mt-10 min-w-0 space-y-5">
-              <div className="grid w-full min-w-0 gap-3 md:grid-cols-2">
+          </div>
+        </section>
+
+        {files.length > 0 && (
+          <section className="py-16 lg:py-24 border-t border-border/50">
+            <div className="max-w-4xl mx-auto px-6">
+              <div className="mb-8">
+                <span className="inline-block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+                  02
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-light tracking-tight">
+                  Files Ready to Share
+                </h2>
+              </div>
+
+              <div className="space-y-3">
                 {files.map((file, index) => (
                   <div
                     key={index}
-                    className={`flex min-h-16 min-w-0 items-center gap-3 rounded-xl bg-secondary p-3 ${
-                      files.length === 1 ? "md:col-span-full" : ""
-                    }`}
+                    className="flex items-center gap-4 p-4 rounded-lg border border-border/50 bg-card hover:border-border/80 transition-colors"
                   >
-                    <FileKindIcon name={file.name} mime={file.type} />
+                    <FileKindIcon name={file.name} mime={file.type} className="flex-shrink-0" />
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold">{file.name}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">
+                      <p className="truncate font-medium text-sm">{file.name}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
                         {fileKindLabel(file.name, file.type)} · {formatBytes(file.size)}
-                        {phase === "idle" ? " · ready to share" : ""}
+                        {phase === "idle" && " · ready to share"}
                       </p>
                     </div>
                     {phase === "idle" && (
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="size-9 rounded-full"
+                        className="size-8 rounded-full"
                         aria-label="Remove file"
                         onClick={() => removeFile(index)}
                       >
-                        <X className="size-5" />
+                        <X className="size-4" />
                       </Button>
                     )}
                   </div>
@@ -268,135 +302,186 @@ function Index() {
               </div>
 
               {phase === "idle" && (
-                <>
+                <div className="mt-8 flex flex-wrap gap-4">
                   <Button
-                    type="button"
-                    variant="pink"
-                    className="h-12 w-full rounded-full text-sm"
+                    variant="outline"
+                    className="h-10 px-4 rounded-lg text-sm"
                     onClick={openFilePicker}
                   >
-                    <Plus className="size-4" />
+                    <Plus className="size-4 mr-2" />
                     Add more files
                   </Button>
-                  <Button className="h-14 w-full rounded-full text-base mt-1" onClick={startTransfer}>
+                  <Button className="h-12 px-6 rounded-lg text-base" onClick={startTransfer}>
                     Start transfer
                     {files.length > 1 && ` (${files.length} files, ${formatBytes(totalSize)})`}
                   </Button>
-                </>
+                </div>
               )}
+            </div>
+          </section>
+        )}
 
-              {(phase === "preparing" || phase === "waiting") && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <div className="flex items-center gap-2.5 text-sm font-medium">
-                    <span aria-hidden="true" className="relative flex size-2">
+        {(phase === "preparing" || phase === "waiting") && link && (
+          <section className="py-16 lg:py-24 border-t border-border/50">
+            <div className="max-w-4xl mx-auto px-6">
+              <div className="mb-8">
+                <span className="inline-block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+                  03
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-light tracking-tight">
+                  Share the Link
+                </h2>
+              </div>
+
+              <div className="space-y-6">
+                <div className="rounded-lg border border-border/50 p-6">
+                  <div className="flex items-center gap-3 text-sm font-medium mb-4">
+                    <span className="relative flex size-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                       <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
                     </span>
                     Share this link
                   </div>
-                  <p className="mt-2 text-[13px] leading-5 text-muted-foreground">{message}</p>
-                  {link && (
-                    <>
-                      <div className="mt-4 flex min-w-0 items-start gap-4">
-                        <div className="shrink-0 max-w-full rounded-lg bg-white p-2">
-                          <QRCodeSVG
-                            value={link}
-                            size={120}
-                            level="Q"
-                            fgColor="#000000"
-                            bgColor="#ffffff"
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex min-w-0 items-center gap-2 rounded-xl border border-input bg-background px-4 py-2.5">
-                            <span className="min-w-0 flex-1 truncate text-[13px]">{link}</span>
-                            <button
-                              onClick={copyLink}
-                              aria-label="Copy link"
-                              className="shrink-0 rounded-full p-1 text-muted-foreground hover:text-foreground"
-                            >
-                              {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-                            </button>
-                          </div>
-                          <div className="mt-3 flex gap-2">
-                            <Button variant="pink" className="min-w-0 flex-1 rounded-xl" onClick={copyLink}>
-                              {copied ? "Copied" : "Copy"}
-                            </Button>
-                            {typeof navigator !== "undefined" && "share" in navigator && (
-                              <Button className="min-w-0 flex-1 rounded-xl" onClick={() =>
-                                navigator
-                                  .share({ title: "dropoff.lol", url: link })
-                                  .catch(() => {})
-                              }>
-                                <Share2 className="size-4" /> Share
-                              </Button>
-                            )}
-                          </div>
-                          <p className="mt-3 text-xs text-muted-foreground">
-                            Leave this tab open, dropoff.lol does not store files.
-                          </p>
-                        </div>
+                  <p className="text-sm text-muted-foreground mb-4">{message}</p>
+
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="shrink-0 max-w-full rounded-lg bg-muted p-3">
+                      <QRCodeSVG
+                        value={link}
+                        size={100}
+                        level="Q"
+                        fgColor="#000000"
+                        bgColor="#ffffff"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0 space-y-4">
+                      <div className="flex items-center gap-2 rounded-lg border border-border bg-muted px-4 py-3">
+                        <span className="min-w-0 flex-1 truncate text-sm font-mono">{link}</span>
+                        <button
+                          onClick={copyLink}
+                          aria-label="Copy link"
+                          className="shrink-0 rounded-lg p-2 text-muted-foreground hover:text-foreground hover:bg-border/50 transition-colors"
+                        >
+                          {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                        </button>
                       </div>
-                    </>
-                  )}
+                      <div className="flex flex-wrap gap-3">
+                        <Button className="flex-1 min-w-[140px] rounded-lg" onClick={copyLink}>
+                          {copied ? "Copied" : "Copy"}
+                        </Button>
+                        {typeof navigator !== "undefined" && "share" in navigator && (
+                          <Button variant="outline" className="flex-1 min-w-[140px] rounded-lg" onClick={() =>
+                            navigator
+                              .share({ title: "dropoff.lol", url: link })
+                              .catch(() => {})
+                          }>
+                            <Share2 className="size-4 mr-2" />
+                            Share
+                          </Button>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Leave this tab open, dropoff.lol does not store files.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              )}
-
-              {phase === "transferring" && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <p className="text-sm font-medium">Transferring…</p>
-                  <Progress value={percent} />
-                  <p className="mt-3 text-xs text-muted-foreground">
-                    {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
-                  </p>
-                </div>
-              )}
-
-              {phase === "complete" && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <p className="text-sm font-medium">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />{" "}
-                    Transfer complete
-                  </p>
-                  <p className="mt-2 text-[13px] text-muted-foreground">
-                    {files.length === 1
-                      ? "The file was delivered to the recipient."
-                      : `All ${files.length} files were delivered to the recipient.`}
-                  </p>
-                  <Button className="mt-4 w-full rounded-full" onClick={reset}>
-                    Send another file
-                  </Button>
-                </div>
-              )}
-
-              {phase === "error" && (
-                <div className="rounded-xl border border-border p-5 sm:p-6">
-                  <p className="text-sm font-medium">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500" /> Transfer
-                    stopped
-                  </p>
-                  <p className="mt-2 text-[13px] text-muted-foreground">
-                    {message || "The connection was lost."}
-                  </p>
-                  <Button className="mt-4 w-full rounded-full" onClick={reset}>
-                    Start over
-                  </Button>
-                </div>
-              )}
+              </div>
             </div>
-          )}
-        </div>
-        {files.length === 0 && (
-          <div className="hidden lg:block">
-            <img
-              src={illustrationAsset.url}
-              alt="Two people transferring files directly between their browsers"
-              className="mx-auto h-auto w-full max-w-[420px] object-contain"
-            />
-          </div>
+          </section>
         )}
-      </div>
-      </section>
+
+        {(phase === "transferring" || phase === "complete" || phase === "error") && (
+          <section className="py-16 lg:py-24 border-t border-border/50">
+            <div className="max-w-4xl mx-auto px-6">
+              <div className="space-y-6">
+                {phase === "transferring" && (
+                  <div className="rounded-lg border border-border/50 p-6">
+                    <p className="text-sm font-medium mb-4">Transferring…</p>
+                    <Progress value={percent} className="h-2" />
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
+                    </p>
+                  </div>
+                )}
+
+                {phase === "complete" && (
+                  <div className="rounded-lg border border-border/50 p-6">
+                    <div className="flex items-center gap-2 text-sm font-medium mb-4">
+                      <span className="inline-block size-1.5 rounded-full bg-emerald-500" />
+                      Transfer complete
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-6">
+                      {files.length === 1
+                        ? "The file was delivered to the recipient."
+                        : `All ${files.length} files were delivered to the recipient.`}
+                    </p>
+                    <Button className="w-full sm:w-auto rounded-lg" onClick={reset}>
+                      Send another file
+                    </Button>
+                  </div>
+                )}
+
+                {phase === "error" && (
+                  <div className="rounded-lg border border-border/50 p-6">
+                    <div className="flex items-center gap-2 text-sm font-medium mb-4">
+                      <span className="inline-block size-1.5 rounded-full bg-red-500" />
+                      Transfer stopped
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-6">
+                      {message || "The connection was lost."}
+                    </p>
+                    <Button className="w-full sm:w-auto rounded-lg" onClick={reset}>
+                      Start over
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        <footer className="border-t border-border/50 py-16 lg:py-24">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+              <div>
+                <h4 className="text-sm font-medium tracking-tight mb-4">dropoff.lol</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Peer to peer file sharing. No permanent uploads, no account required.
+                </p>
+              </div>
+              <nav>
+                <h4 className="text-sm font-medium tracking-tight mb-4">Product</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li><a href="/terms" className="hover:text-foreground transition-colors">Terms</a></li>
+                </ul>
+              </nav>
+              <nav>
+                <h4 className="text-sm font-medium tracking-tight mb-4">Resources</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li><a href="/terms" className="hover:text-foreground transition-colors">Terms</a></li>
+                  <li><a href="/terms" className="hover:text-foreground transition-colors">Privacy</a></li>
+                  <li><a href="/terms" className="hover:text-foreground transition-colors">Security</a></li>
+                </ul>
+              </nav>
+              <nav>
+                <h4 className="text-sm font-medium tracking-tight mb-4">Connect</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li><a href="https://github.com/ketanofc/dropoff" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors flex items-center gap-2">
+                    GitHub
+                    <ArrowRight className="size-3" />
+                  </a></li>
+                </ul>
+              </nav>
+            </div>
+            <div className="pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-xs text-muted-foreground">
+                © 2026 dropoff.lol. Peer to peer file sharing.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </main>
     </Shell>
   );
 }
