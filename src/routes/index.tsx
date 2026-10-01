@@ -205,7 +205,7 @@ function Index() {
             Send Files Right From Your Browser
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
-            Peer to peer file transfers, no limits, no permanent uploads, and no account required.
+            peer to peer file transfers, no limits, no permanent uploads, and no account required.
           </p>
           <div className="mt-10 flex justify-center">
             <Button type="button" onClick={openFilePicker}>
@@ -256,7 +256,7 @@ function Index() {
 
           {phase === "idle" && (
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Button variant="outline" size="sm" onClick={openFilePicker}>
+              <Button variant="outline" onClick={openFilePicker}>
                 <Plus className="size-4" />
                 Add more files
               </Button>
