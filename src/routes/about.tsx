@@ -5,7 +5,6 @@ import { Button } from "../components/ui/button";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
 const INSPIRATION_IMG = "https://i.ibb.co/ZQ8pQCX/inspiration-dropoff.png";
-const SOLUTION_IMG = "https://i.ibb.co/LDNG3c5Z/illustration.png";
 const SOURCE_URL = "https://github.com/ketanofc/dropoff";
 
 export const Route = createFileRoute("/about")({
@@ -50,10 +49,10 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <Shell>
-      <section className="py-20 text-center lg:py-28">
-        <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>About us</h1>
+      <section className="py-20 lg:py-28">
+        <h1 className={`max-w-2xl text-balance ${HERO_HEADING}`}>About us</h1>
 
-        <div className="mx-auto mt-10 max-w-2xl text-left text-[15px] leading-7 text-muted-foreground lg:text-[16px]">
+        <div className="mt-10 max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[16px]">
           <p>
             dropoff.lol is a small project with a simple goal: let anyone send a file to anyone else
             without accounts, without uploads, and without the cloud standing in the middle. Every
@@ -98,7 +97,7 @@ function About() {
             src={INSPIRATION_IMG}
             alt="An emblem about skipping the middleman and sending files straight from device to device"
             loading="lazy"
-            className="my-8 w-full max-w-[560px] rounded-3xl border border-border"
+            className="my-8 w-full max-w-[560px] rounded-2xl"
           />
 
           <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>Building a solution</h2>
@@ -111,12 +110,6 @@ function About() {
           <p className="mt-5 font-medium text-foreground">
             In our opinion: file transfer as it should be.
           </p>
-          <img
-            src={SOLUTION_IMG}
-            alt="Two people transferring a file directly between their browsers with dropoff.lol"
-            loading="lazy"
-            className="my-8 w-full max-w-[560px] rounded-3xl border border-border"
-          />
 
           <p className="mt-5">
             We are just getting started, and there is more to come. If you have feedback, a feature
@@ -130,7 +123,7 @@ function About() {
             .
           </p>
 
-          <div className="mt-12 flex justify-center">
+          <div className="mt-12">
             <a href="/">
               <Button variant="outline" size="sm">
                 Back to dropoff.lol

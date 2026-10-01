@@ -40,16 +40,22 @@ function SiteFooter() {
         <p className="max-w-xs text-sm text-muted-foreground">
           dropoff.lol is peer to peer file sharing. Nothing is uploaded, nothing is stored.
         </p>
-        <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-          <a href="/about" className="transition-colors hover:text-foreground">
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[15px] text-muted-foreground sm:justify-end">
+          <a
+            href="/about"
+            className="underline underline-offset-4 transition-colors hover:text-foreground"
+          >
             about us
           </a>
-          <a href="/terms" className="transition-colors hover:text-foreground">
+          <a
+            href="/terms"
+            className="underline underline-offset-4 transition-colors hover:text-foreground"
+          >
             terms
           </a>
           <a
             href="mailto:admin.dropoff@gmail.com"
-            className="transition-colors hover:text-foreground"
+            className="underline underline-offset-4 transition-colors hover:text-foreground"
           >
             contact
           </a>
@@ -57,7 +63,7 @@ function SiteFooter() {
             href="https://github.com/ketanofc/dropoff"
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-foreground"
+            className="underline underline-offset-4 transition-colors hover:text-foreground"
           >
             GitHub
           </a>

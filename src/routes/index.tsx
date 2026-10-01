@@ -272,28 +272,28 @@ function Index() {
           <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">{message}</p>
 
           {link ? (
-            <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-3xl border border-border bg-card p-6 sm:flex-row sm:items-stretch sm:gap-7">
-              <div className="shrink-0 rounded-2xl bg-muted p-3">
-                <QRCodeSVG value={link} size={124} level="Q" fgColor="#000000" bgColor="#ffffff" />
+            <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-3xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:gap-7">
+              <div className="flex w-full shrink-0 justify-center sm:w-auto">
+                <QRCodeSVG
+                  value={link}
+                  size={132}
+                  level="Q"
+                  fgColor="#000000"
+                  bgColor="#ffffff"
+                  className="h-auto w-full max-w-[132px] rounded-2xl"
+                />
               </div>
 
               <div className="min-w-0 flex-1 text-center sm:text-left">
-                <div className="flex items-center gap-2 rounded-full border border-border bg-muted px-4 py-3">
-                  <span className="min-w-0 flex-1 truncate text-left font-mono text-xs">
-                    {link}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={copyLink}
-                    aria-label="Copy link"
-                    className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-                  </button>
-                </div>
+                <p className="break-all font-mono text-xs leading-relaxed text-muted-foreground">
+                  {link}
+                </p>
 
                 <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-                  <Button onClick={copyLink}>{copied ? "Copied" : "Copy link"}</Button>
+                  <Button onClick={copyLink}>
+                    {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                    {copied ? "Copied" : "Copy link"}
+                  </Button>
                   {canShare && (
                     <Button
                       variant="outline"
