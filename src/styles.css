@@ -143,6 +143,41 @@
   color: var(--color-muted-foreground);
 }
 
+/* Yellow highlighter stripe that draws in across the lower third of a word. */
+.stripe-accent {
+  padding-inline: 0.05em;
+  background-image: linear-gradient(
+    transparent 65%,
+    var(--highlight) 65%,
+    var(--highlight) 92%,
+    transparent 92%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: stripe-draw 600ms cubic-bezier(0.2, 0.9, 0.2, 1) 220ms forwards;
+}
+
+@keyframes stripe-draw {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stripe-accent {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
+
+.button-arrow {
+  transition: transform 200ms cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+
+button:hover .button-arrow {
+  transform: translateX(3px);
+}
+
 .intro-wordmark {
   color: #fff;
   font-family: var(--font-logo);
@@ -190,6 +225,7 @@
 
 :root {
   --radius: 0.75rem;
+  --highlight: #ffe600;
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.006 55);
   --card: oklch(1 0 0);

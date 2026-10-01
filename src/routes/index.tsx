@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, Copy, Plus, Share2, Upload, X } from "lucide-react";
+import { ArrowRight, Check, Copy, Plus, Share2, Upload, X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
@@ -202,7 +202,7 @@ function Index() {
       {files.length === 0 && (
         <section className="py-20 text-center lg:py-28">
           <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
-            Send Files Right From Your Browser
+            Send Files Right From Your <span className="stripe-accent">Browser</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
             peer to peer file transfers, no limits, no permanent uploads, and no account required.
@@ -211,6 +211,7 @@ function Index() {
             <Button type="button" onClick={openFilePicker}>
               <Upload className="size-4" />
               SELECT FILE TO SHARE
+              <ArrowRight className="button-arrow size-4" />
             </Button>
           </div>
         </section>
