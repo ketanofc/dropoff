@@ -292,11 +292,7 @@ function Index() {
               </div>
 
               <div className="border-t border-border px-5 py-6 text-center sm:px-8 sm:py-7">
-                <p className="break-all font-mono text-xs leading-relaxed text-muted-foreground sm:text-sm">
-                  {link}
-                </p>
-
-                <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+                <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
                   <Button className="w-full sm:w-auto" onClick={copyLink}>
                     {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
                     {copied ? "Copied" : "Copy link"}
