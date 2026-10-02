@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
-import { HERO_HEADING, Progress, SECTION_HEADING, Shell } from "../components/shell";
+import { Shell } from "../components/shell";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
 import { formatBytes, toArrayBuffer, type Control, type FileMeta } from "../lib/transfer";
 import { SITE_URL } from "../lib/seo";
@@ -168,125 +168,128 @@ function Receive() {
 
   return (
     <Shell>
-      <section className="py-20 text-center lg:py-28">
-        <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
-          {phase === "done"
-            ? multiple
-              ? "Your files are ready"
-              : "Your file is ready"
-            : multiple
-              ? "Someone is sending you files"
-              : "Someone is sending you a file"}
-        </h1>
+      <section className="py-14 text-center lg:py-20">
+        <p className="eyebrow">
+          {phase === "done" ? "Received" : phase === "error" ? "Unavailable" : "Incoming"}
+        </p>
 
-        {(phase === "connecting" || phase === "error") && (
-          <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground">
-            {message}
-          </p>
-        )}
-
-        {phase === "offer" && (
-          <>
-            <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground">
-              {multiple
-                ? `You're about to receive ${files.length} files (${formatBytes(totalSize)}) directly from the sender's browser.`
-                : `You're about to receive ${formatBytes(totalSize)} directly from the sender's browser.`}
-            </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <Button
-                onClick={() => {
-                  connRef.current?.send({ kind: "accept" });
-                  setPhase("receiving");
-                }}
-              >
-                Accept &amp; download
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  connRef.current?.send({ kind: "decline" });
-                  setPhase("error");
-                  setMessage("You declined this transfer.");
-                }}
-              >
-                Decline
-              </Button>
+        {/* One card carries the whole state, so the page reads as a single
+            object rather than a stack of unrelated banners. */}
+        <div className="mx-auto mt-8 max-w-xl overflow-hidden rounded-2xl border border-border bg-card text-left">
+          {(phase === "connecting" || phase === "error") && (
+            <div className="px-6 py-10 text-center">
+              <p className="text-sm text-muted-foreground">{message}</p>
             </div>
-          </>
-        )}
+          )}
 
-        {phase === "receiving" && (
-          <div className="mx-auto mt-10 max-w-xl rounded-3xl border border-border bg-card px-6 py-8">
-            <h2 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>Receiving</h2>
-            <Progress value={percent} />
-            <p className="mt-4 text-xs text-muted-foreground">
-              {percent.toFixed(0)}% · {formatBytes(received)} / {formatBytes(total || totalSize)}
-            </p>
-          </div>
-        )}
+          {phase === "offer" && (
+            <div className="px-6 py-10 text-center">
+              <p className="text-sm text-muted-foreground">
+                {multiple
+                  ? `${files.length} files · ${formatBytes(totalSize)}, straight from the sender's browser.`
+                  : `${formatBytes(totalSize)}, straight from the sender's browser.`}
+              </p>
+              <div className="mt-8 flex items-center gap-3">
+                <Button
+                  onClick={() => {
+                    connRef.current?.send({ kind: "accept" });
+                    setPhase("receiving");
+                  }}
+                  className="min-w-0 flex-1"
+                >
+                  Accept &amp; download
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    connRef.current?.send({ kind: "decline" });
+                    setPhase("error");
+                    setMessage("You declined this transfer.");
+                  }}
+                  className="min-w-0 flex-1"
+                >
+                  Decline
+                </Button>
+              </div>
+            </div>
+          )}
 
-        {phase === "done" && (
-          <div className="mt-10 flex justify-center">
-            <Button onClick={() => window.location.assign("/")}>Send a file instead</Button>
-          </div>
-        )}
+          {phase === "receiving" && (
+            <div className="px-6 py-10">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-sm font-medium">Receiving</span>
+                <span className="text-xs text-muted-foreground">{percent.toFixed(0)}%</span>
+              </div>
+              <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                <div
+                  className="sending-shimmer relative h-full overflow-hidden rounded-full bg-primary transition-[width] duration-200"
+                  style={{ width: `${percent}%` }}
+                />
+              </div>
+              <p className="mt-3 text-xs text-muted-foreground">
+                {formatBytes(received)} / {formatBytes(total || totalSize)}
+              </p>
+            </div>
+          )}
 
-        {phase === "error" && (
-          <div className="mt-10 flex justify-center">
-            <Button onClick={() => window.location.assign("/")}>Send a file instead</Button>
-          </div>
-        )}
+          {phase === "done" && (
+            <div className="border-b border-border px-6 py-8 text-center">
+              <p className="text-sm text-muted-foreground">
+                {multiple ? "All files delivered" : "File delivered"}
+              </p>
+            </div>
+          )}
+
+          {files.length > 0 && (
+            <ul className="flex flex-col divide-y divide-border">
+              {files.map((file, index) => {
+                const ready = phase === "done" && Boolean(urls[index]);
+                return (
+                  <li key={index} className="flex items-center gap-4 px-5 py-4">
+                    {file.preview ? (
+                      <img
+                        src={file.preview}
+                        alt={`Preview of ${file.name}`}
+                        className="size-9 shrink-0 rounded-lg object-cover"
+                      />
+                    ) : (
+                      <FileKindIcon name={file.name} mime={file.mime} className="shrink-0" />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium">{file.name}</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        {fileKindLabel(file.name, file.mime)} · {formatBytes(file.size)}
+                        {ready ? " · ready to save" : ""}
+                      </p>
+                    </div>
+
+                    {ready && (
+                      <a
+                        href={urls[index]}
+                        download={file.name}
+                        className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                        aria-label={`Save ${file.name}`}
+                      >
+                        <Download className="size-4" />
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+
+        <div className="mx-auto mt-8 flex max-w-xl items-center justify-center gap-3">
+          <Button
+            variant="outline"
+            onClick={() => window.location.assign("/")}
+            className="w-full sm:w-auto"
+          >
+            Send a file instead
+          </Button>
+        </div>
       </section>
-
-      {files.length > 0 && (
-        <section className="border-t border-border py-16">
-          <h2 className={`mx-auto max-w-2xl text-balance text-center ${SECTION_HEADING}`}>
-            {phase === "done" ? "Ready to save" : "Incoming files"}
-          </h2>
-          <p className="mt-3 text-center text-sm text-muted-foreground">
-            {multiple ? `${files.length} files` : "1 file"} · {formatBytes(totalSize)}
-          </p>
-
-          <ul className="mx-auto mt-8 grid w-full max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
-            {files.map((file, index) => (
-              <li
-                key={index}
-                className={`min-w-0 rounded-2xl border border-border bg-card p-4 ${files.length === 1 ? "sm:col-span-full" : ""}`}
-              >
-                <div className="flex min-w-0 items-center gap-4 text-left">
-                  {file.preview ? (
-                    <img
-                      src={file.preview}
-                      alt={`Preview of ${file.name}`}
-                      className="size-12 shrink-0 rounded-xl object-cover"
-                    />
-                  ) : (
-                    <FileKindIcon name={file.name} mime={file.mime} className="shrink-0" />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium">{file.name}</p>
-                    <p className="mt-0.5 text-xs text-muted-foreground">
-                      {fileKindLabel(file.name, file.mime)} · {formatBytes(file.size)}
-                      {phase === "done" && urls[index] ? " · ready to save" : ""}
-                    </p>
-                  </div>
-
-                  {phase === "done" && urls[index] && (
-                    <a
-                      href={urls[index]}
-                      download={file.name}
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                      aria-label={`Save ${file.name}`}
-                    >
-                      <Download className="size-4" />
-                    </a>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </Shell>
   );
 }
