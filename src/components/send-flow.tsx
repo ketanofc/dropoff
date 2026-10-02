@@ -341,7 +341,9 @@ function ShareStage({
 function TransferStatus({ phase, sent, total }: { phase: string; sent: number; total: number }) {
   const percent = total ? Math.min(100, (sent / total) * 100) : 0;
 
-  if (phase !== "transferring" && phase !== "complete") return null;
+  // Progress only exists while bytes are moving. Once complete the bar and its
+  // readout disappear rather than lingering on a finished transfer.
+  if (phase !== "transferring") return null;
 
   return (
     <div className="mt-6">
@@ -352,9 +354,7 @@ function TransferStatus({ phase, sent, total }: { phase: string; sent: number; t
         />
       </div>
       <p className="mt-3 text-xs text-muted-foreground">
-        {phase === "complete"
-          ? "All files delivered"
-          : `Sending ${percent.toFixed(0)}% · ${formatBytes(sent)} / ${formatBytes(total)}`}
+        Sending {percent.toFixed(0)}% · {formatBytes(sent)} / {formatBytes(total)}
       </p>
     </div>
   );

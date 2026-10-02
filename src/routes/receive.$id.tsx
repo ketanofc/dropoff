@@ -232,14 +232,6 @@ function Receive() {
             </div>
           )}
 
-          {phase === "done" && (
-            <div className="border-b border-border px-6 py-8 text-center">
-              <p className="text-sm text-muted-foreground">
-                {multiple ? "All files delivered" : "File delivered"}
-              </p>
-            </div>
-          )}
-
           {files.length > 0 && (
             <ul className="flex flex-col divide-y divide-border">
               {files.map((file, index) => {
