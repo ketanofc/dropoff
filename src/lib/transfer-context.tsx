@@ -26,10 +26,14 @@ type TransferActions = {
   addFiles: (files: File[]) => void;
   removeFile: (index: number) => void;
   startTransfer: () => Promise<void>;
+  retryTransfer: () => void;
   reset: () => void;
 };
 
 const TransferContext = createContext<(TransferState & TransferActions) | null>(null);
+
+/** How long to wait for the peer to register before giving up. */
+const PEER_OPEN_TIMEOUT_MS = 20000;
 
 const ICE_SERVERS = [
   { urls: "stun:stun.l.google.com:19302" },
@@ -92,6 +96,20 @@ export function TransferProvider({ children }: { children: ReactNode }) {
     setMessage("");
   }, []);
 
+  /**
+   * Restarts the peer without discarding the selected files. Used by the
+   * retry button, which needs phase back at "idle" so the sending page
+   * re-triggers startTransfer.
+   */
+  const retryTransfer = useCallback(() => {
+    peerRef.current?.destroy();
+    peerRef.current = null;
+    setPhase("idle");
+    setLink("");
+    setSent(0);
+    setMessage("");
+  }, []);
+
   const startTransfer = useCallback(async () => {
     if (filesRef.current.length === 0) return;
     setPhase("preparing");
@@ -107,13 +125,26 @@ export function TransferProvider({ children }: { children: ReactNode }) {
       });
       peerRef.current = peer;
 
+      // PeerJS registers against the public 0.peerjs.com signaling server,
+      // which is often rate-limited or unreachable. Without a deadline the
+      // "open" event may never fire and the UI would wait on it forever.
+      const openTimeout = window.setTimeout(() => {
+        if (peerRef.current !== peer) return;
+        peer.destroy();
+        peerRef.current = null;
+        setPhase("error");
+        setMessage("Could not reach the signaling server. Please try again.");
+      }, PEER_OPEN_TIMEOUT_MS);
+
       peer.on("open", () => {
+        window.clearTimeout(openTimeout);
         setLink(`${window.location.origin}/receive/${id}`);
         setPhase("waiting");
         setMessage("Waiting for the recipient to open your link…");
       });
 
       peer.on("error", (error: Error) => {
+        window.clearTimeout(openTimeout);
         setPhase("error");
         setMessage(error.message || "The connection could not be set up.");
       });
@@ -161,9 +192,22 @@ export function TransferProvider({ children }: { children: ReactNode }) {
       addFiles,
       removeFile,
       startTransfer,
+      retryTransfer,
       reset,
     }),
-    [files, phase, link, sent, total, message, addFiles, removeFile, startTransfer, reset],
+    [
+      files,
+      phase,
+      link,
+      sent,
+      total,
+      message,
+      addFiles,
+      removeFile,
+      startTransfer,
+      retryTransfer,
+      reset,
+    ],
   );
 
   return <TransferContext.Provider value={value}>{children}</TransferContext.Provider>;
