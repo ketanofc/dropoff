@@ -78,10 +78,6 @@ function FilesPage() {
           </ul>
         </div>
 
-        <p className="mx-auto mt-6 max-w-xl text-center text-xs text-muted-foreground">
-          files move directly between browsers over WebRTC
-        </p>
-
         <div className="mx-auto mt-8 flex max-w-xl items-center gap-3">
           <Button
             variant="outline"
