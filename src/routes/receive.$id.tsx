@@ -12,13 +12,13 @@ export const Route = createFileRoute("/receive/$id")({
     const url = `${SITE_URL}/receive/${ctx.params.id}`;
     return {
       meta: [
-        { title: "Someone is sending you a file – dropoff.lol" },
+        { title: "Someone is sending you a file – dropoff" },
         {
           name: "description",
           content: "Receive a file sent directly from another browser with dropoff.lol.",
         },
         { name: "robots", content: "noindex, nofollow" },
-        { property: "og:title", content: "Someone is sending you a file – dropoff.lol" },
+        { property: "og:title", content: "Someone is sending you a file – dropoff" },
         {
           property: "og:description",
           content: "Receive a file sent directly from another browser.",
