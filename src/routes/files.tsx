@@ -3,7 +3,7 @@ import { ArrowRight, Plus, ShieldCheck, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Button } from "../components/ui/button";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
-import { SECTION_HEADING, Shell } from "../components/shell";
+import { Shell } from "../components/shell";
 import { useTransfer } from "../lib/transfer-context";
 import { formatBytes } from "../lib/transfer";
 
@@ -44,11 +44,9 @@ function FilesPage() {
       />
 
       <section className="py-14 lg:py-20">
-        <header className="mx-auto max-w-xl text-center">
-          <h1 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>Review</h1>
-        </header>
+        <p className="eyebrow">Review</p>
 
-        <div className="mx-auto mt-10 max-w-xl overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="mx-auto mt-8 max-w-xl overflow-hidden rounded-2xl border border-border bg-card">
           <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
             <span className="text-sm font-medium">Files</span>
             <span className="text-xs text-muted-foreground">
