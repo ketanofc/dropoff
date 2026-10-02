@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Upload } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "../components/ui/button";
@@ -29,6 +29,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { addFiles } = useTransfer();
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
   function openFilePicker() {
@@ -45,8 +46,13 @@ function Index() {
         multiple
         className="sr-only"
         onChange={(event) => {
-          addFiles(Array.from(event.target.files ?? []));
+          const picked = Array.from(event.target.files ?? []);
           event.target.value = "";
+          if (picked.length === 0) return;
+          addFiles(picked);
+          // The review page owns the file list, so hand off as soon as we have
+          // something to show. Without this the selection looks like a no-op.
+          void navigate({ to: "/files" });
         }}
       />
 

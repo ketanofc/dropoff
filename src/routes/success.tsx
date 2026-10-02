@@ -21,7 +21,11 @@ function SuccessPage() {
       void navigate({ to: "/sending" });
       return;
     }
-    void navigate({ to: "/files" });
+    if (phase === "transferring" || phase === "waiting" || phase === "preparing") {
+      void navigate({ to: "/sending" });
+      return;
+    }
+    void navigate({ to: "/" });
   }, [phase, navigate]);
 
   return (
@@ -53,6 +57,13 @@ function SuccessPage() {
             >
               Send another file
               <ArrowRight className="button-arrow size-4" />
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => void navigate({ to: "/share" })}
+              className="w-full sm:w-auto"
+            >
+              Share the link
             </Button>
           </div>
 

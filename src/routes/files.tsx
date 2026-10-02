@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Plus, ShieldCheck, X } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button } from "../components/ui/button";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
 import { SECTION_HEADING, Shell } from "../components/shell";
@@ -12,7 +12,8 @@ export const Route = createFileRoute("/files")({
 });
 
 function FilesPage() {
-  const { files, addFiles, removeFile, startTransfer } = useTransfer();
+  const { files, addFiles, removeFile } = useTransfer();
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const totalSize = files.reduce((sum, f) => sum + f.size, 0);
 
@@ -22,6 +23,12 @@ function FilesPage() {
     inputRef.current.click();
   }
 
+  // Nothing selected means a direct visit or refresh, so send them back to
+  // pick something rather than showing an empty card.
+  useEffect(() => {
+    if (files.length === 0) void navigate({ to: "/" });
+  }, [files.length, navigate]);
+
   return (
     <Shell>
       <input
@@ -30,8 +37,9 @@ function FilesPage() {
         multiple
         className="sr-only"
         onChange={(event) => {
-          addFiles(Array.from(event.target.files ?? []));
+          const picked = Array.from(event.target.files ?? []);
           event.target.value = "";
+          addFiles(picked);
         }}
       />
 
@@ -96,7 +104,7 @@ function FilesPage() {
             More files
           </Button>
           <Button
-            onClick={() => void startTransfer()}
+            onClick={() => void navigate({ to: "/sending" })}
             className="min-w-0 flex-1 px-5 sm:flex-none sm:px-7"
           >
             Start transfer

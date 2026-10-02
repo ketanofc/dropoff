@@ -12,7 +12,7 @@ export const Route = createFileRoute("/sending")({
 });
 
 function SendingPage() {
-  const { phase, link, sent, total, message, startTransfer } = useTransfer();
+  const { files, phase, link, sent, total, message, startTransfer } = useTransfer();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
   const canShare = typeof navigator !== "undefined" && "share" in navigator;
@@ -22,6 +22,11 @@ function SendingPage() {
   useEffect(() => {
     if (phase === "idle") void startTransfer();
   }, [phase, startTransfer]);
+
+  // Arriving here without files means the flow was entered cold.
+  useEffect(() => {
+    if (files.length === 0) void navigate({ to: "/" });
+  }, [files.length, navigate]);
 
   // Hand off to the celebration screen once the bytes are all sent.
   useEffect(() => {
