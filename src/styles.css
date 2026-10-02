@@ -99,6 +99,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+  --color-success: var(--success);
 }
 
 @font-face {
@@ -175,7 +176,7 @@
   position: relative;
   width: 5.5rem;
   height: 5.5rem;
-  color: var(--color-foreground);
+  color: var(--success);
 }
 
 .success-ring {
@@ -302,6 +303,7 @@ button:hover .button-arrow {
 :root {
   --radius: 0.75rem;
   --highlight: #ffe600;
+  --success: oklch(0.596 0.145 163.225);
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.006 55);
   --card: oklch(1 0 0);

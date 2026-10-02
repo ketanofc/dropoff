@@ -3,15 +3,39 @@ import { Check, Copy, Share2 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { Button } from "../components/ui/button";
-import { SECTION_HEADING, Shell } from "../components/shell";
+import { Shell } from "../components/shell";
 import { useTransfer } from "../lib/transfer-context";
+import { formatBytes } from "../lib/transfer";
 
 export const Route = createFileRoute("/share")({
   component: SharePage,
 });
 
+/** The transfer keeps running while the recipient is on this screen. */
+function TransferStatus({ phase, sent, total }: { phase: string; sent: number; total: number }) {
+  if (phase !== "transferring" && phase !== "complete") return null;
+
+  const percent = total ? Math.min(100, (sent / total) * 100) : 0;
+
+  return (
+    <div className="mt-6">
+      <div className="relative h-1.5 w-full overflow-hidden rounded-full bg-muted">
+        <div
+          className="sending-shimmer relative h-full overflow-hidden rounded-full bg-primary transition-[width] duration-200"
+          style={{ width: `${percent}%` }}
+        />
+      </div>
+      <p className="mt-3 text-xs text-muted-foreground">
+        {phase === "complete"
+          ? "All files delivered"
+          : `Sending ${percent.toFixed(0)}% · ${formatBytes(sent)} / ${formatBytes(total)}`}
+      </p>
+    </div>
+  );
+}
+
 function SharePage() {
-  const { link } = useTransfer();
+  const { link, phase, sent, total } = useTransfer();
   const [copied, setCopied] = useState(false);
   const canShare = typeof navigator !== "undefined" && "share" in navigator;
 
@@ -34,12 +58,6 @@ function SharePage() {
     <Shell>
       <section className="py-16 text-center lg:py-24">
         <p className="eyebrow">Share the link</p>
-        <h1 className={`mx-auto mt-3 max-w-2xl text-balance ${SECTION_HEADING}`}>
-          Scan to receive
-        </h1>
-        <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
-          Open this on the other device to start the transfer.
-        </p>
 
         {link ? (
           <div className="mx-auto mt-10 w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-card">
@@ -75,6 +93,8 @@ function SharePage() {
               <p className="mt-6 text-xs text-muted-foreground">
                 Leave this tab open, dropoff does not store files.
               </p>
+
+              <TransferStatus phase={phase} sent={sent} total={total} />
             </div>
           </div>
         ) : (

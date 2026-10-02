@@ -28,7 +28,7 @@ export function SuccessTick({ withSound = false, withConfetti = false }: Success
     if (withConfetti) {
       // Respect the OS reduced-motion setting rather than firing regardless.
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        const colors = ["#ffe600", "#0a0a0a", "#ffffff", "#4ade80", "#60a5fa"];
+        const colors = ["#ffe600", "#22c55e", "#ffffff", "#0a0a0a", "#4ade80"];
         const shoot = (ratio: number, opts: confetti.Options) => {
           confetti({
             ...opts,
@@ -50,7 +50,7 @@ export function SuccessTick({ withSound = false, withConfetti = false }: Success
   return (
     <div className="flex justify-center">
       <div className="success-tick">
-        <svg viewBox="0 0 72 72" className="size-full" role="img" aria-label="Transfer complete">
+        <svg viewBox="0 0 72 72" className="size-full" role="img" aria-label="Share link ready">
           <circle
             cx="36"
             cy="36"

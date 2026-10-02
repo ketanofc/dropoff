@@ -45,13 +45,7 @@ function FilesPage() {
 
       <section className="py-14 lg:py-20">
         <header className="mx-auto max-w-xl text-center">
-          <p className="eyebrow">Step 1 of 3</p>
-          <h1 className={`mx-auto mt-3 max-w-2xl text-balance ${SECTION_HEADING}`}>
-            Review your files
-          </h1>
-          <p className="mx-auto mt-3 text-sm text-muted-foreground">
-            Check the list, then start the transfer.
-          </p>
+          <h1 className={`mx-auto max-w-2xl text-balance ${SECTION_HEADING}`}>Review</h1>
         </header>
 
         <div className="mx-auto mt-10 max-w-xl overflow-hidden rounded-2xl border border-border bg-card">
@@ -86,7 +80,7 @@ function FilesPage() {
           </ul>
         </div>
 
-        <div className="mx-auto mt-5 flex max-w-xl items-start gap-3 rounded-2xl bg-muted px-5 py-4 text-left">
+        <div className="mx-auto mt-6 flex max-w-xl items-start gap-3 rounded-2xl bg-muted px-5 py-4 text-left">
           <ShieldCheck className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
           <p className="text-xs leading-relaxed text-muted-foreground">
             Files move directly between browsers over WebRTC. Nothing is uploaded to a server and
@@ -107,7 +101,7 @@ function FilesPage() {
             onClick={() => void navigate({ to: "/sending" })}
             className="min-w-0 flex-1 px-5 sm:flex-none sm:px-7"
           >
-            Start transfer
+            Send file
             <ArrowRight className="button-arrow size-4" />
           </Button>
         </div>
