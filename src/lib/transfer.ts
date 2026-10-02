@@ -114,8 +114,18 @@ export function formatBytes(bytes: number) {
   return `${value.toFixed(value < 10 ? 1 : 0)} ${units[unit]}`;
 }
 
+/**
+ * Share links are unguessable capabilities: anyone holding one can pull the
+ * files, so the ID comes from a CSPRNG rather than Math.random. Eight base36
+ * characters is ~41 bits, which is far more than brute-forcing over a
+ * short-lived transfer would allow.
+ */
 export function newTransferId() {
-  return `dropoff-${Math.random().toString(36).slice(2, 10)}`;
+  const bytes = new Uint8Array(6);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => b.toString(36).padStart(2, "0"))
+    .join("")
+    .slice(0, 8);
 }
 
 export function toArrayBuffer(data: unknown): ArrayBuffer | null {
