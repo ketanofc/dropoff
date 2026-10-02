@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ArrowRight, Plus, ShieldCheck, X } from "lucide-react";
+import { ArrowRight, Plus, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Button } from "../components/ui/button";
 import { FileKindIcon, fileKindLabel } from "../components/file-icon";
@@ -78,13 +78,9 @@ function FilesPage() {
           </ul>
         </div>
 
-        <div className="mx-auto mt-6 flex max-w-xl items-start gap-3 rounded-2xl bg-muted px-5 py-4 text-left">
-          <ShieldCheck className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-          <p className="text-xs leading-relaxed text-muted-foreground">
-            Files move directly between browsers over WebRTC. Nothing is uploaded to a server and
-            nothing is stored.
-          </p>
-        </div>
+        <p className="mx-auto mt-6 max-w-xl text-center text-xs text-muted-foreground">
+          files move directly between browsers over WebRTC
+        </p>
 
         <div className="mx-auto mt-8 flex max-w-xl items-center gap-3">
           <Button
