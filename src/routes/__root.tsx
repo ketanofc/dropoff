@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { canonical, SITE_NAME, SITE_TAGLINE, SITE_URL, jsonLd, websiteSchema } from "../lib/seo";
+import { TransferProvider } from "../lib/transfer-context";
 
 function NotFoundComponent() {
   return (
@@ -139,8 +140,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      {/* The peer connection must outlive individual routes, so it lives here
+          rather than inside any one page. */}
+      <TransferProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+      </TransferProvider>
     </QueryClientProvider>
   );
 }

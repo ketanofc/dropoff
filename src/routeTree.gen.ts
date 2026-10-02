@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as FilesRouteImport } from './routes/files'
+import { Route as SendingRouteImport } from './routes/sending'
+import { Route as ShareRouteImport } from './routes/share'
+import { Route as SuccessRouteImport } from './routes/success'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ReceiveIdRouteImport } from './routes/receive.$id'
 
@@ -22,6 +26,26 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FilesRoute = FilesRouteImport.update({
+  id: '/files',
+  path: '/files',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SendingRoute = SendingRouteImport.update({
+  id: '/sending',
+  path: '/sending',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShareRoute = ShareRouteImport.update({
+  id: '/share',
+  path: '/share',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuccessRoute = SuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -38,12 +62,20 @@ const ReceiveIdRoute = ReceiveIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/files': typeof FilesRoute
+  '/sending': typeof SendingRoute
+  '/share': typeof ShareRoute
+  '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/receive/$id': typeof ReceiveIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/files': typeof FilesRoute
+  '/sending': typeof SendingRoute
+  '/share': typeof ShareRoute
+  '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/receive/$id': typeof ReceiveIdRoute
 }
@@ -51,20 +83,53 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/files': typeof FilesRoute
+  '/sending': typeof SendingRoute
+  '/share': typeof ShareRoute
+  '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/receive/$id': typeof ReceiveIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/terms' | '/receive/$id'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/files'
+    | '/sending'
+    | '/share'
+    | '/success'
+    | '/terms'
+    | '/receive/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/terms' | '/receive/$id'
-  id: '__root__' | '/' | '/about' | '/terms' | '/receive/$id'
+  to:
+    | '/'
+    | '/about'
+    | '/files'
+    | '/sending'
+    | '/share'
+    | '/success'
+    | '/terms'
+    | '/receive/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/files'
+    | '/sending'
+    | '/share'
+    | '/success'
+    | '/terms'
+    | '/receive/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  FilesRoute: typeof FilesRoute
+  SendingRoute: typeof SendingRoute
+  ShareRoute: typeof ShareRoute
+  SuccessRoute: typeof SuccessRoute
   TermsRoute: typeof TermsRoute
   ReceiveIdRoute: typeof ReceiveIdRoute
 }
@@ -83,6 +148,34 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/files': {
+      id: '/files'
+      path: '/files'
+      fullPath: '/files'
+      preLoaderRoute: typeof FilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sending': {
+      id: '/sending'
+      path: '/sending'
+      fullPath: '/sending'
+      preLoaderRoute: typeof SendingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/share': {
+      id: '/share'
+      path: '/share'
+      fullPath: '/share'
+      preLoaderRoute: typeof ShareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/success': {
+      id: '/success'
+      path: '/success'
+      fullPath: '/success'
+      preLoaderRoute: typeof SuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -105,6 +198,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  FilesRoute: FilesRoute,
+  SendingRoute: SendingRoute,
+  ShareRoute: ShareRoute,
+  SuccessRoute: SuccessRoute,
   TermsRoute: TermsRoute,
   ReceiveIdRoute: ReceiveIdRoute,
 }
