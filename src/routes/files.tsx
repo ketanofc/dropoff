@@ -43,10 +43,10 @@ function FilesPage() {
         }}
       />
 
-      <section className="py-14 lg:py-20">
+      <section className="py-14 text-center lg:py-20">
         <p className="eyebrow">Review</p>
 
-        <div className="mx-auto mt-8 max-w-xl overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="mx-auto mt-8 max-w-xl overflow-hidden rounded-2xl border border-border bg-card text-left">
           <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
             <span className="text-sm font-medium">Files</span>
             <span className="text-xs text-muted-foreground">
