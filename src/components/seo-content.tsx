@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import { FAQS } from "../lib/seo";
 
 const CONTENT_HEADING = "text-2xl font-light leading-[1.15] tracking-tight sm:text-3xl";
@@ -51,15 +52,34 @@ export function SeoContent() {
         <h2 id="faq-heading" className={`mt-3 text-balance ${CONTENT_HEADING}`}>
           Frequently asked questions
         </h2>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Everything you need to know about how Dropoff handles your files.
+        </p>
 
-        <dl className="mt-8 flex flex-col gap-7">
-          {FAQS.map((entry) => (
-            <div key={entry.question}>
-              <dt className="text-base font-medium text-foreground">{entry.question}</dt>
-              <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{entry.answer}</dd>
-            </div>
+        {/* Native <details> keeps every answer in the DOM for crawlers and answer
+            engines while giving readers a clean, keyboard-accessible accordion. */}
+        <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
+          {FAQS.map((entry, index) => (
+            <details
+              key={entry.question}
+              open={index === 0}
+              className="group border-b border-border last:border-b-0"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 transition-colors hover:bg-muted/40 [&::-webkit-details-marker]:hidden">
+                <h3 className="text-sm font-medium text-foreground sm:text-base">
+                  {entry.question}
+                </h3>
+                <ChevronDown
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                />
+              </summary>
+              <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">
+                {entry.answer}
+              </p>
+            </details>
           ))}
-        </dl>
+        </div>
       </section>
     </div>
   );
