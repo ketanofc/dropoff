@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { marked } from "marked";
-import { HERO_HEADING, Shell } from "../components/shell";
+import { PAGE_HEADING, Shell } from "../components/shell";
 import { Button } from "../components/ui/button";
 import termsMarkdown from "../content/terms.md?raw";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
@@ -42,7 +42,7 @@ function Terms() {
   return (
     <Shell>
       <section className="py-20 lg:py-28">
-        <h1 className={`max-w-2xl text-balance ${HERO_HEADING}`}>Terms of use</h1>
+        <h1 className={`max-w-2xl text-balance ${PAGE_HEADING}`}>Terms of use</h1>
         <div
           className="terms-content mt-10 max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[16px]"
           dangerouslySetInnerHTML={{ __html: termsHtml }}

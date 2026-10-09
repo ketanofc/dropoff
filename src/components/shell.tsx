@@ -3,6 +3,9 @@ import type { ReactNode } from "react";
 export const HERO_HEADING =
   "text-4xl font-light leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl";
 
+export const PAGE_HEADING =
+  "font-display text-4xl font-normal leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl";
+
 export const SECTION_HEADING = "text-3xl font-light leading-[1.1] tracking-tight sm:text-4xl";
 
 export function Shell({ children }: { children: ReactNode }) {

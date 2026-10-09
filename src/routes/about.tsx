@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Github } from "lucide-react";
-import { HERO_HEADING, SECTION_HEADING, Shell } from "../components/shell";
+import { PAGE_HEADING, SECTION_HEADING, Shell } from "../components/shell";
 import { Button } from "../components/ui/button";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
@@ -50,7 +50,7 @@ function About() {
   return (
     <Shell>
       <section className="py-20 lg:py-28">
-        <h1 className={`max-w-2xl text-balance ${HERO_HEADING}`}>About us</h1>
+        <h1 className={`max-w-2xl text-balance ${PAGE_HEADING}`}>About us</h1>
 
         <div className="mt-10 max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[16px]">
           <p>
