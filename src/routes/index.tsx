@@ -12,14 +12,14 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dropoff – Secure Peer-to-Peer File Sharing" },
+      { title: "dropoff – secure file sharing!" },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "keywords", content: SITE_KEYWORDS },
-      { property: "og:title", content: "Dropoff – Secure Peer-to-Peer File Sharing" },
+      { property: "og:title", content: "dropoff – secure file sharing!" },
       { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Dropoff – Secure Peer-to-Peer File Sharing" },
+      { name: "twitter:title", content: "dropoff – secure file sharing!" },
       { name: "twitter:description", content: SITE_DESCRIPTION },
     ],
     links: [canonical("/")],
