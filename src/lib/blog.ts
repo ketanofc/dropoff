@@ -4,6 +4,7 @@ import clientSideFileProcessing from "../content/blog/client-side-file-processin
 import webrtcP2pFileSharing from "../content/blog/webrtc-p2p-file-sharing-faster-more-private.md?raw";
 import traditionalFileTransferMethods from "../content/blog/why-traditional-file-transfer-methods-are-obsolete.md?raw";
 import computerToMobileFileSharing from "../content/blog/computer-to-mobile-file-sharing-guide.md?raw";
+import hiddenRisksOfFreeCloudStorage from "../content/blog/hidden-risks-of-free-cloud-storage.md?raw";
 
 export interface BlogPost {
   slug: string;
@@ -90,6 +91,7 @@ const RAW_POSTS: RawPost[] = [
     source: traditionalFileTransferMethods,
   },
   { slug: "computer-to-mobile-file-sharing-guide", source: computerToMobileFileSharing },
+  { slug: "hidden-risks-of-free-cloud-storage", source: hiddenRisksOfFreeCloudStorage },
 ];
 
 export const blogPosts: BlogPost[] = RAW_POSTS.map(buildPost).sort((a, b) =>
