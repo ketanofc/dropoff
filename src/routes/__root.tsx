@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "dropoff – secure file sharing!" },
+      { title: "dropoff – web file sharing!" },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "keywords", content: SITE_KEYWORDS },
       { name: "google-site-verification", content: "5JaKZkaAA3IInQwo4wHtgTWlm7WvkWIien0z2doLMMQ" },

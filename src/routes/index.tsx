@@ -14,7 +14,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "dropoff – secure file sharing!" },
+      { title: "dropoff – web file sharing!" },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "keywords", content: SITE_KEYWORDS },
       { property: "og:title", content: SOCIAL_TITLE },
