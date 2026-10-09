@@ -17,6 +17,10 @@ export const SITE_KEYWORDS = [
   "zero backend",
   "client-side file tool",
 ].join(", ");
+export const SOCIAL_TITLE = "Dropoff — Fast, Secure Client-Side Web Utility Tool";
+export const SOCIAL_DESCRIPTION =
+  "Process files instantly and privately right inside your browser with zero server uploads.";
+export const SOCIAL_IMAGE = "https://iili.io/nGvDEn2.png";
 export const CONTACT_EMAIL = "admin.dropoff@gmail.com";
 export const SOURCE_URL = "https://github.com/ketanofc/dropoff";
 
