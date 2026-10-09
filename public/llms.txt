@@ -20,6 +20,8 @@
 
 - [Home](https://www.dropoff.lol/): pick files, generate a one-time link, and share it.
 - [About us](https://www.dropoff.lol/about): why Dropoff exists and how it started.
+- [Blog](https://www.dropoff.lol/blog): guides and notes on private, browser-based file sharing.
+- [Why Client-Side File Processing Is the Future of Online Privacy](https://www.dropoff.lol/blog/client-side-file-processing-online-privacy): how client-side processing keeps your files on your device.
 - [Terms](https://www.dropoff.lol/terms): terms of service for using Dropoff.
 
 ## Details

@@ -21,11 +21,8 @@ export function Shell({ children }: { children: ReactNode }) {
             dropoff
           </a>
           <nav className="flex items-center gap-6 text-[15px] text-muted-foreground">
-            <a href="/about" className="transition-colors hover:text-foreground">
-              about us
-            </a>
-            <a href="/terms" className="transition-colors hover:text-foreground">
-              terms
+            <a href="/blog" className="transition-colors hover:text-foreground">
+              blog
             </a>
           </nav>
         </header>
