@@ -1,21 +1,33 @@
-# dropoff.lol
+# Dropoff
 
-> Private, browser-to-browser (peer-to-peer) file sharing. No accounts, no registration, and no permanent uploads — files stream directly from one device to another over WebRTC using a one-time `dropoff.lol/receive/<id>` link.
+> Dropoff is a free, secure, zero-backend file sharing tool that sends files directly between browsers over an encrypted peer-to-peer WebRTC connection. Everything runs client-side, so files are never uploaded to or stored on a server.
 
-## dropoff.lol
+## What it is
 
-- [Home](https://dropoff.lol/): Pick files, generate a `dropoff.lol/receive/<id>` link, and anyone can download them straight from your browser.
-- [About us](https://dropoff.lol/about): Why dropoff.lol exists and how it started.
-- [Terms](https://dropoff.lol/terms): Terms of service for using dropoff.lol.
+- Project name: Dropoff
+- Category: client-side file transfer utility
+- Model: zero-backend, peer-to-peer (browser to browser)
 
-## Features
+## Core features
 
-- Peer-to-peer transfers: files stream directly between browsers via WebRTC.
-- No accounts, no registration, no sign-in.
-- No permanent cloud uploads and no server-side file storage.
+- Client-side processing: the entire tool runs in the browser; there is no backend that handles file data.
+- Zero server upload: files never leave the two connected devices and are never stored on a server.
+- Privacy-first: encrypted peer-to-peer transfer with one-time, unguessable share links and no accounts or tracking of file contents.
+- High speed: transfers use the direct peer connection between the two browsers, avoiding a round trip through cloud storage.
+- No limits from the service: because nothing is uploaded, there is no server-side file size cap.
+
+## Pages
+
+- [Home](https://dropoff.lol/): pick files, generate a one-time link, and share it.
+- [About us](https://dropoff.lol/about): why Dropoff exists and how it started.
+- [Terms](https://dropoff.lol/terms): terms of service for using Dropoff.
+
+## Details
+
 - Share links use the format `https://dropoff.lol/receive/<id>`.
-- Practical file size limits: about 1–2 GB on desktop Chrome, ~1 GB on Firefox, and a few hundred MB on iPhone/iOS Safari; nothing is stored on servers.
-- Works fully client-side from any modern browser, desktop or mobile.
+- Practical file size limits are set by the browser: roughly 1–2 GB on desktop Chrome, about 1 GB on Firefox, and a few hundred MB on iPhone/iOS Safari.
+- The sender's tab must stay open while the transfer is in progress, because the sender's browser is the source of the files.
+- Works on Windows, macOS, Linux, iOS, and Android in any modern browser.
 
 ## Contact
 

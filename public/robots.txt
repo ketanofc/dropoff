@@ -1,9 +1,12 @@
-# Allow every crawler and AI/LLM bot; the site is fully public.
+# Dropoff robots.txt
+# Allow every traditional crawler and explicitly welcome major AI/LLM bots.
+# The public pages are fully indexable; generated /receive/<id> links are not.
+
 User-agent: *
 Allow: /
 Disallow: /receive/
 
-# Search engines
+# Traditional search engines
 User-agent: Googlebot
 Allow: /
 
@@ -22,7 +25,7 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
-# AI / LLM crawlers and training bots
+# AI / LLM crawlers, search bots, and training bots
 User-agent: GPTBot
 Allow: /
 
@@ -47,6 +50,12 @@ Allow: /
 User-agent: Perplexity-User
 Allow: /
 
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 User-agent: Bytespider
 Allow: /
 
@@ -57,9 +66,6 @@ User-agent: cohere-ai
 Allow: /
 
 User-agent: GrokBot
-Allow: /
-
-User-agent: Applebot-Extended
 Allow: /
 
 # Social media preview crawlers

@@ -2,6 +2,7 @@ import { ArrowRight, Check, Copy, Plus, Share2, Upload, X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useRef, useState } from "react";
 import { FileKindIcon, fileKindLabel } from "./file-icon";
+import { SeoContent } from "./seo-content";
 import { SuccessTick } from "./success-tick";
 import { HERO_HEADING, SECTION_HEADING, Shell } from "./shell";
 import { Button } from "./ui/button";
@@ -88,21 +89,25 @@ export function SendFlow() {
       />
 
       {stage === "select" && (
-        <section className="py-20 text-center lg:py-28">
-          <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
-            Send Files Right From Your <span className="stripe-accent">Browser</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
-            peer to peer file transfers, no limits, no permanent uploads, and no account required.
-          </p>
-          <div className="mt-10 flex justify-center">
-            <Button type="button" onClick={openFilePicker}>
-              <Upload className="size-4" />
-              SELECT FILE TO SHARE
-              <ArrowRight className="button-arrow size-4" />
-            </Button>
-          </div>
-        </section>
+        <>
+          <section className="py-20 text-center lg:py-28">
+            <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
+              Send Files Right From Your <span className="stripe-accent">Browser</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
+              peer to peer file transfers, no limits, no permanent uploads, and no account required.
+            </p>
+            <div className="mt-10 flex justify-center">
+              <Button type="button" onClick={openFilePicker}>
+                <Upload className="size-4" />
+                SELECT FILE TO SHARE
+                <ArrowRight className="button-arrow size-4" />
+              </Button>
+            </div>
+          </section>
+
+          <SeoContent />
+        </>
       )}
 
       {stage === "review" && (

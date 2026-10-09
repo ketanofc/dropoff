@@ -12,7 +12,14 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { canonical, SITE_NAME, SITE_TAGLINE, SITE_URL, jsonLd, websiteSchema } from "../lib/seo";
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+  jsonLd,
+  websiteSchema,
+} from "../lib/seo";
 import { TransferProvider } from "../lib/transfer-context";
 
 function NotFoundComponent() {
@@ -80,21 +87,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "dropoff – file sharing!" },
-      { name: "description", content: SITE_TAGLINE },
+      { title: "Dropoff – Secure Peer-to-Peer File Sharing" },
+      { name: "description", content: SITE_DESCRIPTION },
+      { name: "keywords", content: SITE_KEYWORDS },
       { name: "author", content: SITE_NAME },
-      { name: "robots", content: "index, follow" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
       { name: "theme-color", content: "#ffffff" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: SITE_NAME },
       { property: "og:locale", content: "en_US" },
+      { property: "og:title", content: "Dropoff – Secure Peer-to-Peer File Sharing" },
+      { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:url", content: `${SITE_URL}/` },
       { property: "og:image", content: `${SITE_URL}/android-chrome-512x512.png` },
       { property: "og:image:width", content: "512" },
       { property: "og:image:height", content: "512" },
-      { property: "og:image:alt", content: "dropoff.lol logo" },
+      { property: "og:image:alt", content: "Dropoff logo" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Dropoff – Secure Peer-to-Peer File Sharing" },
+      { name: "twitter:description", content: SITE_DESCRIPTION },
       { name: "twitter:image", content: `${SITE_URL}/android-chrome-512x512.png` },
+      { name: "twitter:image:alt", content: "Dropoff logo" },
     ],
     links: [
       {
@@ -106,7 +119,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", type: "image/jpeg", sizes: "16x16", href: "/favicon.jpg" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "canonical", href: `${SITE_URL}/` },
+      // Points generative engines and agents at the markdown summary of the site.
+      { rel: "help", type: "text/markdown", href: "/llms.txt" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
