@@ -43,6 +43,8 @@ Try it at **[dropoff.lol](https://dropoff.lol)**.
   desktops, with an animated light/dark theme.
 - **Respects your privacy.** No permanent uploads, no user accounts, and a
   plain-terms [Terms of use](/terms).
+- **Guides and notes.** A built-in [blog](/blog) covering privacy, WebRTC, and
+  getting the most out of peer-to-peer transfers.
 
 ## How it works
 
@@ -130,10 +132,12 @@ src/
 ├── components/
 │   ├── ui/             # shadcn/ui-style primitives
 │   └── ...             # Shell, file icons, theme toggler, text animations
-├── content/            # Static markdown (terms)
+├── content/            # Static markdown (blog posts, terms)
 ├── hooks/              # Shared React hooks
-├── lib/                # Transfer logic, utilities, error handling
+├── lib/                # Transfer logic, blog registry, utilities, error handling
 └── routes/             # TanStack Router file routes
+    ├── blog/           # Blog index and articles (/blog, /blog/:slug)
+    ├── about.tsx       # About page (/about)
     ├── receive.$id.tsx # Receive page (/receive/:id)
     ├── index.tsx       # Send page (/)
     └── terms.tsx       # Terms of use
