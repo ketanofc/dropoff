@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PAGE_HEADING, Shell } from "../../components/shell";
 import { blogPosts, type BlogPost } from "../../lib/blog";
@@ -5,6 +6,8 @@ import { SITE_NAME, SITE_URL, canonical, jsonLd, ogUrl } from "../../lib/seo";
 
 const BLOG_DESCRIPTION =
   "Guides and notes on private, browser-based file sharing, and how to keep your documents on your own device.";
+
+const ALL_CATEGORIES = "All";
 
 export const Route = createFileRoute("/blog/")({
   head: () => ({
@@ -41,67 +44,114 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogIndex() {
-  const [featured, ...rest] = blogPosts;
+  const categories = [
+    ALL_CATEGORIES,
+    ...Array.from(new Set(blogPosts.map((post) => post.category))),
+  ];
+  const [activeCategory, setActiveCategory] = useState(ALL_CATEGORIES);
+  const visiblePosts =
+    activeCategory === ALL_CATEGORIES
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === activeCategory);
+  const [featured, ...rest] = visiblePosts;
 
   return (
     <Shell>
       <section className="py-20 lg:py-28">
-        <p className="eyebrow">Blog</p>
-        <h1 className={`mt-3 max-w-3xl text-balance ${PAGE_HEADING}`}>Blog</h1>
+        <h1 className={`max-w-3xl text-balance ${PAGE_HEADING}`}>Blog</h1>
         <p className="mt-5 max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[16px]">
           {BLOG_DESCRIPTION}
         </p>
 
-        <div className="mt-12 flex flex-col gap-5">
-          {featured ? <PostCard post={featured} featured /> : null}
-          {rest.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
+        <div className="mt-8 flex flex-wrap gap-2">
+          {categories.map((category) => {
+            const active = category === activeCategory;
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                aria-pressed={active}
+                className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+                  active
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"
+                }`}
+              >
+                {category}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-10 flex flex-col gap-5">
+          {featured ? <FeaturedPost post={featured} /> : null}
+          {rest.length > 0 ? (
+            <div className="flex flex-col border-t border-border">
+              {rest.map((post) => (
+                <PostRow key={post.slug} post={post} />
+              ))}
+            </div>
+          ) : null}
         </div>
       </section>
     </Shell>
   );
 }
 
-function PostCard({ post, featured = false }: { post: BlogPost; featured?: boolean }) {
+function PostMeta({ post }: { post: BlogPost }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <span>{post.category}</span>
+      <span aria-hidden="true">·</span>
+      <time dateTime={post.published}>{post.publishedLabel}</time>
+    </div>
+  );
+}
+
+function ReadMore() {
+  return (
+    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
+      Read more
+      <span
+        aria-hidden="true"
+        className="transition-transform duration-200 group-hover:translate-x-0.5"
+      >
+        →
+      </span>
+    </span>
+  );
+}
+
+function FeaturedPost({ post }: { post: BlogPost }) {
   return (
     <a
       href={`/blog/${post.slug}`}
       className="group block rounded-3xl border border-border bg-card p-6 transition-colors hover:border-foreground/25 sm:p-8"
     >
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-        <span>{post.category}</span>
-        <span aria-hidden="true">·</span>
-        <time dateTime={post.published}>{post.publishedLabel}</time>
-        {post.readingTime ? (
-          <>
-            <span aria-hidden="true">·</span>
-            <span>{post.readingTime} read</span>
-          </>
-        ) : null}
-      </div>
-
-      <h2
-        className={`mt-4 text-balance font-light leading-[1.15] tracking-tight text-foreground ${
-          featured ? "text-2xl sm:text-3xl lg:text-4xl" : "text-xl sm:text-2xl"
-        }`}
-      >
+      <PostMeta post={post} />
+      <h2 className="mt-4 text-balance text-2xl font-light leading-[1.15] tracking-tight text-foreground sm:text-3xl lg:text-4xl">
         {post.title}
       </h2>
-
       <p className="mt-4 max-w-2xl text-[15px] leading-7 text-muted-foreground">
         {post.metaDescription}
       </p>
+      <ReadMore />
+    </a>
+  );
+}
 
-      <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
-        Read article
-        <span
-          aria-hidden="true"
-          className="transition-transform duration-200 group-hover:translate-x-0.5"
-        >
-          →
-        </span>
-      </span>
+function PostRow({ post }: { post: BlogPost }) {
+  return (
+    <a href={`/blog/${post.slug}`} className="group flex flex-col border-b border-border py-7">
+      <PostMeta post={post} />
+      <h3 className="mt-2 text-xl font-light leading-snug tracking-tight text-foreground sm:text-2xl">
+        {post.title}
+      </h3>
+      <p className="mt-2 max-w-2xl text-[15px] leading-7 text-muted-foreground">
+        {post.metaDescription}
+      </p>
+      <ReadMore />
     </a>
   );
 }

@@ -125,9 +125,7 @@ function About() {
 
           <div className="mt-12">
             <a href="/">
-              <Button variant="outline" size="sm">
-                Back to dropoff.lol
-              </Button>
+              <Button>Back to dropoff.lol</Button>
             </a>
           </div>
         </div>

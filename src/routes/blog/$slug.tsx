@@ -82,12 +82,6 @@ function BlogPostPage() {
           <span>{post.author}</span>
           <span aria-hidden="true">·</span>
           <time dateTime={post.published}>{post.publishedLabel}</time>
-          {post.readingTime ? (
-            <>
-              <span aria-hidden="true">·</span>
-              <span>{post.readingTime} read</span>
-            </>
-          ) : null}
         </div>
 
         <div className="blog-content mt-10 max-w-2xl" dangerouslySetInnerHTML={{ __html: html }} />
