@@ -23,6 +23,8 @@
 - [Blog](https://www.dropoff.lol/blog): guides and notes on private, browser-based file sharing.
 - [Why Client-Side File Processing Is the Future of Online Privacy](https://www.dropoff.lol/blog/client-side-file-processing-online-privacy): how client-side processing keeps your files on your device.
 - [Why Peer-to-Peer File Sharing with WebRTC Is Faster and More Private Than Cloud Storage](https://www.dropoff.lol/blog/webrtc-p2p-file-sharing-faster-more-private): how WebRTC sends files directly between devices.
+- [Why Traditional File Transfer Methods Are Obsolete in Modern Workflows](https://www.dropoff.lol/blog/why-traditional-file-transfer-methods-are-obsolete): why email attachments, USB drives, and cloud folders fall short.
+- [The Comprehensive Guide to Sharing Files from Computer to Mobile](https://www.dropoff.lol/blog/computer-to-mobile-file-sharing-guide): moving files between a computer and phone without cables or cloud.
 - [Terms](https://www.dropoff.lol/terms): terms of service for using Dropoff.
 
 ## Details

@@ -2,6 +2,8 @@ import { format } from "date-fns";
 
 import clientSideFileProcessing from "../content/blog/client-side-file-processing-online-privacy.md?raw";
 import webrtcP2pFileSharing from "../content/blog/webrtc-p2p-file-sharing-faster-more-private.md?raw";
+import traditionalFileTransferMethods from "../content/blog/why-traditional-file-transfer-methods-are-obsolete.md?raw";
+import computerToMobileFileSharing from "../content/blog/computer-to-mobile-file-sharing-guide.md?raw";
 
 export interface BlogPost {
   slug: string;
@@ -83,6 +85,11 @@ function buildPost({ slug: fallbackSlug, source }: RawPost): BlogPost {
 const RAW_POSTS: RawPost[] = [
   { slug: "client-side-file-processing-online-privacy", source: clientSideFileProcessing },
   { slug: "webrtc-p2p-file-sharing-faster-more-private", source: webrtcP2pFileSharing },
+  {
+    slug: "why-traditional-file-transfer-methods-are-obsolete",
+    source: traditionalFileTransferMethods,
+  },
+  { slug: "computer-to-mobile-file-sharing-guide", source: computerToMobileFileSharing },
 ];
 
 export const blogPosts: BlogPost[] = RAW_POSTS.map(buildPost).sort((a, b) =>

@@ -31,6 +31,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.dropoff.lol/blog/why-traditional-file-transfer-methods-are-obsolete</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.dropoff.lol/blog/computer-to-mobile-file-sharing-guide</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.dropoff.lol/terms</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
