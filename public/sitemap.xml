@@ -25,6 +25,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.dropoff.lol/blog/webrtc-p2p-file-sharing-faster-more-private</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.dropoff.lol/terms</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
