@@ -3,6 +3,7 @@ import { SendFlow } from "../components/send-flow";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
+  SITE_TITLE,
   SOCIAL_DESCRIPTION,
   SOCIAL_TITLE,
   canonical,
@@ -14,7 +15,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "dropoff – web file sharing!" },
+      { title: SITE_TITLE },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "keywords", content: SITE_KEYWORDS },
       { property: "og:title", content: SOCIAL_TITLE },

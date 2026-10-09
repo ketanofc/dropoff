@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { FAQS } from "../lib/seo";
+import { FAQS, WHAT_IS_DROPOFF } from "../lib/seo";
 
 const CONTENT_HEADING = "text-2xl font-light leading-[1.15] tracking-tight sm:text-3xl";
 
@@ -20,12 +20,7 @@ export function SeoContent() {
           What is Dropoff?
         </h2>
         <div className="mt-5 flex flex-col gap-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-          <p>
-            Dropoff is a free, secure, zero-backend file sharing tool that runs entirely in your
-            browser. Pick one or more files and Dropoff creates a private, one-time link. Whoever
-            opens that link receives the files straight from your device over an encrypted
-            peer-to-peer WebRTC connection.
-          </p>
+          <p>{WHAT_IS_DROPOFF}</p>
           <p>
             Nothing is uploaded and nothing is stored. Because the transferring browsers act as the
             servers, your files never touch Dropoff's infrastructure, there are no accounts, and

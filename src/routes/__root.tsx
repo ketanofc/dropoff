@@ -16,6 +16,7 @@ import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   SITE_NAME,
+  SITE_TITLE,
   SITE_URL,
   SOCIAL_DESCRIPTION,
   SOCIAL_IMAGE,
@@ -90,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "dropoff – web file sharing!" },
+      { title: SITE_TITLE },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "keywords", content: SITE_KEYWORDS },
       { name: "google-site-verification", content: "5JaKZkaAA3IInQwo4wHtgTWlm7WvkWIien0z2doLMMQ" },
