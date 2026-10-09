@@ -1,4 +1,5 @@
 import { ChevronDown } from "lucide-react";
+import { revealClass, useReveal } from "../lib/reveal";
 import { FAQS, WHAT_IS_DROPOFF } from "../lib/seo";
 
 const CONTENT_HEADING = "text-2xl font-light leading-[1.15] tracking-tight sm:text-3xl";
@@ -12,9 +13,17 @@ const CONTENT_HEADING = "text-2xl font-light leading-[1.15] tracking-tight sm:te
  * JSON-LD in src/lib/seo.ts, keeping visible copy and structured data in sync.
  */
 export function SeoContent() {
+  const about = useReveal<HTMLElement>();
+  const faq = useReveal<HTMLElement>();
+
   return (
     <div className="mx-auto mt-20 max-w-2xl border-t border-border pt-14 lg:mt-28 lg:pt-20">
-      <section id="what-is-dropoff" aria-labelledby="what-is-dropoff-heading">
+      <section
+        ref={about.ref}
+        id="what-is-dropoff"
+        aria-labelledby="what-is-dropoff-heading"
+        className={revealClass(about.visible)}
+      >
         <p className="eyebrow">About Dropoff</p>
         <h2 id="what-is-dropoff-heading" className={`mt-3 text-balance ${CONTENT_HEADING}`}>
           What is Dropoff?
@@ -39,9 +48,10 @@ export function SeoContent() {
       </section>
 
       <section
+        ref={faq.ref}
         id="faq"
         aria-labelledby="faq-heading"
-        className="mt-16 border-t border-border pt-14"
+        className={revealClass(faq.visible, "mt-16 border-t border-border pt-14")}
       >
         <p className="eyebrow">FAQ</p>
         <h2 id="faq-heading" className={`mt-3 text-balance ${CONTENT_HEADING}`}>

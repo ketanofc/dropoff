@@ -271,6 +271,38 @@
   }
 }
 
+/* Scroll reveal: elements start hidden and are switched on by
+   IntersectionObserver adding .is-visible (see src/lib/reveal.ts). */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    transform 700ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Browsers with JavaScript disabled never get the observer, so don't hide content. */
+@media (scripting: none) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Payment-style success mark: ring scales in, tick draws along its path. */
 .success-tick {
   position: relative;

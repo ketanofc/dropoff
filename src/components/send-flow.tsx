@@ -6,6 +6,7 @@ import { SeoContent } from "./seo-content";
 import { SuccessTick } from "./success-tick";
 import { HERO_HEADING, SECTION_HEADING, Shell } from "./shell";
 import { Button } from "./ui/button";
+import { revealClass, useReveal } from "../lib/reveal";
 import { useTransfer } from "../lib/transfer-context";
 import { formatBytes } from "../lib/transfer";
 
@@ -35,6 +36,9 @@ export function SendFlow() {
   } = useTransfer();
   const [stage, setStage] = useState<Stage>("select");
   const inputRef = useRef<HTMLInputElement>(null);
+  const heroHeading = useReveal<HTMLHeadingElement>();
+  const heroCopy = useReveal<HTMLParagraphElement>();
+  const heroCta = useReveal<HTMLDivElement>();
 
   const totalSize = files.reduce((sum, f) => sum + f.size, 0);
 
@@ -91,13 +95,30 @@ export function SendFlow() {
       {stage === "select" && (
         <>
           <section className="py-20 text-center lg:py-28">
-            <h1 className={`mx-auto max-w-3xl text-balance ${HERO_HEADING}`}>
+            <h1
+              ref={heroHeading.ref}
+              className={revealClass(
+                heroHeading.visible,
+                `mx-auto max-w-3xl text-balance ${HERO_HEADING}`,
+              )}
+            >
               Send Files Right From Your <span className="stripe-accent">Browser</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
+            <p
+              ref={heroCopy.ref}
+              className={revealClass(
+                heroCopy.visible,
+                "mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground sm:text-lg",
+              )}
+              style={{ transitionDelay: "90ms" }}
+            >
               peer to peer file transfers, no limits, no permanent uploads, and no account required.
             </p>
-            <div className="mt-10 flex justify-center">
+            <div
+              ref={heroCta.ref}
+              className={revealClass(heroCta.visible, "mt-10 flex justify-center")}
+              style={{ transitionDelay: "180ms" }}
+            >
               <Button type="button" onClick={openFilePicker}>
                 <Upload className="size-4" />
                 SELECT FILE TO SHARE
