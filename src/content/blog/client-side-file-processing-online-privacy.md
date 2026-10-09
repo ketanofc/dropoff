@@ -121,7 +121,7 @@ The web is steadily moving toward faster, more private, edge-delivered applicati
 
 **Dropoff** was built around this idea: instant, private, zero-backend file handling that runs right in your browser, with nothing to install.
 
-👉 **[Try Dropoff now](https://www.dropoff.lol)** and see what it feels like when your files never leave your device.
+👉 **[Explore Dropoff now](https://www.dropoff.lol)** and see what it feels like when your files never leave your device.
 
 ---
 
