@@ -1,5 +1,5 @@
-export const SITE_URL = "https://dropoff.lol";
-export const SITE_DOMAIN = "dropoff.lol";
+export const SITE_URL = "https://www.dropoff.lol";
+export const SITE_DOMAIN = "www.dropoff.lol";
 export const SITE_NAME = "Dropoff";
 export const SITE_TAGLINE =
   "Private, browser-to-browser file sharing. No accounts, no uploads, no storage.";

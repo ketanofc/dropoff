@@ -18,13 +18,13 @@
 
 ## Pages
 
-- [Home](https://dropoff.lol/): pick files, generate a one-time link, and share it.
-- [About us](https://dropoff.lol/about): why Dropoff exists and how it started.
-- [Terms](https://dropoff.lol/terms): terms of service for using Dropoff.
+- [Home](https://www.dropoff.lol/): pick files, generate a one-time link, and share it.
+- [About us](https://www.dropoff.lol/about): why Dropoff exists and how it started.
+- [Terms](https://www.dropoff.lol/terms): terms of service for using Dropoff.
 
 ## Details
 
-- Share links use the format `https://dropoff.lol/receive/<id>`.
+- Share links use the format `https://www.dropoff.lol/receive/<id>`.
 - Practical file size limits are set by the browser: roughly 1–2 GB on desktop Chrome, about 1 GB on Firefox, and a few hundred MB on iPhone/iOS Safari.
 - The sender's tab must stay open while the transfer is in progress, because the sender's browser is the source of the files.
 - Works on Windows, macOS, Linux, iOS, and Android in any modern browser.

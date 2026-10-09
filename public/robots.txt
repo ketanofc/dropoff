@@ -84,4 +84,4 @@ Allow: /
 User-agent: TelegramBot
 Allow: /
 
-Sitemap: https://dropoff.lol/sitemap.xml
+Sitemap: https://www.dropoff.lol/sitemap.xml

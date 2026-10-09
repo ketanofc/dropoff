@@ -90,6 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Dropoff – Secure Peer-to-Peer File Sharing" },
       { name: "description", content: SITE_DESCRIPTION },
       { name: "keywords", content: SITE_KEYWORDS },
+      { name: "google-site-verification", content: "5JaKZkaAA3IInQwo4wHtgTWlm7WvkWIien0z2doLMMQ" },
       { name: "author", content: SITE_NAME },
       { name: "robots", content: "index, follow, max-image-preview:large" },
       { name: "theme-color", content: "#ffffff" },

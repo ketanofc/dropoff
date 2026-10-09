@@ -16,7 +16,7 @@ Most file sharing services upload your files to a cloud server first. That means
 
 ## How it works
 
-1. A sender opens https://dropoff.lol and picks one or more files.
+1. A sender opens https://www.dropoff.lol and picks one or more files.
 2. Dropoff connects the sender to a lightweight signaling server only to bootstrap a peer-to-peer WebRTC connection, then generates a link formatted `dropoff.lol/receive/<id>`.
 3. The sender shares that link with the receiver by any means.
 4. The receiver opens the link and the files stream directly, device to device.
@@ -37,9 +37,9 @@ Most file sharing services upload your files to a cloud server first. That means
 
 ## Pages
 
-- [Home](https://dropoff.lol/): the sender interface for picking files and generating a share link.
-- [About us](https://dropoff.lol/about): the story behind Dropoff and the problem it solves.
-- [Terms](https://dropoff.lol/terms): the terms of service governing use of the service.
+- [Home](https://www.dropoff.lol/): the sender interface for picking files and generating a share link.
+- [About us](https://www.dropoff.lol/about): the story behind Dropoff and the problem it solves.
+- [Terms](https://www.dropoff.lol/terms): the terms of service governing use of the service.
 
 ## Contact
 
