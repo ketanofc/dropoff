@@ -153,7 +153,7 @@ npm run build
 npx nitro deploy --prebuilt
 ```
 
-The live site is hosted on **Cloudflare** at
+The live site is hosted on **vercel** at
 [dropoff.lol](https://dropoff.lol).
 
 ## FAQ
