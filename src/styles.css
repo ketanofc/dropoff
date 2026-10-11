@@ -435,6 +435,30 @@ button:hover .button-arrow {
   }
 }
 
+/* iOS install hint: a small arrow that nudges down toward Safari's toolbar. */
+.install-arrow {
+  animation: install-arrow-bounce 1.6s cubic-bezier(0.2, 0.9, 0.2, 1) infinite;
+}
+
+@keyframes install-arrow-bounce {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translateY(-2px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .install-arrow {
+    animation: none;
+  }
+}
+
 :root {
   --radius: 0.75rem;
   --highlight: #ffe600;
