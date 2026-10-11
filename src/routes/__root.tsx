@@ -24,6 +24,7 @@ import {
   jsonLd,
   websiteSchema,
 } from "../lib/seo";
+import { InstallPrompt } from "../components/install-prompt";
 import { TransferProvider } from "../lib/transfer-context";
 
 function NotFoundComponent() {
@@ -167,6 +168,7 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </TransferProvider>
+      <InstallPrompt />
     </QueryClientProvider>
   );
 }
