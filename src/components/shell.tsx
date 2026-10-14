@@ -48,16 +48,16 @@ function SiteFooter() {
             about us
           </a>
           <a
+            href="/contribute"
+            className="underline underline-offset-4 transition-colors hover:text-foreground"
+          >
+            contribute
+          </a>
+          <a
             href="/terms"
             className="underline underline-offset-4 transition-colors hover:text-foreground"
           >
             terms
-          </a>
-          <a
-            href="mailto:admin.dropoff@gmail.com"
-            className="underline underline-offset-4 transition-colors hover:text-foreground"
-          >
-            contact
           </a>
           <a
             href="https://github.com/ketanofc/dropoff"
