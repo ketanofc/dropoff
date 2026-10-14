@@ -15,12 +15,12 @@ export const Route = createFileRoute("/contribute")({
       {
         name: "description",
         content:
-          "Help dropoff.lol grow: share it with others, send feedback, or support the project so peer-to-peer file sharing stays free and simple.",
+          "Ways to help dropoff.lol grow: share it with others, send feedback, or support ongoing development so file sharing stays free and simple.",
       },
       { property: "og:title", content: "Contribute – dropoff.lol" },
       {
         property: "og:description",
-        content: "Help dropoff.lol grow and keep file sharing simple.",
+        content: "Share dropoff.lol, send feedback, or support the project.",
       },
       { property: "og:type", content: "website" },
       ogUrl("/contribute"),
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/contribute")({
         url: `${SITE_URL}/contribute`,
         name: "Contribute – dropoff.lol",
         description:
-          "Help dropoff.lol grow: share it with others, send feedback, or support the project.",
+          "Ways to help dropoff.lol grow: share it with others, send feedback, or support ongoing development.",
         isPartOf: { "@id": `${SITE_URL}/#website` },
         inLanguage: "en",
       }),
@@ -69,86 +69,72 @@ function Contribute() {
   return (
     <Shell>
       <section className="py-20 lg:py-28">
-        <h1 className={`max-w-2xl text-balance ${PAGE_HEADING}`}>Help dropoff.lol Grow</h1>
-        <p className="mt-4 max-w-2xl text-[17px] leading-7 text-foreground lg:text-[18px]">
-          Good things grow when we share them.
-        </p>
+        <h1 className={`max-w-2xl text-balance ${PAGE_HEADING}`}>Contribute</h1>
 
-        <div className="mt-8 max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[16px]">
+        <div className="mt-10 max-w-2xl text-[15px] leading-7 text-muted-foreground lg:text-[16px]">
           <p>
-            dropoff.lol exists to make file sharing simple. No accounts, no complicated setup, and
-            no unnecessary uploads to cloud storage. Just drop a file, connect with someone, and
-            share it.
+            dropoff.lol started with a simple annoyance: sending a file to someone shouldn't need an
+            account, a subscription, or a detour through somebody else's servers. It is a small,
+            independent project, and it stays useful because the people who use it choose to help it
+            grow.
           </p>
           <p className="mt-5">
-            We're building a simpler way to share files, and we believe useful tools shouldn't need
-            to be complicated.
-          </p>
-          <p className="mt-5">
-            Big platforms have huge marketing budgets. We're a small independent project, so we rely
-            on something much more valuable:{" "}
-            <strong className="font-medium text-foreground">people like you.</strong>
+            Everything here is built and maintained by one developer, which means there is no
+            marketing department and no growth team. What there is instead is you — the person
+            reading this. Word of mouth from people who genuinely find dropoff.lol useful does more
+            for the project than any campaign ever could.
           </p>
 
-          <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>Help us spread the word</h2>
+          <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>Spread the word</h2>
           <p className="mt-3">
-            If you find dropoff.lol useful, tell a friend, share it with your colleagues, or send it
-            to someone who's tired of dealing with complicated file-sharing tools.
+            If dropoff.lol has been useful to you, the single most helpful thing you can do is tell
+            someone else about it. Send it to a colleague who is tired of wrestling with upload
+            limits, share it with a friend who wants to move a file between two devices, or mention
+            it wherever a simpler way to share would help.
           </p>
           <p className="mt-5">
-            Every recommendation helps more people discover a simpler way to share files.
-          </p>
-          <p className="mt-5 font-medium text-foreground">
-            A small share can make a big difference.
+            There is nothing to sign up for, so it is an easy recommendation to pass along. Every
+            share, however small, brings more people to a tool that respects their privacy.
           </p>
 
-          <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>
-            Have an idea? We'd love to hear it.
-          </h2>
+          <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>Tell us what you think</h2>
           <p className="mt-3">
-            Found a bug? Have a feature request? Think something could work better?
+            Found a bug, thought of a feature, or noticed something that could work a little better?
+            I want to hear about it. Feedback is what shapes what gets built next, and honest
+            criticism is often more valuable than praise.
           </p>
           <p className="mt-5">
-            We're always looking for ways to make dropoff.lol faster, simpler, and more useful. Your
-            feedback helps us understand what matters most and what we should build next.
+            Reach out any time. Every suggestion gets read, and every report makes the project a
+            little more reliable for everyone.
           </p>
-          <p className="mt-5">Don't hesitate to reach out. Every suggestion is welcome.</p>
 
           <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>A note from the developer</h2>
           <p className="mt-3">
-            Hi! I'm an independent developer building dropoff.lol, a simple peer-to-peer
-            file-sharing tool that lets people send files directly through their browsers without
-            mandatory sign-ups.
+            Hi — I'm the developer behind dropoff.lol. I build and run this project on my own
+            because I think sharing a file should be as straightforward as sharing a link. No forced
+            sign-ups, no needless steps, just a tool that does the one thing it promises.
           </p>
           <p className="mt-5">
-            I'm building this project because sharing a file should be as easy as sharing a link. No
-            unnecessary friction, no complicated workflows, just a tool that does what it's supposed
-            to do.
+            Most of my time goes into writing code, chasing down bugs, and trying to make the
+            experience a little smoother with each release. It is a small project with a
+            straightforward idea, and I am glad to have you along for it.
           </p>
           <p className="mt-5">
-            Most of my time goes into coding, fixing bugs, improving the experience, and figuring
-            out how to make dropoff.lol better. It's a small project with a big idea, and I'm
-            excited to see where it goes.
-          </p>
-          <p className="mt-5">
-            Your support helps me keep improving the platform, cover any infrastructure costs, and
-            fuel those late-night coding sessions with some much-needed coffee.
-          </p>
-          <p className="mt-5 font-medium text-foreground">
-            Thanks for being part of the journey. Every bit of support means a lot.
+            Keeping dropoff.lol running — and independent — does come with costs. If you would like
+            to help cover them, you can buy me a coffee below. But that is entirely optional; using
+            the tool and passing it on already goes a long way.
           </p>
 
           <h2 className={`mt-12 text-foreground ${SECTION_HEADING}`}>Support the project</h2>
-          <p className="mt-3">Like using dropoff.lol? Want to help it grow?</p>
-          <p className="mt-5">
-            If you'd like to support the project financially, consider buying me a coffee. Every
-            contribution helps support ongoing development and the costs of keeping the service
-            running.
+          <p className="mt-3">
+            dropoff.lol has no ads, no paid tiers, and no investors to answer to. It stays free for
+            everyone, and it stays that way because of people who choose to chip in.
           </p>
           <p className="mt-5">
-            No pressure, though. Sharing dropoff.lol with someone is already a great way to help.
+            If you are in a position to contribute financially, a coffee goes directly toward
+            development time and the cost of running the service. If you are not, that is completely
+            fine — sharing the site with someone new helps just as much.
           </p>
-          <p className="mt-5 font-medium text-foreground">Built with care, shared with everyone.</p>
         </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
