@@ -123,11 +123,14 @@ function About() {
             .
           </p>
 
-          <div className="mt-12">
-            <a href="/">
-              <Button>Back to dropoff.lol</Button>
+          <p className="mt-12 text-[15px] text-muted-foreground">
+            <a
+              href="/"
+              className="underline underline-offset-4 transition-colors hover:text-foreground"
+            >
+              Back to home
             </a>
-          </div>
+          </p>
         </div>
       </section>
     </Shell>

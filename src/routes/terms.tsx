@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { marked } from "marked";
 import { PAGE_HEADING, Shell } from "../components/shell";
-import { Button } from "../components/ui/button";
 import termsMarkdown from "../content/terms.md?raw";
 import { canonical, jsonLd, ogUrl, SITE_URL } from "../lib/seo";
 
@@ -57,11 +56,14 @@ function Terms() {
           </a>
           .
         </p>
-        <div className="mt-8">
-          <a href="/">
-            <Button>Back to dropoff.lol</Button>
+        <p className="mt-8 text-[15px] text-muted-foreground">
+          <a
+            href="/"
+            className="underline underline-offset-4 transition-colors hover:text-foreground"
+          >
+            Back to home
           </a>
-        </div>
+        </p>
       </section>
     </Shell>
   );
